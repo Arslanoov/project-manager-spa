@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 
-import axios, {AxiosResponse} from "axios"
+import axios, { AxiosResponse } from "axios"
 import qs from "qs"
 
 import { API_PREFIX } from "./const"

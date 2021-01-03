@@ -9,7 +9,7 @@ import ConfirmSignUpForm from "@/types/user/forms/ConfirmSignUpForm"
 
 import UserService from "@/services/api/v1/UserService"
 
-const service = new UserService()
+const service: UserService = new UserService()
 
 @Module({
   namespaced: true,

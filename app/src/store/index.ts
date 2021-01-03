@@ -8,5 +8,6 @@ import User from "@/store/modules/user"
 export default new Vuex.Store({
   modules: {
     User
-  }
+  },
+  strict: true
 })
