@@ -12,13 +12,12 @@ import UserService from "@/services/api/v1/UserService"
 const service: UserService = new UserService()
 
 @Module({
-  namespaced: true,
-  name: "user"
+  namespaced: true
 })
 
 class User extends VuexModule {
   user: UserInterface|null = null
-  refreshToken: string|null = null
+  refreshToken: string|null = "33333333"
 
   authForm: AuthForm = {
     email: null,
@@ -76,6 +75,15 @@ class User extends VuexModule {
     this.authForm.error = null
   }
 
+  @Mutation
+  public clearAuthForm(): void {
+    this.authForm = {
+      email: null,
+      password: null,
+      error: null
+    }
+  }
+
   // Sign Up Form
 
   @Mutation
@@ -120,7 +128,7 @@ class User extends VuexModule {
     this.confirmSignUpForm.error = null
   }
 
-  @Action
+  @Action({ rawError: true })
   public async login(): Promise<{user: UserInterface}> {
     return new Promise((resolve, reject) => {
       this.context.commit("deleteUser")
@@ -129,8 +137,9 @@ class User extends VuexModule {
         .then(response => {
           const user = response.data
           localStorage.setItem("user", JSON.stringify(user))
+          this.context.commit("clearAuthForm")
           this.context.commit("setUser", user)
-          axios.defaults.headers.common["Authorization"] = this.bearerToken
+          axios.defaults.headers.common["Authorization"] = this.context.getters.bearerToken
           resolve(user)
         })
         .catch(error => {

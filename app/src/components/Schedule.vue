@@ -3,7 +3,7 @@
       height="100"
       item-height="20"
   >
-    <template v-slot:default="{ item }">
+    <template>
       <v-timeline>
         <v-timeline-item>timeline item</v-timeline-item>
         <v-timeline-item class="text-right">

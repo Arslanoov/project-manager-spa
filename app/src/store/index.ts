@@ -9,5 +9,5 @@ export default new Vuex.Store({
   modules: {
     User
   },
-  strict: true
+  strict: process.env.NODE_ENV !== 'production'
 })
