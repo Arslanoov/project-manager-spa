@@ -11,6 +11,8 @@ import UserService from "@/services/api/v1/UserService"
 
 const service: UserService = new UserService()
 
+export const USER_STORE_PREFIX = "User/"
+
 @Module({
   namespaced: true
 })

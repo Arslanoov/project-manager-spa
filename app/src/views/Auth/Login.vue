@@ -10,6 +10,7 @@
 
         <v-alert
             v-if="authForm.error"
+            class="alert"
             border="bottom"
             color="pink darken-1"
             dark
@@ -75,14 +76,19 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator"
 
-// TODO: CHANGE (TEMP SOLUTION)
+import { USER_STORE_PREFIX } from "@/store/modules/user"
 
 @Component({
   name: "Login"
 })
 
 export default class Login extends Vue {
+  $refs!: {
+    form: HTMLFormElement
+  }
+
   public valid = true
+  public authForm = this.$store.state.User.authForm
 
   public rules = {
     email: [
@@ -98,41 +104,39 @@ export default class Login extends Vue {
     ]
   }
 
-  // computed
-  public authForm = this.$store.state.User.authForm
-
   public onReset(): void {
-    (this.$refs.form as any).reset()
-    this.$store.commit("User/clearAuthForm")
+    this.$refs.form.reset()
+    this.$store.commit(USER_STORE_PREFIX + "clearAuthForm")
   }
 
   public onResetValidation(): void {
-    (this.$refs.form as any).resetValidation()
-    this.$store.commit("User/clearAuthFormError")
+    this.$refs.form.resetValidation()
+    this.$store.commit(USER_STORE_PREFIX + "clearAuthFormError")
   }
 
   public onSubmit(): void {
-    // TODO: CHANGE
-    (this.$refs.form as any).validate()
+    this.$refs.form.validate()
 
-    this.$store.dispatch("User/login")
+    this.$store.dispatch(USER_STORE_PREFIX + "login")
       .then(() => this.$router.push("/"))
   }
 
-  // Mutations
-
   public setEmail(value: string): void {
-    this.$store.commit("User/setAuthFormEmail", value)
+    this.$store.commit(USER_STORE_PREFIX + "setAuthFormEmail", value)
   }
 
   public setPassword(value: string): void {
-    this.$store.commit("User/setAuthFormPassword", value)
+    this.$store.commit(USER_STORE_PREFIX + "setAuthFormPassword", value)
   }
 }
 </script>
 
 <style lang="scss">
 .login-page {
+  .alert {
+    margin: 20px 0;
+  }
+
   .form-row {
     margin-top: -64px;
   }
