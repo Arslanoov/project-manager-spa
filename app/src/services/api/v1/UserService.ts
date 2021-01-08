@@ -18,7 +18,7 @@ export default class UserService {
   }
 
   public async signUp(login: string|null, email: string|null, password: string|null): Promise<AxiosResponse> {
-    return axios.post(`${API_PREFIX}auth/sign-up/request`, {
+    return axios.post(`${API_PREFIX}/auth/sign-up/request`, {
       login,
       email,
       password

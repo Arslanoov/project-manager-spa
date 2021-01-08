@@ -1,21 +1,21 @@
 <template>
-  <v-container class="login-page" fill-height fluid>
+  <v-container class="sign-up-page" fill-height fluid>
     <v-row class="form-row" justify="center" align-self="center">
       <v-col
           xs="10"
           sm="9"
           md="4"
       >
-        <h2 class="title text-center">Log In</h2>
+        <h2 class="title text-center">Sign Up</h2>
 
         <v-alert
-            v-if="authForm.error"
+            v-if="signUpForm.error"
             class="alert"
             border="bottom"
             color="pink darken-1"
             dark
         >
-          {{ authForm.error }}
+          {{ signUpForm.error }}
         </v-alert>
 
         <v-form
@@ -24,8 +24,18 @@
         >
           <v-text-field
               :counter="32"
+              :rules="rules.login"
+              :value="signUpForm.login"
+              @input="setLogin"
+              label="Login"
+              type="text"
+              required
+          ></v-text-field>
+
+          <v-text-field
+              :counter="32"
               :rules="rules.email"
-              :value="authForm.email"
+              :value="signUpForm.email"
               @input="setEmail"
               label="E-mail"
               type="email"
@@ -35,7 +45,7 @@
           <v-text-field
               :counter="32"
               :rules="rules.password"
-              :value="authForm.password"
+              :value="signUpForm.password"
               @input="setPassword"
               label="Password"
               type="password"
@@ -76,21 +86,28 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator"
 
+import { routesNames } from "@/router"
+
 import { USER_STORE_PREFIX } from "@/store/modules/user"
 
 @Component({
-  name: "Login"
+  name: "SignUp"
 })
 
-export default class Login extends Vue {
+export default class SignUp extends Vue {
   $refs!: {
     form: HTMLFormElement
   }
 
   public valid = true
-  public authForm = this.$store.state.User.authForm
+  public signUpForm = this.$store.state.User.signUpForm
 
   public rules = {
+    login: [
+      (v: string) => !!v || "Login is required",
+      (v: string) => (v && v.length > 4) || "Login must be more than 4 characters",
+      (v: string) => (v && v.length < 32) || "Login must be less than 32 characters"
+    ],
     email: [
       (v: string) => !!v || "E-mail is required",
       (v: string) => (v && v.length > 5) || "E-mail must be more than 5 characters",
@@ -106,33 +123,37 @@ export default class Login extends Vue {
 
   public onReset(): void {
     this.$refs.form.reset()
-    this.$store.commit(USER_STORE_PREFIX + "clearAuthForm")
+    this.$store.commit(USER_STORE_PREFIX + "clearSignUpForm")
   }
 
   public onResetValidation(): void {
     this.$refs.form.resetValidation()
-    this.$store.commit(USER_STORE_PREFIX + "clearAuthFormError")
+    this.$store.commit(USER_STORE_PREFIX + "clearSignUpFormError")
   }
 
   public onSubmit(): void {
     this.$refs.form.validate()
 
-    this.$store.dispatch(USER_STORE_PREFIX + "login")
-      .then(() => this.$router.push("/"))
+    this.$store.dispatch(USER_STORE_PREFIX + "signUp")
+      .then(() => this.$router.push({ name: routesNames.Login }))
+  }
+
+  public setLogin(value: string): void {
+    this.$store.commit(USER_STORE_PREFIX + "setSignUpFormLogin", value)
   }
 
   public setEmail(value: string): void {
-    this.$store.commit(USER_STORE_PREFIX + "setAuthFormEmail", value)
+    this.$store.commit(USER_STORE_PREFIX + "setSignUpFormEmail", value)
   }
 
   public setPassword(value: string): void {
-    this.$store.commit(USER_STORE_PREFIX + "setAuthFormPassword", value)
+    this.$store.commit(USER_STORE_PREFIX + "setSignUpFormPassword", value)
   }
 }
 </script>
 
 <style lang="scss">
-.login-page {
+.sign-up-page {
   .alert {
     margin: 20px 0;
   }

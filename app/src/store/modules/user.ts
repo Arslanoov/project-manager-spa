@@ -11,6 +11,8 @@ import UserService from "@/services/api/v1/UserService"
 
 const service: UserService = new UserService()
 
+export const USER_STORE_PREFIX = "User/"
+
 @Module({
   namespaced: true
 })
@@ -111,6 +113,16 @@ class User extends VuexModule {
     this.signUpForm.error = null
   }
 
+  @Mutation
+  public clearSignUpForm(): void {
+    this.signUpForm = {
+      login: null,
+      email: null,
+      password: null,
+      error: null
+    }
+  }
+
   // Confirm Sign Up Form
 
   @Mutation
@@ -152,7 +164,7 @@ class User extends VuexModule {
     })
   }
 
-  @Action
+  @Action({ rawError: true })
   public logout(): Promise<{}> {
     return new Promise((resolve, reject) => {
       try {
@@ -166,7 +178,7 @@ class User extends VuexModule {
     })
   }
 
-  @Action
+  @Action({ rawError: true })
   public async refresh(): Promise<void> {
     if (this.user) {
       delete axios.defaults.headers.common["Authorization"]
@@ -177,7 +189,7 @@ class User extends VuexModule {
     }
   }
 
-  @Action
+  @Action({ rawError: true })
   public async signUp(): Promise<{}> {
     return new Promise((resolve, reject) => {
       this.context.commit("clearSignUpFormError")
