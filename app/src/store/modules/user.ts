@@ -204,7 +204,7 @@ class User extends VuexModule {
     })
   }
 
-  @Action
+  @Action({ rawError: true })
   public async confirmSignUp(): Promise<{}> {
     return new Promise((resolve, reject) => {
       this.context.commit("clearConfirmSignUpError")
@@ -212,7 +212,7 @@ class User extends VuexModule {
         .then(response => resolve(response.data))
         .catch(error => {
           console.log(error)
-          this.context.commit("setConfirmSignUpError", error.response.data.error)
+          this.context.commit("setConfirmSignUpFormError", error.response.data.error)
           reject(error.response)
         })
     })

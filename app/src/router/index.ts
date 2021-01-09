@@ -4,13 +4,19 @@ import VueRouter, { RouteConfig } from "vue-router"
 import Home from "@/views/Home.vue"
 import Login from "@/views/Auth/Login.vue"
 import SignUp from "@/views/Auth/SignUp.vue"
+import ConfirmSignUp from "@/views/Auth/ConfirmSignUp.vue"
+import NotFound from "@/views/NotFound.vue"
+import DailySchedule from "@/views/Todo/DailySchedule.vue"
 
 Vue.use(VueRouter)
 
 export enum routesNames {
   Home = "Home",
   Login = "Login",
-  SignUp = "SignUp"
+  SignUp = "SignUp",
+  ConfirmSignUp = "ConfirmSIgnUp",
+  NotFound = "NotFound",
+  Schedule = "Schedule"
 }
 
 const routes: Array<RouteConfig> = [
@@ -28,6 +34,21 @@ const routes: Array<RouteConfig> = [
     path: "/auth/sign-up",
     name: routesNames.SignUp,
     component: SignUp
+  },
+  {
+    path: "/auth/confirm-sign-up/:token",
+    name: routesNames.ConfirmSignUp,
+    component: ConfirmSignUp
+  },
+  {
+    path: "/schedule",
+    name: routesNames.Schedule,
+    component: DailySchedule
+  },
+  {
+    path: "*",
+    name: routesNames.NotFound,
+    component: NotFound
   }
 ]
 

@@ -1,19 +1,16 @@
 <template>
-  <div class="home">
-    <Schedule />
-  </div>
+  <v-container class="home-page">
+  </v-container>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator"
 
-import Schedule from "@/components/Schedule.vue"
-
 @Component({
-  components: {
-    Schedule
-  }
+  name: "Home"
 })
 
-export default class Home extends Vue {}
+export default class Home extends Vue {
+
+}
 </script>

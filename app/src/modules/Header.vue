@@ -4,34 +4,27 @@
       color="primary"
       dark
   >
-    <div class="d-flex align-center">
+    <div class="d-flex align-center logo" @click="onGoHome">
       <v-img
-          alt="Vuetify Logo"
+          alt="TODO"
           class="shrink mr-2"
           contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
+          src="~@/assets/logo.svg"
           transition="scale-transition"
           width="40"
       />
 
-      <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-      />
+      <h1 class="title">TODO</h1>
     </div>
 
     <v-spacer></v-spacer>
 
     <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
+        @click="onGoSchedule"
         target="_blank"
         text
     >
-      <span class="mr-2">Latest Release</span>
+      <span class="mr-2">Schedule</span>
       <v-icon>mdi-open-in-new</v-icon>
     </v-btn>
   </v-app-bar>
@@ -40,10 +33,31 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator"
 
+import { routesNames } from "@/router"
+
 @Component({
   name: "Header"
 })
 
 export default class Header extends Vue {
+  public onGoHome(): void {
+    this.$router.push({
+      name: routesNames.Home
+    }).catch(() => console.log("Already in home"))
+  }
+
+  public onGoSchedule(): void {
+    this.$router.push({
+      name: routesNames.Schedule
+    }).catch(() => console.log("Already in schedule"))
+  }
 }
 </script>
+
+<style lang="scss">
+.logo {
+  &:hover {
+    cursor: pointer;
+  }
+}
+</style>
