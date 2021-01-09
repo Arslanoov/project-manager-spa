@@ -71,6 +71,8 @@ export default class SignUp extends Vue {
 
 <style lang="scss">
 .confirm-sign-up-page {
+  margin-top: -64px;
+
   .alert {
     margin: 20px 0;
     text-align: center;
