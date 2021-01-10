@@ -5,8 +5,9 @@ import Home from "@/views/Home.vue"
 import Login from "@/views/Auth/Login.vue"
 import SignUp from "@/views/Auth/SignUp.vue"
 import ConfirmSignUp from "@/views/Auth/ConfirmSignUp.vue"
-import NotFound from "@/views/NotFound.vue"
 import DailySchedule from "@/views/Todo/DailySchedule.vue"
+import AccessDenied from "@/views/AccessDenied.vue"
+import NotFound from "@/views/NotFound.vue"
 
 Vue.use(VueRouter)
 
@@ -15,8 +16,9 @@ export enum routesNames {
   Login = "Login",
   SignUp = "SignUp",
   ConfirmSignUp = "ConfirmSIgnUp",
-  NotFound = "NotFound",
-  Schedule = "Schedule"
+  Schedule = "Schedule",
+  AccessDenied = "AccessDenied",
+  NotFound = "NotFound"
 }
 
 const routes: Array<RouteConfig> = [
@@ -44,6 +46,11 @@ const routes: Array<RouteConfig> = [
     path: "/schedule",
     name: routesNames.Schedule,
     component: DailySchedule
+  },
+  {
+    path: "/403",
+    name: routesNames.AccessDenied,
+    component: AccessDenied
   },
   {
     path: "*",

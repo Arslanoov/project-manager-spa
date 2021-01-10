@@ -14,12 +14,14 @@ const service: UserService = new UserService()
 export const USER_STORE_PREFIX = "User/"
 
 @Module({
-  namespaced: true
+  namespaced: true,
+  // Add for tests name: "user"
+  // TODO: Fix
 })
 
 class User extends VuexModule {
-  user: UserInterface|null = null
-  refreshToken: string|null = "33333333"
+  user: UserInterface|null = JSON.parse(localStorage.getItem('user') as string)
+  refreshToken: string|null = ""
 
   authForm: AuthForm = {
     email: null,
@@ -207,7 +209,7 @@ class User extends VuexModule {
   @Action({ rawError: true })
   public async confirmSignUp(): Promise<{}> {
     return new Promise((resolve, reject) => {
-      this.context.commit("clearConfirmSignUpError")
+      this.context.commit("clearConfirmSignUpFormError")
       service.confirmSignUp(this.confirmSignUpForm.token)
         .then(response => resolve(response.data))
         .catch(error => {
@@ -220,6 +222,10 @@ class User extends VuexModule {
 
   get bearerToken(): string {
     return this.user ? "Bearer " + this.user.access_token : ""
+  }
+
+  get isAuth(): boolean {
+    return !!this.user
   }
 }
 

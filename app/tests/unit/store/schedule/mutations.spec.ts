@@ -5,6 +5,7 @@ import { createLocalVue } from "@vue/test-utils"
 
 import Schedule from "@/store/modules/schedule"
 import ScheduleInterface from "@/types/schedule/ScheduleInterface"
+import {TaskForm} from "@/types/schedule/task/TaskInterface";
 
 const Vue = createLocalVue()
 Vue.use(Vuex)
@@ -23,6 +24,8 @@ const scheduleStore = factory()
 
 describe("Schedule Store", () => {
   it("sets today schedule", () => {
+    expect(scheduleStore.schedules.length).toEqual(0)
+
     const todaySchedule: ScheduleInterface = {
       id: "4325",
       date: {
@@ -51,7 +54,9 @@ describe("Schedule Store", () => {
     expect(scheduleStore.schedules.length).toEqual(1)
   })
 
-  it("sets adds new schedule", () => {
+  it("adds new schedule", () => {
+    expect(scheduleStore.schedules.length).toEqual(1)
+
     const schedule: ScheduleInterface = {
       id: "4325",
       date: {
@@ -78,5 +83,37 @@ describe("Schedule Store", () => {
 
     expect(scheduleStore.schedules[1]).toEqual(schedule)
     expect(scheduleStore.schedules.length).toEqual(2)
+  })
+
+  it("adds new task form", () => {
+    expect(scheduleStore.taskForms.length).toEqual(0)
+
+    const form: TaskForm = {
+      scheduleId: "id",
+      name: undefined,
+      description: undefined,
+      importantLevel: undefined
+    }
+
+    scheduleStore.addTaskForm(form)
+
+    expect(scheduleStore.taskForms[0]).toEqual(form)
+    expect(scheduleStore.taskForms.length).toEqual(1)
+  })
+
+  it("adds fills task form", () => {
+    expect(scheduleStore.taskForms.length).toEqual(1)
+
+    const form: TaskForm = {
+      scheduleId: "id",
+      name: "Some name",
+      description: "Some desc",
+      importantLevel: "Very Important"
+    }
+
+    scheduleStore.fillTaskForm(form)
+
+    expect(scheduleStore.taskForms[0]).toEqual(form)
+    expect(scheduleStore.taskForms.length).toEqual(1)
   })
 })

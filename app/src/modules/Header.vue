@@ -19,24 +19,22 @@
 
     <v-spacer></v-spacer>
 
-    <v-btn
-        @click="onGoSchedule"
-        target="_blank"
-        text
-    >
-      <span class="mr-2">Schedule</span>
-      <v-icon>mdi-open-in-new</v-icon>
-    </v-btn>
+    <Nav />
   </v-app-bar>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator"
 
+import Nav from "@/modules/Nav.vue"
+
 import { routesNames } from "@/router"
 
 @Component({
-  name: "Header"
+  name: "Header",
+  components: {
+    Nav
+  }
 })
 
 export default class Header extends Vue {
@@ -44,12 +42,6 @@ export default class Header extends Vue {
     this.$router.push({
       name: routesNames.Home
     }).catch(() => console.log("Already in home"))
-  }
-
-  public onGoSchedule(): void {
-    this.$router.push({
-      name: routesNames.Schedule
-    }).catch(() => console.log("Already in schedule"))
   }
 }
 </script>

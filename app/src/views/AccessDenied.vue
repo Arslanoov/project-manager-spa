@@ -1,0 +1,57 @@
+<template>
+  <v-container class="access-denied-page" fill-height fluid>
+    <v-row justify="center" align-self="center">
+      <div class="message">
+        <h1>403</h1>
+        <v-alert
+            v-if="error"
+             class="alert"
+             border="bottom"
+             color="pink darken-1"
+             dark>
+          {{ error }}
+        </v-alert>
+        <v-btn
+            color="success"
+            class="button"
+            @click="onGoHome"
+        >
+          Go Home
+        </v-btn>
+      </div>
+    </v-row>
+  </v-container>
+</template>
+
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator"
+
+import { routesNames } from "@/router"
+
+@Component({
+  name: "AccessDenied"
+})
+
+export default class AccessDenied extends Vue {
+  public error = this.$route.query.error
+
+  public onGoHome(): void {
+    this.$router.push({
+      name: routesNames.Home
+    })
+  }
+}
+</script>
+
+<style lang="scss">
+.access-denied-page {
+  margin-top: -64px;
+
+  .message {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+</style>
