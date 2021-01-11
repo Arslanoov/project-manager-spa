@@ -74,21 +74,37 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator"
+import Vue from "vue"
+import Component from "vue-class-component"
+import {
+  namespace
+} from "vuex-class"
 
-import { USER_STORE_PREFIX } from "@/store/modules/user"
+import AuthForm from "@/types/user/forms/AuthForm"
+
+import User from "@/store/modules/user"
+
+const userModule = namespace("User")
 
 @Component({
   name: "Login"
 })
 
 export default class Login extends Vue {
+  @userModule.State("authForm") authForm: AuthForm
+
+  @userModule.Mutation("setAuthFormEmail") setEmail: typeof User.prototype.setAuthFormEmail
+  @userModule.Mutation("setAuthFormPassword") setPassword: typeof User.prototype.setAuthFormPassword
+  @userModule.Mutation("clearAuthFormError") clearFormError: typeof User.prototype.clearAuthFormError
+  @userModule.Mutation("clearAuthForm") clearForm: typeof User.prototype.clearAuthForm
+
+  @userModule.Action("login") login: typeof User.prototype.login
+
   $refs!: {
     form: HTMLFormElement
   }
 
   public valid = true
-  public authForm = this.$store.state.User.authForm
 
   public rules = {
     email: [
@@ -106,27 +122,19 @@ export default class Login extends Vue {
 
   public onReset(): void {
     this.$refs.form.reset()
-    this.$store.commit(USER_STORE_PREFIX + "clearAuthForm")
+    this.clearForm()
   }
 
   public onResetValidation(): void {
     this.$refs.form.resetValidation()
-    this.$store.commit(USER_STORE_PREFIX + "clearAuthFormError")
+    this.clearFormError()
   }
 
   public onSubmit(): void {
     this.$refs.form.validate()
 
-    this.$store.dispatch(USER_STORE_PREFIX + "login")
+    this.login()
       .then(() => this.$router.push("/"))
-  }
-
-  public setEmail(value: string): void {
-    this.$store.commit(USER_STORE_PREFIX + "setAuthFormEmail", value)
-  }
-
-  public setPassword(value: string): void {
-    this.$store.commit(USER_STORE_PREFIX + "setAuthFormPassword", value)
   }
 }
 </script>

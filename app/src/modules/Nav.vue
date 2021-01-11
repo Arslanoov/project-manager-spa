@@ -34,22 +34,27 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator"
-
-import { USER_STORE_PREFIX } from "@/store/modules/user"
+import Vue from "vue"
+import Component from "vue-class-component"
+import {
+  namespace
+} from "vuex-class"
 
 import { routesNames } from "@/router"
 
+import User from "@/store/modules/user"
+
+const userModule = namespace("User")
+
 @Component({
-  name: "Nav",
-  computed: {
-    isAuth(): boolean {
-      return this.$store.getters["User/isAuth"]
-    }
-  }
+  name: "Nav"
 })
 
 export default class Nav extends Vue {
+  @userModule.Getter("isAuth") isAuth: boolean
+
+  @userModule.Action("logout") logout: typeof User.prototype.logout
+
   public onGoSchedule(): void {
     this.$router.push({
       name: routesNames.Schedule
@@ -57,7 +62,7 @@ export default class Nav extends Vue {
   }
 
   public onExit(): void {
-    this.$store.dispatch(USER_STORE_PREFIX + "logout")
+    this.logout()
       .then(() => this.$router.push({
         name: routesNames.Home
       })).catch(() => console.log("Already in home page"))

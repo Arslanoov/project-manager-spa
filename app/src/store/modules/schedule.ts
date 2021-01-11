@@ -7,8 +7,6 @@ import TaskInterface, { TaskForm } from "@/types/schedule/task/TaskInterface"
 
 const service: ScheduleService = new ScheduleService()
 
-export const SCHEDULE_STORE_PREFIX = "Schedule/"
-
 @Module({
   namespaced: true,
   // Add for tests name: "schedule"
@@ -41,10 +39,12 @@ class Schedule extends VuexModule {
   public fillTaskForm(form: TaskForm): void {
     const index: number = this.taskForms.findIndex(form => form.scheduleId === form.scheduleId)
 
-    this.taskForms[index] = {
-      ...this.taskForms[index],
-      ...form
-    }
+    this.taskForms = this.taskForms.map((taskForm: TaskForm, formIndex: number) => {
+      return index === formIndex ? {
+        ...this.taskForms[index],
+        ...form
+      } : taskForm
+    })
   }
 
   @Mutation

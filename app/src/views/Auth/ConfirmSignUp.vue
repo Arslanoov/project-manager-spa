@@ -35,36 +35,46 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator"
+import Vue from "vue"
+import Component from "vue-class-component"
+import {
+  namespace
+} from "vuex-class"
 
 import { routesNames } from "@/router"
 
-import { USER_STORE_PREFIX } from "@/store/modules/user"
+import User from "@/store/modules/user"
+
+const userModule = namespace("User")
 
 @Component({
   name: "ConfirmSignUp"
 })
 
 export default class SignUp extends Vue {
-  public token = this.$route.params.token as string|null
+  @userModule.State("confirmSignUpForm") confirmSignUpForm: typeof User.prototype.confirmSignUpForm
 
-  public confirmSignUpForm = this.$store.state.User.confirmSignUpForm
+  @userModule.Mutation("setConfirmSignUpFormToken") setFormToken: typeof User.prototype.setConfirmSignUpFormToken
+
+  @userModule.Action("confirmSignUp") confirmSignUp: typeof User.prototype.confirmSignUp
+
+  public token = this.$route.params.token ?? "" as string
 
   public mounted(): void {
     this.setToken(this.token)
   }
 
   public onSubmit(): void {
-    this.$store.dispatch(USER_STORE_PREFIX + "confirmSignUp")
+    this.confirmSignUp()
       .then(() => this.$router.push({ name: routesNames.Home }))
   }
 
-  public setToken(token: string|null): void {
+  public setToken(token: string): void {
     if (!token) {
       this.$router.push({ name: routesNames.Home })
     }
 
-    this.$store.commit(USER_STORE_PREFIX + "setConfirmSignUpFormToken", token)
+    this.setFormToken(token)
   }
 }
 </script>

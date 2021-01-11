@@ -11,13 +11,20 @@
           large
       >
         <template v-slot:icon>
-          <div class="new-task-level" @click="changeImportantLevel">new</div>
+          <div class="new-task-level" @click="changeImportantLevel">
+            <v-icon
+                color="white"
+                large
+            >
+              mdi-brush
+            </v-icon>
+          </div>
         </template>
         <v-text-field
             label="Leave a comment..."
             :value="taskForm.name"
             @input="setTaskFormName"
-            @keydown.enter="addTask"
+            @keydown.enter="onSubmit"
             hide-details
             flat
             solo
@@ -26,7 +33,7 @@
             <v-btn
                 class="mx-0"
                 depressed
-                @click="addTask"
+                @click="onSubmit"
             >
               Post
             </v-btn>
@@ -73,16 +80,23 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from "vue-property-decorator"
+import Vue from "vue"
+import Component from "vue-class-component"
+import { Prop } from "vue-property-decorator"
+import {
+  namespace
+} from "vuex-class"
 
 import { ImportantLevelColor } from "@/types/schedule/task/TaskInterface"
+import { importantLevelsList } from "@/types/schedule/task/TaskInterface"
+import { TaskForm } from "@/types/schedule/task/TaskInterface"
+
 import randomIcon from "@/helpers/schedule/randomIcon"
 
 import ScheduleInterface from "@/types/schedule/ScheduleInterface"
-import { TaskForm } from "@/types/schedule/task/TaskInterface"
-import { importantLevelsList } from "@/types/schedule/task/TaskInterface"
+import ScheduleStoreModule from "@/store/modules/schedule"
 
-import { SCHEDULE_STORE_PREFIX } from "@/store/modules/schedule"
+const scheduleModule = namespace("Schedule")
 
 @Component({
   name: "Schedule"
@@ -93,12 +107,22 @@ import { SCHEDULE_STORE_PREFIX } from "@/store/modules/schedule"
 
 export default class Schedule extends Vue {
   @Prop({ required: true }) readonly schedule: ScheduleInterface
+  @Prop({ required: true }) readonly index: number
+
+  @scheduleModule.State("taskForms") taskForms: Array<TaskForm>
+
+  @scheduleModule.Mutation("fillTaskForm") fillTaskForm: typeof ScheduleStoreModule.prototype.fillTaskForm
+  @scheduleModule.Mutation("addTaskForm") addTaskForm: typeof ScheduleStoreModule.prototype.addTaskForm
+
+  @scheduleModule.Action("addTask") addTask: typeof ScheduleStoreModule.prototype.addTask
+
+  public get taskForm(): TaskForm {
+    return this.taskForms[this.index] ?? this.clearTaskForm
+  }
 
   public importantLevels = ImportantLevelColor
 
   public randomIcon = randomIcon
-
-  public taskForm = this.$store.state.Schedule.taskForms.filter((form: TaskForm) => form.scheduleId === this.schedule.id)
 
   public importantLevelIndex = 1
 
@@ -113,24 +137,26 @@ export default class Schedule extends Vue {
   }
 
   public mounted(): void {
-    this.$store.commit(SCHEDULE_STORE_PREFIX + "addTaskForm", this.clearTaskForm)
+    this.addTaskForm(this.clearTaskForm)
   }
 
   public setTaskFormName(value: string): void {
-    this.$store.commit(SCHEDULE_STORE_PREFIX + "fillTaskForm", {
+    this.fillTaskForm({
+      ...this.taskForm,
       name: value
     })
   }
 
   public changeImportantLevel(): void {
     this.importantLevelIndex++
-    this.$store.commit(SCHEDULE_STORE_PREFIX + "fillTaskForm", {
+    this.fillTaskForm({
+      ...this.taskForm,
       importantLevel: importantLevelsList[this.importantLevelIndex % importantLevelsList.length]
     })
   }
 
-  public addTask(): void {
-    this.$store.dispatch(SCHEDULE_STORE_PREFIX + "addTask", this.schedule.id)
+  public onSubmit(): void {
+    this.addTask(this.schedule.id)
   }
 }
 </script>
