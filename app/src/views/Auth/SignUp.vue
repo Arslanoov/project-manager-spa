@@ -84,23 +84,39 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator"
+import Vue from "vue"
+import Component from "vue-class-component"
+import {
+  namespace
+} from "vuex-class"
 
 import { routesNames } from "@/router"
 
-import { USER_STORE_PREFIX } from "@/store/modules/user"
+import User from "@/store/modules/user"
+import SignUpForm from "@/types/user/forms/SignUpForm"
+
+const userModule = namespace("User")
 
 @Component({
   name: "SignUp"
 })
 
 export default class SignUp extends Vue {
+  @userModule.State("signUpForm") signUpForm: SignUpForm
+
+  @userModule.Mutation("setSignUpFormLogin") setLogin: typeof User.prototype.setSignUpFormLogin
+  @userModule.Mutation("setSignUpFormEmail") setEmail: typeof User.prototype.setSignUpFormEmail
+  @userModule.Mutation("setSignUpFormPassword") setPassword: typeof User.prototype.setSignUpFormPassword
+  @userModule.Mutation("clearSignUpFormError") clearFormError: typeof User.prototype.clearSignUpFormError
+  @userModule.Mutation("clearSignUpForm") clearForm: typeof User.prototype.clearSignUpForm
+
+  @userModule.Action("signUp") signUp: typeof User.prototype.signUp
+
   $refs!: {
     form: HTMLFormElement
   }
 
   public valid = true
-  public signUpForm = this.$store.state.User.signUpForm
 
   public rules = {
     login: [
@@ -123,31 +139,19 @@ export default class SignUp extends Vue {
 
   public onReset(): void {
     this.$refs.form.reset()
-    this.$store.commit(USER_STORE_PREFIX + "clearSignUpForm")
+    this.clearForm()
   }
 
   public onResetValidation(): void {
     this.$refs.form.resetValidation()
-    this.$store.commit(USER_STORE_PREFIX + "clearSignUpFormError")
+    this.clearFormError()
   }
 
   public onSubmit(): void {
     this.$refs.form.validate()
 
-    this.$store.dispatch(USER_STORE_PREFIX + "signUp")
+    this.signUp()
       .then(() => this.$router.push({ name: routesNames.Login }))
-  }
-
-  public setLogin(value: string): void {
-    this.$store.commit(USER_STORE_PREFIX + "setSignUpFormLogin", value)
-  }
-
-  public setEmail(value: string): void {
-    this.$store.commit(USER_STORE_PREFIX + "setSignUpFormEmail", value)
-  }
-
-  public setPassword(value: string): void {
-    this.$store.commit(USER_STORE_PREFIX + "setSignUpFormPassword", value)
   }
 }
 </script>

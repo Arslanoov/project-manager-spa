@@ -1,8 +1,16 @@
 <template>
-  <v-container class="not-found-page" fill-height fluid>
+  <v-container class="access-denied-page" fill-height fluid>
     <v-row justify="center" align-self="center">
       <div class="message">
-        <img class="not-found" src="~@/assets/404.svg" alt="404" />
+        <h1>403</h1>
+        <v-alert
+            v-if="error"
+             class="alert"
+             border="bottom"
+             color="pink darken-1"
+             dark>
+          {{ error }}
+        </v-alert>
         <v-btn
             color="success"
             class="button"
@@ -22,10 +30,12 @@ import Component from "vue-class-component"
 import { routesNames } from "@/router"
 
 @Component({
-  name: "NotFound"
+  name: "AccessDenied"
 })
 
-export default class NotFound extends Vue {
+export default class AccessDenied extends Vue {
+  public error = this.$route.query.error
+
   public onGoHome(): void {
     this.$router.push({
       name: routesNames.Home
@@ -35,7 +45,7 @@ export default class NotFound extends Vue {
 </script>
 
 <style lang="scss">
-.not-found-page {
+.access-denied-page {
   margin-top: -64px;
 
   .message {
