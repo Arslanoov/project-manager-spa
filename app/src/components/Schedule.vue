@@ -16,7 +16,7 @@
                 color="white"
                 large
             >
-              mdi-brush
+              mdi-star
             </v-icon>
           </div>
         </template>
@@ -61,16 +61,7 @@
             <v-card-text class="white text--primary">
               <p>{{ task.description }}</p>
 
-              <v-btn
-                  :color="removedColor ? '' : importantLevels[task.importantLevel]"
-                  class="mx-0"
-                  outlined
-              >
-                Show steps
-                <template v-if="task.stepsCount > 0">
-                  ({{ task.stepsCount }} / {{ task.finishedSteps }})
-                </template>
-              </v-btn>
+              <StepsList :task="task" />
             </v-card-text>
           </v-card>
         </v-timeline-item>
@@ -93,18 +84,23 @@ import { TaskForm } from "@/types/schedule/task/TaskInterface"
 
 import randomIcon from "@/helpers/schedule/randomIcon"
 
-import ScheduleInterface from "@/types/schedule/ScheduleInterface"
 import ScheduleStoreModule from "@/store/modules/schedule"
+
+import ScheduleInterface from "@/types/schedule/ScheduleInterface"
+
+import StepsList from "@/components/dialogs/StepsList.vue"
 
 const scheduleModule = namespace("Schedule")
 
 @Component({
-  name: "Schedule"
+  name: "Schedule",
+  components: {
+    StepsList
+  }
 })
 
 // TODO: Add DND
 // TODO: Add remove color
-
 export default class Schedule extends Vue {
   @Prop({ required: true }) readonly schedule: ScheduleInterface
   @Prop({ required: true }) readonly index: number
