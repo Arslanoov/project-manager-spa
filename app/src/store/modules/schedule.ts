@@ -34,6 +34,19 @@ class Schedule extends VuexModule {
     this.taskForms.push(form)
   }
 
+  @Mutation
+  public clearTaskForm(scheduleId: string): void {
+    const index: number = this.taskForms.findIndex(form => form.scheduleId === scheduleId)
+    if (index) {
+      this.taskForms[index] = {
+        scheduleId,
+        name: undefined,
+        description: undefined,
+        importantLevel: undefined
+      }
+    }
+  }
+
   // TODO: FULL CHANGE
   @Mutation
   public fillTaskForm(form: TaskForm): void {
@@ -50,15 +63,17 @@ class Schedule extends VuexModule {
   @Mutation
   public addTaskToSchedule(task: TaskForm): void {
     const index: number = this.schedules.findIndex(schedule => schedule.id === task.scheduleId)
-    this.schedules[index].tasks.push({
-      id: "new",
-      name: task.name ?? "",
-      description: task.description ?? "Empty Description",
-      importantLevel: task.importantLevel ?? "Important",
-      status: "Not Complete",
-      stepsCount: 0,
-      finishedSteps: 0
-    })
+    if (index) {
+      this.schedules[index].tasks.push({
+        id: "new",
+        name: task.name ?? "",
+        description: task.description ?? "Empty Description",
+        importantLevel: task.importantLevel ?? "Important",
+        status: "Not Complete",
+        stepsCount: 0,
+        finishedSteps: 0
+      })
+    }
   }
 
   @Mutation
@@ -141,6 +156,7 @@ class Schedule extends VuexModule {
           .then(response => {
             const task: TaskInterface = response.data
             this.context.commit("addTaskToSchedule", task)
+            this.context.commit("clearTaskForm", taskForm.scheduleId)
             resolve(task)
           })
           .catch(error => {

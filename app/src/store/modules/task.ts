@@ -67,7 +67,7 @@ class Task extends VuexModule {
   @Action
   closeDialog(): void {
     this.context.commit("closeStepsDialog")
-    this.context.commit("setCurrentTaskSteps")
+    this.context.commit("clearCurrentTask")
   }
 
   @Action({ rawError: true })
@@ -91,6 +91,13 @@ class Task extends VuexModule {
           reject(error.response)
         })
     })
+  }
+
+  get currentTaskOrderedSteps(): Array<StepInterface> {
+    console.log(this.currentTaskSteps)
+    return this.currentTaskSteps.sort(
+      (a, b) => parseInt(a.sort_order) - parseInt(b.sort_order)
+    )
   }
 }
 
