@@ -14,17 +14,16 @@
           <div class="new-task-level" @click="changeImportantLevel">
             <v-icon
                 color="white"
-                large
             >
               mdi-star
             </v-icon>
           </div>
         </template>
         <v-text-field
-            label="Leave a comment..."
-            :value="taskForm.name"
             @input="setTaskFormName"
             @keydown.enter="onSubmit"
+            :value="taskForm.name"
+            label="Leave a comment..."
             hide-details
             flat
             solo
@@ -47,7 +46,7 @@
             :key="task.id"
             :class="{'text-right': index % 2 === 0}"
             :color="removedColor ? '' : importantLevels[task.importantLevel]"
-            :icon="randomIcon()"
+            :icon="randomIcon(task.id)"
             fill-dot
             large
         >
@@ -61,7 +60,7 @@
             <v-card-text class="white text--primary">
               <p>{{ task.description }}</p>
 
-              <StepsList :task="task" />
+              <TaskDialog :task="task" />
             </v-card-text>
           </v-card>
         </v-timeline-item>
@@ -88,14 +87,14 @@ import ScheduleStoreModule from "@/store/modules/schedule"
 
 import ScheduleInterface from "@/types/schedule/ScheduleInterface"
 
-import StepsList from "@/components/dialogs/StepsList.vue"
+import TaskDialog from "@/components/dialogs/TaskDialog.vue"
 
 const scheduleModule = namespace("Schedule")
 
 @Component({
   name: "Schedule",
   components: {
-    StepsList
+    TaskDialog
   }
 })
 
