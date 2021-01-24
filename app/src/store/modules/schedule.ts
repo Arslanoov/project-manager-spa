@@ -8,7 +8,7 @@ import TaskInterface, { TaskForm } from "@/types/schedule/task/TaskInterface"
 const service: ScheduleService = new ScheduleService()
 
 @Module({
-  namespaced: true,
+  namespaced: true
   // Add for tests name: "schedule"
   // TODO: Fix
 })
@@ -95,23 +95,10 @@ class Schedule extends VuexModule {
     scheduleId: string,
     taskId: string
   }): void {
-    const scheduleIndex: number = this.schedules.findIndex(schedule => schedule.id === payload.scheduleId)
-    if (scheduleIndex) {
-      const taskIndex: number = this.schedules[scheduleIndex].tasks.findIndex(task => task.id === payload.taskId)
-      if (taskIndex) {
-        this.schedules[scheduleIndex].tasks.splice(taskIndex, 1)
-      }
+    const schedule = this.schedules.find(schedule => schedule.id === payload.scheduleId)
+    if (schedule) {
+      schedule.tasks = schedule.tasks.filter(task => task.id !== payload.taskId)
     }
-  }
-
-  // TODO: Add tests
-  @Mutation
-  public fullFillTaskToSchedule(payload: {
-    task: TaskInterface,
-    scheduleId: string
-  }): void {
-    const index: number = this.schedules.findIndex(schedule => schedule.id === payload.scheduleId)
-    this.schedules[index].tasks.push(payload.task)
   }
 
   @Action({ rawError: true })

@@ -5,7 +5,7 @@ import { createLocalVue } from "@vue/test-utils"
 
 import Schedule from "@/store/modules/schedule"
 import ScheduleInterface from "@/types/schedule/ScheduleInterface"
-import {TaskForm} from "@/types/schedule/task/TaskInterface";
+import TaskInterface, {TaskForm} from "@/types/schedule/task/TaskInterface";
 
 const Vue = createLocalVue()
 Vue.use(Vuex)
@@ -115,5 +115,48 @@ describe("Schedule Store", () => {
 
     expect(scheduleStore.taskForms[0]).toEqual(form)
     expect(scheduleStore.taskForms.length).toEqual(1)
+  })
+
+  it("toggles add task form dialog", () => {
+    expect(scheduleStore.isOpenAddTaskForm).toEqual(false)
+
+    scheduleStore.toggleAddTaskForm()
+
+    expect(scheduleStore.isOpenAddTaskForm).toEqual(true)
+
+    scheduleStore.toggleAddTaskForm()
+
+    expect(scheduleStore.isOpenAddTaskForm).toEqual(false)
+  })
+
+  // TODO: Finish test
+  it("adds and removes task to schedule", () => {
+    const scheduleId = "scheduleId"
+
+    expect(scheduleStore.schedules[0].tasks.length).toEqual(0)
+
+    const task: TaskInterface = {
+      id: "someid",
+      name: "task",
+      description: "desc",
+      importantLevel: "Important",
+      status: "Not Finished",
+      stepsCount: 0,
+      finishedSteps: 0
+    }
+
+    scheduleStore.addTaskToSchedule({
+      scheduleId: scheduleStore.schedules[0].id,
+      task
+    })
+
+    expect(scheduleStore.schedules[0].tasks.length).toEqual(1)
+
+    scheduleStore.removeTaskFromSchedule({
+      scheduleId: scheduleStore.schedules[0].id,
+      taskId: task.id
+    })
+
+    expect(scheduleStore.schedules[0].tasks.length).toEqual(0)
   })
 })
