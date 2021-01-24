@@ -24,20 +24,95 @@
             @keydown.enter="onSubmit"
             :value="taskForm.name"
             label="Leave a comment..."
-            hide-details
             flat
             solo
         >
           <template v-slot:append>
             <v-btn
-                class="mx-0"
-                depressed
                 @click="onSubmit"
+                class="mx-0"
+                color="white"
+                depressed
             >
               Post
             </v-btn>
+            <v-btn
+                @click="toggleTaskForm"
+                class="mx-0"
+                color="white"
+                depressed
+            >
+              <v-icon
+                  color="purple darken-2"
+              >
+                mdi-message-text
+              </v-icon>
+            </v-btn>
           </template>
         </v-text-field>
+        <v-dialog @input="v => v || toggleTaskForm()" :value="isOpenAddTaskForm" max-width="500px">
+          <v-card>
+            <v-card-title>
+              <span class="headline">Add Task</span>
+            </v-card-title>
+
+            <v-card-text>
+              <v-container>
+                <v-row>
+                  <v-col
+                      cols="12"
+                      sm="12"
+                      md="12"
+                  >
+                    <v-text-field
+                        @input="setTaskFormName"
+                        :value="taskForm.name"
+                        label="Name"
+                    ></v-text-field>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col
+                      cols="12"
+                      sm="12"
+                      md="12"
+                  >
+                    <v-select
+                      @change="changeImportantLevel"
+                      :items="importantLevelsList"
+                      :value="taskForm.importantLevel"
+                      label="Important Level"
+                  ></v-select>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col
+                      cols="12"
+                      sm="12"
+                      md="12"
+                  >
+                    <v-textarea
+                        @change="setTaskFormDescription"
+                        :value="taskForm.description"
+                        label="Description"
+                    ></v-textarea>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-card-text>
+
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn
+                  @click="toggleTaskForm"
+                  color="blue darken-1"
+                  text
+              >
+                Close
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
       </v-timeline-item>
 
       <v-slide-x-transition group>
@@ -105,9 +180,12 @@ export default class Schedule extends Vue {
   @Prop({ required: true }) readonly index: number
 
   @scheduleModule.State("taskForms") taskForms: Array<TaskForm>
+  @scheduleModule.State("importantLevelsList") importantLevelsList: Array<string>
+  @scheduleModule.State("isOpenAddTaskForm") isOpenAddTaskForm: boolean
 
   @scheduleModule.Mutation("fillTaskForm") fillTaskForm: typeof ScheduleStoreModule.prototype.fillTaskForm
   @scheduleModule.Mutation("addTaskForm") addTaskForm: typeof ScheduleStoreModule.prototype.addTaskForm
+  @scheduleModule.Mutation("toggleAddTaskForm") toggleTaskForm: typeof ScheduleStoreModule.prototype.toggleAddTaskForm
 
   @scheduleModule.Action("addTask") addTask: typeof ScheduleStoreModule.prototype.addTask
 
@@ -142,6 +220,13 @@ export default class Schedule extends Vue {
     })
   }
 
+  public setTaskFormDescription(value: string): void {
+    this.fillTaskForm({
+      ...this.taskForm,
+      description: value
+    })
+  }
+
   public changeImportantLevel(): void {
     this.importantLevelIndex++
     this.fillTaskForm({
@@ -156,7 +241,7 @@ export default class Schedule extends Vue {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .schedule {
   .new-task-level {
     &:hover {
