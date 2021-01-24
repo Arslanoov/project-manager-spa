@@ -94,8 +94,7 @@ class Task extends VuexModule {
   }
 
   get currentTaskOrderedSteps(): Array<StepInterface> {
-    console.log(this.currentTaskSteps)
-    return this.currentTaskSteps.sort(
+    return [...this.currentTaskSteps].sort(
       (a, b) => parseInt(a.sort_order) - parseInt(b.sort_order)
     )
   }

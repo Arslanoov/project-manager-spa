@@ -16,6 +16,12 @@ const service: ScheduleService = new ScheduleService()
 class Schedule extends VuexModule {
   public schedules: Array<ScheduleInterface> = []
   public taskForms: Array<TaskForm> = []
+  public importantLevelsList: Array<string> = [
+    "Very Important",
+    "Important",
+    "Not Important"
+  ]
+  public isOpenAddTaskForm = false
   // TODO: Add
   public error: string | undefined = undefined
 
@@ -47,6 +53,11 @@ class Schedule extends VuexModule {
     }
   }
 
+  @Mutation
+  public toggleAddTaskForm(): void {
+    this.isOpenAddTaskForm = !this.isOpenAddTaskForm
+  }
+
   // TODO: FULL CHANGE
   @Mutation
   public fillTaskForm(form: TaskForm): void {
@@ -61,14 +72,17 @@ class Schedule extends VuexModule {
   }
 
   @Mutation
-  public addTaskToSchedule(task: TaskForm): void {
-    const index: number = this.schedules.findIndex(schedule => schedule.id === task.scheduleId)
-    if (index) {
-      this.schedules[index].tasks.push({
-        id: "new",
-        name: task.name ?? "",
-        description: task.description ?? "Empty Description",
-        importantLevel: task.importantLevel ?? "Important",
+  public addTaskToSchedule(payload: {
+    scheduleId: string,
+    task: TaskInterface
+  }): void {
+    const schedule = this.schedules.find(schedule => schedule.id === payload.scheduleId)
+    if (schedule) {
+      schedule.tasks.unshift({
+        id: payload.task.id,
+        name: payload.task.name ?? "",
+        description: payload.task.description ?? "Empty Description",
+        importantLevel: payload.task.importantLevel ?? "Important",
         status: "Not Complete",
         stepsCount: 0,
         finishedSteps: 0
@@ -150,12 +164,13 @@ class Schedule extends VuexModule {
 
       const taskForm: TaskForm | undefined = this.taskForms.find(form => form.scheduleId === (schedule as ScheduleInterface).id)
       if (taskForm) {
-        this.context.commit("addTaskToSchedule", taskForm)
-
         service.addTask(taskForm)
           .then(response => {
             const task: TaskInterface = response.data
-            this.context.commit("addTaskToSchedule", task)
+            this.context.commit("addTaskToSchedule", {
+              scheduleId: taskForm.scheduleId,
+              task
+            })
             this.context.commit("clearTaskForm", taskForm.scheduleId)
             resolve(task)
           })

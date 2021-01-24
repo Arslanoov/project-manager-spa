@@ -91,6 +91,6 @@ export default class StepsList extends Vue {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
 </style>
