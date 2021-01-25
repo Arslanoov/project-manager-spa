@@ -4,6 +4,7 @@
       :items="steps"
       sort-by="calories"
       class="elevation-1 steps-table"
+      show-select
   >
     <template v-slot:top>
       <v-toolbar
@@ -18,17 +19,8 @@
 
         <v-spacer></v-spacer>
 
-        <v-dialog :visible="false" max-width="500px">
-          <v-card>
-            <v-card-title class="headline">Are you sure you want to delete this item?</v-card-title>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text>Cancel</v-btn>
-              <v-btn color="blue darken-1" text>OK</v-btn>
-              <v-spacer></v-spacer>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
+        <AddStepDialog />
+        <RemoveStepDialog />
       </v-toolbar>
     </template>
 
@@ -55,8 +47,15 @@ import { Prop } from "vue-property-decorator"
 
 import StepInterface from "@/types/schedule/task/StepInterface"
 
+import AddStepDialog from "@/components/dialogs/AddStepDialog.vue"
+import RemoveStepDialog from "@/components/dialogs/RemoveStepDialog.vue"
+
 @Component({
-  name: "StepsTable"
+  name: "StepsTable",
+  components: {
+    AddStepDialog,
+    RemoveStepDialog
+  }
 })
 
 export default class StepsList extends Vue {

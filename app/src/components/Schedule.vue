@@ -134,7 +134,6 @@
             </v-card-title>
             <v-card-text class="white text--primary">
               <p>{{ task.description }}</p>
-
               <TaskDialog :task="task" />
             </v-card-text>
           </v-card>
