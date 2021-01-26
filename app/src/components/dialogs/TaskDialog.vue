@@ -1,6 +1,7 @@
 <template>
   <v-dialog
       @click.stop="closeDialog"
+      @input="v => v || closeDialog()"
       :value="isOpenedStepsDialog && task.id === currentTaskId"
       transition="dialog-bottom-transition"
       fullscreen
@@ -9,14 +10,14 @@
     <template v-slot:activator="{ on, attrs }">
       <!--   TODO: Add color condition   -->
       <v-btn
-          v-bind="attrs"
           @click="fetchTaskSteps(task.id)"
+          v-bind="attrs"
           class="mx-0"
           outlined
       >
         Show steps
         <template v-if="task.stepsCount > 0">
-          ({{ task.stepsCount }} / {{ task.finishedSteps }})
+          ({{ task.finishedSteps }} / {{ task.stepsCount }})
         </template>
       </v-btn>
     </template>

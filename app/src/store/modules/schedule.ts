@@ -144,7 +144,7 @@ class Schedule extends VuexModule {
     return new Promise((resolve, reject) => {
       const schedule: ScheduleInterface | unknown = this.schedules.find(schedule => schedule.id === scheduleId)
       if (!schedule) {
-        reject(new Error("Schedule not found."))
+        reject(new Error("Schedule not found"))
       }
 
       // TODO: Finish

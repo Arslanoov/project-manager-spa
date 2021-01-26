@@ -1,9 +1,14 @@
 <template>
+  <!-- TODO: Add selected value -->
   <v-data-table
+      @toggle-select-all="onSelectAll"
+      @item-selected="onSelect"
+      :single-select="false"
       :headers="headers"
       :items="steps"
       sort-by="calories"
       class="elevation-1 steps-table"
+      show-select
   >
     <template v-slot:top>
       <v-toolbar
@@ -18,17 +23,8 @@
 
         <v-spacer></v-spacer>
 
-        <v-dialog :visible="false" max-width="500px">
-          <v-card>
-            <v-card-title class="headline">Are you sure you want to delete this item?</v-card-title>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text>Cancel</v-btn>
-              <v-btn color="blue darken-1" text>OK</v-btn>
-              <v-spacer></v-spacer>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
+        <AddStepDialog />
+        <RemoveStepDialog />
       </v-toolbar>
     </template>
 
@@ -52,15 +48,29 @@
 import Vue from "vue"
 import Component from "vue-class-component"
 import { Prop } from "vue-property-decorator"
+import { namespace } from "vuex-class"
 
-import StepInterface from "@/types/schedule/task/StepInterface"
+import StepInterface, { StepRow } from "@/types/schedule/task/StepInterface"
+
+import AddStepDialog from "@/components/dialogs/AddStepDialog.vue"
+import RemoveStepDialog from "@/components/dialogs/RemoveStepDialog.vue"
+
+import TaskStoreModule from "@/store/modules/task"
+
+const taskModule = namespace("Task")
 
 @Component({
-  name: "StepsTable"
+  name: "StepsTable",
+  components: {
+    AddStepDialog,
+    RemoveStepDialog
+  }
 })
 
 export default class StepsList extends Vue {
   @Prop({ required: true }) readonly steps: Array<StepInterface>
+
+  @taskModule.Action("changeStepStatus") changeStepStatus: typeof TaskStoreModule.prototype.changeStepStatus
 
   public headers = [
     {
@@ -76,11 +86,24 @@ export default class StepsList extends Vue {
       value: "status"
     }
   ]
+
+  public onSelect(data: StepRow) {
+    // TODO: Add status enum?
+    this.changeStepStatus({
+      id: data.item.id,
+      newStatus: data.value ? "Complete" : "Not Complete"
+    })
+  }
+
+  // TODO: Implement
+  public onSelectAll(data: StepRow) {
+    console.log(data)
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 .steps-table {
-  height: calc(98vh - 56px);
+
 }
 </style>
