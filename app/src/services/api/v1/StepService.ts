@@ -12,4 +12,11 @@ export default class TaskService {
       name: form.name
     })
   }
+
+  public changeStepStatus(id: string, status: string): Promise<AxiosResponse> {
+    return axios.patch(`${API_PREFIX}/todo/task/step/change-status`, {
+      id,
+      status
+    })
+  }
 }

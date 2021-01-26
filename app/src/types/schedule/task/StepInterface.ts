@@ -3,6 +3,11 @@ export interface StepForm {
   name: string
 }
 
+export interface StepRow {
+  item: StepInterface,
+  value: boolean
+}
+
 export default interface StepInterface {
   id: string,
   name: string,

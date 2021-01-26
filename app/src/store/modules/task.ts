@@ -38,6 +38,7 @@ class Task extends VuexModule {
     this.currentTaskSteps = list
   }
 
+  // TODO: Change task steps count
   @Mutation
   addCurrentTaskStep(step: StepInterface): void {
     this.currentTaskSteps.unshift(step)
@@ -82,6 +83,17 @@ class Task extends VuexModule {
   @Mutation
   public toggleAddStepDialog(): void {
     this.isOpenedAddStepDialog = !this.isOpenedAddStepDialog
+  }
+
+  @Mutation
+  public changeCurrentTaskStepStatus(payload: {
+    id: string,
+    newStatus: string
+  }): void {
+    const index: number = this.currentTaskSteps.findIndex(item => item.id === payload.id)
+    if (index) {
+      this.currentTaskSteps[index].status = payload.newStatus
+    }
   }
 
   @Mutation
@@ -137,6 +149,35 @@ class Task extends VuexModule {
           }
 
           this.context.commit("addCurrentTaskStep", step)
+          resolve(step)
+        })
+        .catch(error => {
+          console.log(error)
+          if (error.response) {
+            // TODO: Add error catch
+          }
+          reject(error.response)
+        })
+    })
+  }
+
+  @Action({ rawError: true })
+  public changeStepStatus(payload: {
+    id: string,
+    newStatus: string
+  }): Promise<StepInterface> {
+    return new Promise((resolve, reject) => {
+      const step: StepInterface | undefined = this.currentTaskSteps.find(step => step.id === payload.id)
+      if (step === undefined) {
+        reject(new Error("Step not found"))
+      }
+
+      stepService.changeStepStatus(payload.id, payload.newStatus)
+        .then(() => {
+          this.context.commit("changeCurrentTaskStepStatus", {
+            id: payload.id,
+            newStatus: payload.newStatus
+          })
           resolve(step)
         })
         .catch(error => {

@@ -2,6 +2,7 @@
   <v-dialog
       @click.stop="toggleAddStepDialog"
       @input="v => v || toggleAddStepDialog()"
+      :single-select="true"
       :value="isOpenedAddStepDialog"
       max-width="500px"
   >

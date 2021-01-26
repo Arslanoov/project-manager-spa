@@ -1,5 +1,9 @@
 <template>
+  <!-- TODO: Add selected value -->
   <v-data-table
+      @toggle-select-all="onSelectAll"
+      @item-selected="onSelect"
+      :single-select="false"
       :headers="headers"
       :items="steps"
       sort-by="calories"
@@ -44,11 +48,16 @@
 import Vue from "vue"
 import Component from "vue-class-component"
 import { Prop } from "vue-property-decorator"
+import { namespace } from "vuex-class"
 
-import StepInterface from "@/types/schedule/task/StepInterface"
+import StepInterface, { StepRow } from "@/types/schedule/task/StepInterface"
 
 import AddStepDialog from "@/components/dialogs/AddStepDialog.vue"
 import RemoveStepDialog from "@/components/dialogs/RemoveStepDialog.vue"
+
+import TaskStoreModule from "@/store/modules/task"
+
+const taskModule = namespace("Task")
 
 @Component({
   name: "StepsTable",
@@ -60,6 +69,8 @@ import RemoveStepDialog from "@/components/dialogs/RemoveStepDialog.vue"
 
 export default class StepsList extends Vue {
   @Prop({ required: true }) readonly steps: Array<StepInterface>
+
+  @taskModule.Action("changeStepStatus") changeStepStatus: typeof TaskStoreModule.prototype.changeStepStatus
 
   public headers = [
     {
@@ -75,6 +86,19 @@ export default class StepsList extends Vue {
       value: "status"
     }
   ]
+
+  public onSelect(data: StepRow) {
+    // TODO: Add status enum?
+    this.changeStepStatus({
+      id: data.item.id,
+      newStatus: data.value ? "Complete" : "Not Complete"
+    })
+  }
+
+  // TODO: Implement
+  public onSelectAll(data: StepRow) {
+    console.log(data)
+  }
 }
 </script>
 
