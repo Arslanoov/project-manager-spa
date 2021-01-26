@@ -80,6 +80,6 @@ export default class StepsList extends Vue {
 
 <style lang="scss" scoped>
 .steps-table {
-  height: calc(98vh - 56px);
+
 }
 </style>

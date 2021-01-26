@@ -1,7 +1,13 @@
 <template>
-  <v-dialog :visible="false" max-width="500px">
+  <v-dialog
+      @click.stop="toggleAddStepDialog"
+      @input="v => v || toggleAddStepDialog()"
+      :value="isOpenedAddStepDialog"
+      max-width="500px"
+  >
     <template v-slot:activator="{ on, attrs }">
       <v-btn
+          @click="toggleAddStepDialog"
           v-bind="attrs"
           class="mx-0"
           outlined
@@ -14,7 +20,11 @@
       <v-card-title class="headline">Add Step</v-card-title>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-form v-model="valid">
+        <v-form
+            @submit.prevent="onSubmit"
+            ref="form"
+            lazy-validation
+        >
           <v-container>
             <v-row>
               <v-col
@@ -22,17 +32,18 @@
                   md="12"
               >
                 <v-text-field
+                    @input="setName"
+                    :rules="rules.name"
+                    :value="currentStepForm.name"
                     label="Name"
                     required
                 ></v-text-field>
               </v-col>
-
-              <v-btn color="blue darken-1" text>Add Step</v-btn>
             </v-row>
           </v-container>
         </v-form>
-        <v-btn color="blue darken-1" text>Cancel</v-btn>
-        <v-btn color="blue darken-1" text>OK</v-btn>
+        <v-btn @click="toggleAddStepDialog" color="blue darken-1" text>Cancel</v-btn>
+        <v-btn @click="onSubmit" color="blue darken-1" text>Add Step</v-btn>
         <v-spacer></v-spacer>
       </v-card-actions>
     </v-card>
@@ -42,10 +53,43 @@
 <script lang="ts">
 import Vue from "vue"
 import Component from "vue-class-component"
+import { namespace } from "vuex-class"
+
+import TaskStoreModule from "@/store/modules/task"
+import { StepForm } from "@/types/schedule/task/StepInterface"
+
+const taskModule = namespace("Task")
 
 @Component({
   name: "AddStepDialog"
 })
 
-export default class AddStepDialog extends Vue {}
+export default class AddStepDialog extends Vue {
+  @taskModule.State("isOpenedAddStepDialog") isOpenedAddStepDialog: boolean
+  @taskModule.State("currentStepForm") currentStepForm: StepForm
+
+  @taskModule.Mutation("toggleAddStepDialog") toggleAddStepDialog: typeof TaskStoreModule.prototype.toggleAddStepDialog
+  @taskModule.Mutation("setAddStepFormName") setName: typeof TaskStoreModule.prototype.setAddStepFormName
+  @taskModule.Mutation("clearCurrentStepForm") clearForm: typeof TaskStoreModule.prototype.clearCurrentStepForm
+
+  @taskModule.Action("addStep") addStep: typeof TaskStoreModule.prototype.addStep
+
+  $refs!: {
+    form: HTMLFormElement
+  }
+
+  public rules = {
+    name: [
+      (v: string) => !!v || "Name is required",
+      (v: string) => (v && v.length < 32) || "Name must be less than 32 characters"
+    ]
+  }
+
+  public onSubmit(): void {
+    this.$refs.form.validate()
+    this.clearForm()
+    this.addStep()
+      .then(() => this.toggleAddStepDialog())
+  }
+}
 </script>
