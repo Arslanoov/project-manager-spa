@@ -26,4 +26,12 @@ export default class TaskService {
       status
     })
   }
+
+  public removeStep(id: number): Promise<AxiosResponse> {
+    return axios.delete(`${API_PREFIX}/todo/task/step/remove`, {
+      data: {
+        id
+      }
+    })
+  }
 }

@@ -81,6 +81,14 @@ class Task extends VuexModule {
   }
 
   @Mutation
+  removeCurrentTaskStep(id: number): void {
+    const index: number = this.currentTaskSteps.findIndex(step => step.id === id)
+    if (index !== -1) {
+      this.currentTaskSteps.splice(index, 1)
+    }
+  }
+
+  @Mutation
   public toggleAddStepDialog(): void {
     this.isOpenedAddStepDialog = !this.isOpenedAddStepDialog
   }
@@ -91,7 +99,7 @@ class Task extends VuexModule {
     newStatus: string
   }): void {
     const index: number = this.currentTaskSteps.findIndex(item => item.id === payload.id)
-    if (index) {
+    if (index !== -1) {
       this.currentTaskSteps[index].status = payload.newStatus
     }
   }
@@ -149,6 +157,21 @@ class Task extends VuexModule {
             this.context.commit("setCurrentTaskSteps", error.response.data.error)
             this.context.commit("closeStepsDialog")
           }
+          reject(error.response)
+        })
+    })
+  }
+
+  @Action({ rawError: true })
+  public removeStep(id: number): Promise<void> {
+    return new Promise((resolve, reject) => {
+      stepService.removeStep(id)
+        .then(() => {
+          this.context.commit("removeCurrentTaskStep", id)
+          resolve()
+        })
+        .catch(error => {
+          console.log(error)
           reject(error.response)
         })
     })

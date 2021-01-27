@@ -29,14 +29,9 @@
       </v-toolbar>
     </template>
 
-    <template v-slot:item.actions="">
+    <template v-slot:item.actions="{ item }">
       <v-icon
-          small
-          class="mr-2"
-      >
-        mdi-pencil
-      </v-icon>
-      <v-icon
+          @click="removeStep(item.id)"
           small
       >
         mdi-delete
@@ -73,6 +68,7 @@ export default class StepsList extends Vue {
 
   @taskModule.Action("changeStepStatus") changeStepStatus: typeof TaskStoreModule.prototype.changeStepStatus
   @taskModule.Action("changeStepsStatus") changeStepsStatus: typeof TaskStoreModule.prototype.changeStepsStatus
+  @taskModule.Action("removeStep") removeStep: typeof TaskStoreModule.prototype.removeStep
 
   @taskModule.Getter("selectedSteps") selectedSteps: Array<number>
 
@@ -88,10 +84,15 @@ export default class StepsList extends Vue {
       align: "start",
       sortable: false,
       value: "status"
+    },
+    {
+      text: "",
+      value: "actions",
+      sortable: false
     }
   ]
 
-  public onSelect(data: StepRow) {
+  public onSelect(data: StepRow): void {
     // TODO: Add status enum?
     this.changeStepStatus({
       id: data.item.id,
@@ -99,7 +100,7 @@ export default class StepsList extends Vue {
     })
   }
 
-  public onSelectAll(steps: StepRows) {
+  public onSelectAll(steps: StepRows): void {
     this.changeStepsStatus({
       ids: steps.items.map(step => step.id),
       newStatus: steps.value ? "Complete" : "Not Complete"
