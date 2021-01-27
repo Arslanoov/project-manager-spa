@@ -87,7 +87,7 @@ class Task extends VuexModule {
 
   @Mutation
   public changeCurrentTaskStepStatus(payload: {
-    id: string,
+    id: number,
     newStatus: string
   }): void {
     const index: number = this.currentTaskSteps.findIndex(item => item.id === payload.id)
@@ -97,13 +97,32 @@ class Task extends VuexModule {
   }
 
   @Mutation
+  public changeCurrentTaskStepsStatus(payload: {
+    ids: Array<number>,
+    newStatus: string
+  }): void {
+    this.currentTaskSteps = this.currentTaskSteps
+      .map(step => {
+        if (payload.ids.includes(step.id)) {
+          return {
+            ...step,
+            status: payload.newStatus
+          }
+        }
+
+        return step
+      })
+
+  }
+
+  @Mutation
   public setAddStepFormName(name: string): void {
     this.currentStepForm.name = name
   }
 
   @Mutation
   public clearCurrentStepForm(): void {
-    this.currentStepForm = this.clearStepForm
+    this.currentStepForm.name = this.clearStepForm.name
   }
 
   @Action
@@ -163,7 +182,7 @@ class Task extends VuexModule {
 
   @Action({ rawError: true })
   public changeStepStatus(payload: {
-    id: string,
+    id: number,
     newStatus: string
   }): Promise<StepInterface> {
     return new Promise((resolve, reject) => {
@@ -190,10 +209,42 @@ class Task extends VuexModule {
     })
   }
 
-  get currentTaskOrderedSteps(): Array<StepInterface> {
+  @Action
+  public changeStepsStatus(payload: {
+    ids: Array<number>,
+    newStatus: string
+  }): Promise<void> {
+    return new Promise((resolve, reject) => {
+      stepService.changeStepsStatus(payload.ids, payload.newStatus)
+        .then(() => {
+          this.context.commit("changeCurrentTaskStepsStatus", {
+            ids: payload.ids,
+            newStatus: payload.newStatus
+          })
+          resolve()
+        })
+        .catch(error => {
+          console.log(error)
+          if (error.response) {
+            // TODO: Add error catch
+          }
+          reject(error.response)
+        })
+    })
+  }
+
+  public get currentTaskOrderedSteps(): Array<StepInterface> {
     return [...this.currentTaskSteps].sort(
       (a, b) => parseInt(a.sort_order) - parseInt(b.sort_order)
     )
+  }
+
+  public get selectedSteps(): Array<{id: number}> {
+    return this.currentTaskSteps
+      .filter(step => step.status === "Complete")
+      .map(step => ({
+        id: step.id
+      }))
   }
 }
 

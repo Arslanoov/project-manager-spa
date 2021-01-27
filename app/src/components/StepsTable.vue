@@ -5,6 +5,7 @@
       @item-selected="onSelect"
       :single-select="false"
       :headers="headers"
+      :value="selectedSteps"
       :items="steps"
       sort-by="calories"
       class="elevation-1 steps-table"
@@ -50,7 +51,7 @@ import Component from "vue-class-component"
 import { Prop } from "vue-property-decorator"
 import { namespace } from "vuex-class"
 
-import StepInterface, { StepRow } from "@/types/schedule/task/StepInterface"
+import StepInterface, {StepRow, StepRows} from "@/types/schedule/task/StepInterface"
 
 import AddStepDialog from "@/components/dialogs/AddStepDialog.vue"
 import RemoveStepDialog from "@/components/dialogs/RemoveStepDialog.vue"
@@ -71,6 +72,9 @@ export default class StepsList extends Vue {
   @Prop({ required: true }) readonly steps: Array<StepInterface>
 
   @taskModule.Action("changeStepStatus") changeStepStatus: typeof TaskStoreModule.prototype.changeStepStatus
+  @taskModule.Action("changeStepsStatus") changeStepsStatus: typeof TaskStoreModule.prototype.changeStepsStatus
+
+  @taskModule.Getter("selectedSteps") selectedSteps: Array<number>
 
   public headers = [
     {
@@ -95,9 +99,11 @@ export default class StepsList extends Vue {
     })
   }
 
-  // TODO: Implement
-  public onSelectAll(data: StepRow) {
-    console.log(data)
+  public onSelectAll(steps: StepRows) {
+    this.changeStepsStatus({
+      ids: steps.items.map(step => step.id),
+      newStatus: steps.value ? "Complete" : "Not Complete"
+    })
   }
 }
 </script>
