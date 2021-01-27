@@ -88,9 +88,10 @@ export default class AddStepDialog extends Vue {
 
   public onSubmit(): void {
     this.$refs.form.validate()
-    this.clearForm()
     this.addStep()
-      .then(() => this.toggleAddStepDialog())
+      .then(() => {
+        this.toggleAddStepDialog()
+      })
   }
 }
 </script>
