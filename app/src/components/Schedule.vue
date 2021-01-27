@@ -15,7 +15,7 @@
             <v-icon
                 color="white"
             >
-              mdi-star
+              mdi-check
             </v-icon>
           </div>
         </template>
@@ -121,16 +121,16 @@
             :key="task.id"
             :class="{'text-right': index % 2 === 0}"
             :color="removedColor ? '' : importantLevels[task.importantLevel]"
-            :icon="randomIcon(task.id)"
+            :icon="(task.finishedSteps === task.stepsCount && task.stepsCount) ? 'mdi-check-all' :
+                  (task.status === 'Complete' ? 'mdi-check-bold' : (
+                      task.status === 'Not Complete' ? 'mdi-check' : ''
+                  ))"
             fill-dot
             large
         >
           <v-card>
             <v-card-title class="title">
               {{ task.name }}
-              <template v-if="task.status === 'Complete'">
-                <i class="mdi-check"></i>
-              </template>
             </v-card-title>
             <v-card-text class="white text--primary">
               <p>{{ task.description }}</p>
