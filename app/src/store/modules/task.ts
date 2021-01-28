@@ -34,54 +34,54 @@ class Task extends VuexModule {
   }
 
   @Mutation
-  setCurrentTaskSteps(list: Array<StepInterface>): void {
+  public setCurrentTaskSteps(list: Array<StepInterface>): void {
     this.currentTaskSteps = list
   }
 
   // TODO: Change task steps count
   @Mutation
-  addCurrentTaskStep(step: StepInterface): void {
+  public addCurrentTaskStep(step: StepInterface): void {
     this.currentTaskSteps.unshift(step)
   }
 
   @Mutation
-  clearCurrentTask(): void {
+  public clearCurrentTask(): void {
     this.currentTaskId = null
     this.currentTaskSteps = []
   }
 
   @Mutation
-  setTaskError(error: string): void {
+  public setTaskError(error: string): void {
     this.taskError = error
   }
 
   @Mutation
-  setStepsError(error: string): void {
+  public setStepsError(error: string): void {
     this.stepsError = error
   }
 
   @Mutation
-  clearTaskError(): void {
+  public clearTaskError(): void {
     this.taskError = null
   }
 
   @Mutation
-  clearStepsError(): void {
+  public clearStepsError(): void {
     this.stepsError = null
   }
 
   @Mutation
-  openStepsDialog(): void {
+  public openStepsDialog(): void {
     this.isOpenedStepsDialog = true
   }
 
   @Mutation
-  closeStepsDialog(): void {
+  public closeStepsDialog(): void {
     this.isOpenedStepsDialog = false
   }
 
   @Mutation
-  removeCurrentTaskStep(id: number): void {
+  public removeCurrentTaskStep(id: number): void {
     const index: number = this.currentTaskSteps.findIndex(step => step.id === id)
     if (index !== -1) {
       this.currentTaskSteps.splice(index, 1)

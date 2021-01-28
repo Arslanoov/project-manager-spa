@@ -71,6 +71,16 @@ class Schedule extends VuexModule {
     })
   }
 
+  // TODO: Rename?
+  @Mutation
+  public changeTaskStatus(payload: {
+    scheduleIndex: number,
+    taskIndex: number,
+    status: string
+  }): void {
+    this.schedules[payload.scheduleIndex].tasks[payload.taskIndex].status = payload.status
+  }
+
   @Mutation
   public addTaskToSchedule(payload: {
     scheduleId: string,
@@ -171,6 +181,36 @@ class Schedule extends VuexModule {
           })
 
         // TODO: Add rejects
+      }
+    })
+  }
+
+  @Action({ rawError: true })
+  public toggleTaskStatus(payload: {
+    task: TaskInterface,
+    schedule: ScheduleInterface
+  }): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const index = this.schedules.findIndex(item => item.id === payload.schedule.id)
+      if (index !== -1) {
+        const taskIndex = this.schedules[index].tasks.findIndex(item => item.id === payload.task.id)
+        if (taskIndex !== -1) {
+          const newStatus = this.schedules[index].tasks[taskIndex].status
+            === "Complete" ? "Not Complete" : "Complete"
+          service.changeTaskStatus(payload.task.id, newStatus)
+            .then(() => {
+              this.context.commit("changeTaskStatus", {
+                scheduleIndex: index,
+                taskIndex: taskIndex,
+                status: newStatus
+              })
+              resolve()
+            })
+            .catch(error => {
+              console.log(error)
+              reject(error.response)
+            })
+        }
       }
     })
   }

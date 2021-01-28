@@ -22,4 +22,12 @@ export default class ScheduleService {
       level: form.importantLevel
     })
   }
+
+  public changeTaskStatus(taskId: string, status: string): Promise<AxiosResponse> {
+    return axios.patch(`${API_PREFIX}/todo/task/change-status`, {
+      // eslint-disable-next-line @typescript-eslint/camelcase
+      task_id: taskId,
+      status
+    })
+  }
 }

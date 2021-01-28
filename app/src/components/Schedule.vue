@@ -121,13 +121,25 @@
             :key="task.id"
             :class="{'text-right': index % 2 === 0}"
             :color="removedColor ? '' : importantLevels[task.importantLevel]"
-            :icon="(task.finishedSteps === task.stepsCount && task.stepsCount) ? 'mdi-check-all' :
-                  (task.status === 'Complete' ? 'mdi-check-bold' : (
-                      task.status === 'Not Complete' ? 'mdi-check' : ''
-                  ))"
             fill-dot
             large
         >
+          <template v-slot:icon>
+            <div class="new-task-level" @click="toggleTaskStatus({
+              task,
+              schedule
+            })">
+              <v-icon
+                  color="white"
+              >
+                {{ task.finishedSteps === task.stepsCount && task.stepsCount ? 'mdi-check-all' :
+                  (task.status === 'Complete' ? 'mdi-check-bold' : (
+                      task.status === 'Not Complete' ? 'mdi-check' : ''
+                  )) }}
+              </v-icon>
+            </div>
+          </template>
+
           <v-card>
             <v-card-title class="title">
               {{ task.name }}
@@ -154,8 +166,6 @@ import {
 import { ImportantLevelColor } from "@/types/schedule/task/TaskInterface"
 import { importantLevelsList } from "@/types/schedule/task/TaskInterface"
 import { TaskForm } from "@/types/schedule/task/TaskInterface"
-
-import randomIcon from "@/helpers/schedule/randomIcon"
 
 import ScheduleStoreModule from "@/store/modules/schedule"
 
@@ -186,6 +196,7 @@ export default class Schedule extends Vue {
   @scheduleModule.Mutation("addTaskForm") addTaskForm: typeof ScheduleStoreModule.prototype.addTaskForm
   @scheduleModule.Mutation("toggleAddTaskForm") toggleTaskForm: typeof ScheduleStoreModule.prototype.toggleAddTaskForm
 
+  @scheduleModule.Action("toggleTaskStatus") toggleTaskStatus: typeof ScheduleStoreModule.prototype.toggleTaskStatus
   @scheduleModule.Action("addTask") addTask: typeof ScheduleStoreModule.prototype.addTask
 
   public get taskForm(): TaskForm {
@@ -193,8 +204,6 @@ export default class Schedule extends Vue {
   }
 
   public importantLevels = ImportantLevelColor
-
-  public randomIcon = randomIcon
 
   public importantLevelIndex = 1
 
