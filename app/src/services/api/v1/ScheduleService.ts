@@ -22,4 +22,21 @@ export default class ScheduleService {
       level: form.importantLevel
     })
   }
+
+  public changeTaskStatus(taskId: string, status: string): Promise<AxiosResponse> {
+    return axios.patch(`${API_PREFIX}/todo/task/change-status`, {
+      // eslint-disable-next-line @typescript-eslint/camelcase
+      task_id: taskId,
+      status
+    })
+  }
+
+  public removeTask(taskId: string): Promise<AxiosResponse> {
+    return axios.delete(`${API_PREFIX}/todo/task/remove`, {
+      data: {
+        // eslint-disable-next-line @typescript-eslint/camelcase
+        task_id: taskId
+      }
+    })
+  }
 }
