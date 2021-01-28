@@ -186,6 +186,27 @@ class Schedule extends VuexModule {
   }
 
   @Action({ rawError: true })
+  public removeTask(payload: {
+    schedule: ScheduleInterface,
+    task: TaskInterface
+  }): Promise<void> {
+    return new Promise((resolve, reject) => {
+      service.removeTask(payload.task.id)
+        .then(() => {
+          this.context.commit("removeTaskFromSchedule", {
+            scheduleId: payload.schedule.id,
+            taskId: payload.task.id
+          })
+          resolve()
+        })
+        .catch(error => {
+          console.log(error)
+          reject(error.response)
+        })
+    })
+  }
+
+  @Action({ rawError: true })
   public toggleTaskStatus(payload: {
     task: TaskInterface,
     schedule: ScheduleInterface

@@ -30,4 +30,13 @@ export default class ScheduleService {
       status
     })
   }
+
+  public removeTask(taskId: string): Promise<AxiosResponse> {
+    return axios.delete(`${API_PREFIX}/todo/task/remove`, {
+      data: {
+        // eslint-disable-next-line @typescript-eslint/camelcase
+        task_id: taskId
+      }
+    })
+  }
 }

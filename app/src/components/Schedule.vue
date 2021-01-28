@@ -140,6 +140,17 @@
             </div>
           </template>
 
+          <template v-slot:opposite>
+            <v-icon
+                @click="removeTask({
+                  task,
+                  schedule
+                })"
+            >
+              mdi-delete
+            </v-icon>
+          </template>
+
           <v-card>
             <v-card-title class="title">
               {{ task.name }}
@@ -175,6 +186,8 @@ import TaskDialog from "@/components/dialogs/TaskDialog.vue"
 
 const scheduleModule = namespace("Schedule")
 
+// TODO: Add task remove for mobile devices
+
 @Component({
   name: "Schedule",
   components: {
@@ -198,6 +211,7 @@ export default class Schedule extends Vue {
 
   @scheduleModule.Action("toggleTaskStatus") toggleTaskStatus: typeof ScheduleStoreModule.prototype.toggleTaskStatus
   @scheduleModule.Action("addTask") addTask: typeof ScheduleStoreModule.prototype.addTask
+  @scheduleModule.Action("removeTask") removeTask: typeof ScheduleStoreModule.prototype.removeTask
 
   public get taskForm(): TaskForm {
     return this.taskForms[this.index] ?? this.clearTaskForm
