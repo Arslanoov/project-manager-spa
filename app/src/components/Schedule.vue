@@ -8,7 +8,6 @@
           :color="importantLevels[taskForm.importantLevel]"
           class="white--text mb-12"
           fill-dot
-          large
       >
         <template v-slot:icon>
           <div class="new-task-level" @click="changeImportantLevel">
@@ -122,7 +121,6 @@
             :class="{'text-right': index % 2 === 0}"
             :color="removedColor ? '' : importantLevels[task.importantLevel]"
             fill-dot
-            large
         >
           <template v-slot:icon>
             <div class="new-task-level" @click="toggleTaskStatus({
