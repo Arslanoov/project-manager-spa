@@ -7,7 +7,6 @@
       :headers="headers"
       :value="selectedSteps"
       :items="steps"
-      sort-by="calories"
       class="elevation-1 steps-table"
       show-select
   >
@@ -76,13 +75,13 @@ export default class StepsList extends Vue {
     {
       text: "Name",
       align: "start",
-      sortable: false,
+      sortable: true,
       value: "name"
     },
     {
       text: "Status",
       align: "start",
-      sortable: false,
+      sortable: true,
       value: "status"
     },
     {

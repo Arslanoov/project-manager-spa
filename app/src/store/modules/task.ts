@@ -192,7 +192,7 @@ class Task extends VuexModule {
             id: response.data.id,
             // eslint-disable-next-line @typescript-eslint/camelcase
             sort_order: response.data.id,
-            status: "Not Finished"
+            status: "Not Complete"
           }
 
           this.context.commit("addCurrentTaskStep", step)
