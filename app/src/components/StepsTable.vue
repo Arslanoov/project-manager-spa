@@ -7,7 +7,6 @@
       :headers="headers"
       :value="selectedSteps"
       :items="steps"
-      sort-by="calories"
       class="elevation-1 steps-table"
       show-select
   >
@@ -24,14 +23,13 @@
 
         <v-spacer></v-spacer>
 
-        <AddStepDialog />
-        <RemoveStepDialog />
+        <AddStepDialog :schedule="schedule" :task="task" />
       </v-toolbar>
     </template>
 
     <template v-slot:item.actions="{ item }">
       <v-icon
-          @click="removeStep(item.id)"
+          @click="onRemoveStep(item)"
           small
       >
         mdi-delete
@@ -46,25 +44,33 @@ import Component from "vue-class-component"
 import { Prop } from "vue-property-decorator"
 import { namespace } from "vuex-class"
 
-import StepInterface, {StepRow, StepRows} from "@/types/schedule/task/StepInterface"
+import StepInterface, { StepRow, StepRows } from "@/types/schedule/task/StepInterface"
+
+import ScheduleInterface from "@/types/schedule/ScheduleInterface"
+import TaskInterface from "@/types/schedule/task/TaskInterface"
 
 import AddStepDialog from "@/components/dialogs/AddStepDialog.vue"
-import RemoveStepDialog from "@/components/dialogs/RemoveStepDialog.vue"
 
 import TaskStoreModule from "@/store/modules/task"
+import ScheduleStoreModule from "@/store/modules/schedule"
 
+const scheduleModule = namespace("Schedule")
 const taskModule = namespace("Task")
 
 @Component({
   name: "StepsTable",
   components: {
-    AddStepDialog,
-    RemoveStepDialog
+    AddStepDialog
   }
 })
 
 export default class StepsList extends Vue {
+  @Prop({ required: true }) readonly schedule: ScheduleInterface
+  @Prop({ required: true }) readonly task: TaskInterface
   @Prop({ required: true }) readonly steps: Array<StepInterface>
+
+  @scheduleModule.Mutation("removeTaskStep") removeTaskStep: typeof ScheduleStoreModule.prototype.removeTaskStep
+  @scheduleModule.Mutation("setTaskStepStatus") setTaskStepStatus: typeof ScheduleStoreModule.prototype.setTaskStepStatus
 
   @taskModule.Action("changeStepStatus") changeStepStatus: typeof TaskStoreModule.prototype.changeStepStatus
   @taskModule.Action("changeStepsStatus") changeStepsStatus: typeof TaskStoreModule.prototype.changeStepsStatus
@@ -76,13 +82,13 @@ export default class StepsList extends Vue {
     {
       text: "Name",
       align: "start",
-      sortable: false,
+      sortable: true,
       value: "name"
     },
     {
       text: "Status",
       align: "start",
-      sortable: false,
+      sortable: true,
       value: "status"
     },
     {
@@ -98,6 +104,13 @@ export default class StepsList extends Vue {
       id: data.item.id,
       newStatus: data.value ? "Complete" : "Not Complete"
     })
+
+    this.setTaskStepStatus({
+      scheduleId: this.schedule.id,
+      taskId: this.task.id,
+      step: data.item,
+      status: data.value ? "Complete" : "Not Complete"
+    })
   }
 
   public onSelectAll(steps: StepRows): void {
@@ -105,6 +118,24 @@ export default class StepsList extends Vue {
       ids: steps.items.map(step => step.id),
       newStatus: steps.value ? "Complete" : "Not Complete"
     })
+
+    steps.items.forEach(step => {
+      this.setTaskStepStatus({
+        scheduleId: this.schedule.id,
+        taskId: this.task.id,
+        step,
+        status: steps.value ? "Complete" : "Not Complete"
+      })
+    })
+  }
+
+  public onRemoveStep(step: StepInterface): void {
+    this.removeStep(step.id)
+      .then(() => this.removeTaskStep({
+        scheduleId: this.schedule.id,
+        taskId: this.task.id,
+        step: step
+      }))
   }
 }
 </script>
