@@ -54,7 +54,7 @@
           three-line
           subheader
       >
-        <StepsTable :steps="steps" />
+        <StepsTable :schedule="schedule" :task="task" :steps="steps" />
       </v-list>
     </v-card>
   </v-dialog>
@@ -68,6 +68,7 @@ import { namespace } from "vuex-class"
 import { Prop } from "vue-property-decorator"
 
 import TaskStoreModule from "@/store/modules/task"
+import ScheduleInterface from "@/types/schedule/ScheduleInterface"
 import TaskInterface from "@/types/schedule/task/TaskInterface"
 import StepInterface from "@/types/schedule/task/StepInterface"
 
@@ -83,6 +84,7 @@ const taskModule = namespace("Task")
 })
 
 export default class StepsList extends Vue {
+  @Prop({ required: true }) readonly schedule: ScheduleInterface
   @Prop({ required: true }) readonly task: TaskInterface
 
   @taskModule.State("currentTaskId") currentTaskId: string | null

@@ -146,7 +146,7 @@
             <v-card-text class="white text--primary">
               <p>{{ task.description }}</p>
               <div class="text-right">
-                <TaskDialog :task="task" />
+                <TaskDialog :schedule="schedule" :task="task" />
                 <div class="button">
                   <v-btn
                       @click="removeTask({
@@ -270,7 +270,7 @@ export default class Schedule extends Vue {
   }
 
   public taskIcon(task: TaskInterface): string {
-    if (task.finishedSteps === task.stepsCount) return "mdi-check-all"
+    if (task.stepsCount && task.finishedSteps === task.stepsCount) return "mdi-check-all"
     if (task.status === "Complete") return "mdi-check-bold"
     return "mdi-check"
   }

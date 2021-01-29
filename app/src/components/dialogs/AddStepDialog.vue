@@ -55,10 +55,16 @@
 import Vue from "vue"
 import Component from "vue-class-component"
 import { namespace } from "vuex-class"
+import { Prop } from "vue-property-decorator"
+
+import ScheduleInterface from "@/types/schedule/ScheduleInterface"
+import TaskInterface from "@/types/schedule/task/TaskInterface"
 
 import TaskStoreModule from "@/store/modules/task"
+import ScheduleStoreModule from "@/store/modules/schedule"
 import { StepForm } from "@/types/schedule/task/StepInterface"
 
+const scheduleModule = namespace("Schedule")
 const taskModule = namespace("Task")
 
 @Component({
@@ -66,11 +72,15 @@ const taskModule = namespace("Task")
 })
 
 export default class AddStepDialog extends Vue {
+  @Prop({ required: true }) readonly schedule: ScheduleInterface
+  @Prop({ required: true }) readonly task: TaskInterface
+
   @taskModule.State("isOpenedAddStepDialog") isOpenedAddStepDialog: boolean
   @taskModule.State("currentStepForm") currentStepForm: StepForm
 
   @taskModule.Mutation("toggleAddStepDialog") toggleAddStepDialog: typeof TaskStoreModule.prototype.toggleAddStepDialog
   @taskModule.Mutation("setAddStepFormName") setName: typeof TaskStoreModule.prototype.setAddStepFormName
+  @scheduleModule.Mutation("addTaskStep") addTaskStep: typeof ScheduleStoreModule.prototype.addTaskStep
 
   @taskModule.Action("addStep") addStep: typeof TaskStoreModule.prototype.addStep
 
@@ -91,6 +101,10 @@ export default class AddStepDialog extends Vue {
       .then(() => {
         this.$refs.form.reset()
         this.toggleAddStepDialog()
+        this.addTaskStep({
+          scheduleId: this.schedule.id,
+          taskId: this.task.id
+        })
       })
   }
 }
