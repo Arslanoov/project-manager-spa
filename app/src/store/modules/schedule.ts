@@ -43,13 +43,15 @@ class Schedule extends VuexModule {
   @Mutation
   public clearTaskForm(scheduleId: string): void {
     const index: number = this.taskForms.findIndex(form => form.scheduleId === scheduleId)
-    if (index) {
-      this.taskForms[index] = {
-        scheduleId,
-        name: undefined,
-        description: undefined,
-        importantLevel: undefined
-      }
+    if (index !== -1) {
+      this.taskForms = this.taskForms.map((taskForm: TaskForm, formIndex: number) => {
+        return index === formIndex ? {
+          ...taskForm,
+          scheduleId,
+          name: undefined,
+          description: undefined
+        } : taskForm
+      })
     }
   }
 

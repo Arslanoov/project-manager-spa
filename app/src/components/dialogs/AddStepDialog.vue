@@ -71,7 +71,6 @@ export default class AddStepDialog extends Vue {
 
   @taskModule.Mutation("toggleAddStepDialog") toggleAddStepDialog: typeof TaskStoreModule.prototype.toggleAddStepDialog
   @taskModule.Mutation("setAddStepFormName") setName: typeof TaskStoreModule.prototype.setAddStepFormName
-  @taskModule.Mutation("clearCurrentStepForm") clearForm: typeof TaskStoreModule.prototype.clearCurrentStepForm
 
   @taskModule.Action("addStep") addStep: typeof TaskStoreModule.prototype.addStep
 
@@ -90,6 +89,7 @@ export default class AddStepDialog extends Vue {
     this.$refs.form.validate()
     this.addStep()
       .then(() => {
+        this.$refs.form.reset()
         this.toggleAddStepDialog()
       })
   }

@@ -1,9 +1,13 @@
 <template>
   <div class="schedule">
+    <!--  TODO: Add day  -->
+    <h2>{{ schedule.date.string }}</h2>
     <v-timeline
         :key="schedule.id"
-        :dense="$vuetify.breakpoint.smAndDown"
-        class="schedule">
+        class="schedule"
+        clipped
+        dense
+    >
       <v-timeline-item
           :color="importantLevels[taskForm.importantLevel]"
           class="white--text mb-12"
@@ -116,10 +120,10 @@
 
       <v-slide-x-transition group>
         <v-timeline-item
-            v-for="(task, index) in schedule.tasks"
-            :key="task.id"
-            :class="{'text-right': index % 2 === 0}"
+            v-for="task in schedule.tasks"
             :color="removedColor ? '' : importantLevels[task.importantLevel]"
+            :key="task.id"
+            class="task"
             fill-dot
         >
           <template v-slot:icon>
@@ -130,23 +134,9 @@
               <v-icon
                   color="white"
               >
-                {{ task.finishedSteps === task.stepsCount && task.stepsCount ? 'mdi-check-all' :
-                  (task.status === 'Complete' ? 'mdi-check-bold' : (
-                      task.status === 'Not Complete' ? 'mdi-check' : ''
-                  )) }}
+                {{ taskIcon(task) }}
               </v-icon>
             </div>
-          </template>
-
-          <template v-slot:opposite>
-            <v-icon
-                @click="removeTask({
-                  task,
-                  schedule
-                })"
-            >
-              mdi-delete
-            </v-icon>
           </template>
 
           <v-card>
@@ -155,12 +145,33 @@
             </v-card-title>
             <v-card-text class="white text--primary">
               <p>{{ task.description }}</p>
-              <TaskDialog :task="task" />
+              <div class="text-right">
+                <TaskDialog :task="task" />
+                <div class="button">
+                  <v-btn
+                      @click="removeTask({
+                      task,
+                      schedule
+                    })"
+                      class="mx-0"
+                      outlined
+                  >
+                    Delete
+                  </v-btn>
+                </div>
+              </div>
             </v-card-text>
           </v-card>
         </v-timeline-item>
       </v-slide-x-transition>
     </v-timeline>
+    <v-btn
+        v-if="!hasEarlierSchedule"
+        color="blue darken-1"
+        text
+    >
+      Load earlier schedule
+    </v-btn>
   </div>
 </template>
 
@@ -172,7 +183,7 @@ import {
   namespace
 } from "vuex-class"
 
-import { ImportantLevelColor } from "@/types/schedule/task/TaskInterface"
+import TaskInterface, { ImportantLevelColor } from "@/types/schedule/task/TaskInterface"
 import { importantLevelsList } from "@/types/schedule/task/TaskInterface"
 import { TaskForm } from "@/types/schedule/task/TaskInterface"
 
@@ -183,8 +194,6 @@ import ScheduleInterface from "@/types/schedule/ScheduleInterface"
 import TaskDialog from "@/components/dialogs/TaskDialog.vue"
 
 const scheduleModule = namespace("Schedule")
-
-// TODO: Add task remove for mobile devices
 
 @Component({
   name: "Schedule",
@@ -198,6 +207,7 @@ const scheduleModule = namespace("Schedule")
 export default class Schedule extends Vue {
   @Prop({ required: true }) readonly schedule: ScheduleInterface
   @Prop({ required: true }) readonly index: number
+  @Prop({ required: true }) readonly hasEarlierSchedule: boolean
 
   @scheduleModule.State("taskForms") taskForms: Array<TaskForm>
   @scheduleModule.State("importantLevelsList") importantLevelsList: Array<string>
@@ -212,7 +222,7 @@ export default class Schedule extends Vue {
   @scheduleModule.Action("removeTask") removeTask: typeof ScheduleStoreModule.prototype.removeTask
 
   public get taskForm(): TaskForm {
-    return this.taskForms[this.index] ?? this.clearTaskForm
+    return this.taskForms && this.taskForms[this.index] ? this.taskForms[this.index] : this.clearTaskForm
   }
 
   public importantLevels = ImportantLevelColor
@@ -258,6 +268,12 @@ export default class Schedule extends Vue {
   public onSubmit(): void {
     this.addTask(this.schedule.id)
   }
+
+  public taskIcon(task: TaskInterface): string {
+    if (task.finishedSteps === task.stepsCount) return "mdi-check-all"
+    if (task.status === "Complete") return "mdi-check-bold"
+    return "mdi-check"
+  }
 }
 </script>
 
@@ -266,6 +282,15 @@ export default class Schedule extends Vue {
   .new-task-level {
     &:hover {
       cursor: pointer;
+    }
+  }
+
+  .task {
+    .button {
+      display: inline-block;
+
+      margin-top: 5px;
+      margin-right: 10px;
     }
   }
 }

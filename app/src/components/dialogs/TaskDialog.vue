@@ -4,22 +4,25 @@
       @input="v => v || closeDialog()"
       :value="isOpenedStepsDialog && task.id === currentTaskId"
       transition="dialog-bottom-transition"
+      class="task-dialog"
       fullscreen
       hide-overlay
   >
     <template v-slot:activator="{ on, attrs }">
       <!--   TODO: Add color condition   -->
-      <v-btn
-          @click="fetchTaskSteps(task.id)"
-          v-bind="attrs"
-          class="mx-0"
-          outlined
-      >
-        Show steps
-        <template v-if="task.stepsCount > 0">
-          ({{ task.finishedSteps }} / {{ task.stepsCount }})
-        </template>
-      </v-btn>
+      <div class="button">
+        <v-btn
+            @click="fetchTaskSteps(task.id)"
+            v-bind="attrs"
+            class="mx-0"
+            outlined
+        >
+          Show steps
+          <template v-if="task.stepsCount > 0">
+            ({{ task.finishedSteps }} / {{ task.stepsCount }})
+          </template>
+        </v-btn>
+      </div>
     </template>
     <v-card>
       <v-toolbar
@@ -93,5 +96,11 @@ export default class StepsList extends Vue {
 </script>
 
 <style lang="scss" scoped>
+/* TODO: Merge */
+.button {
+  display: inline-block;
 
+  margin-top: 5px;
+  margin-right: 10px;
+}
 </style>

@@ -18,11 +18,13 @@ class Task extends VuexModule {
   public isOpenedStepsDialog = false
   public isOpenedAddStepDialog = false
 
-  public clearStepForm: StepForm = {
+  public readonly clearStepForm: StepForm = {
     taskId: "",
     name: ""
   }
-  public currentStepForm: StepForm = this.clearStepForm
+  public currentStepForm: StepForm = {
+    ...this.clearStepForm
+  }
 
   public taskError: string | null = null
   public stepsError: string | null = null
@@ -130,7 +132,10 @@ class Task extends VuexModule {
 
   @Mutation
   public clearCurrentStepForm(): void {
-    this.currentStepForm.name = this.clearStepForm.name
+    this.currentStepForm = {
+      ...this.currentStepForm,
+      name: this.clearStepForm.name
+    }
   }
 
   @Action
@@ -191,6 +196,7 @@ class Task extends VuexModule {
           }
 
           this.context.commit("addCurrentTaskStep", step)
+          this.context.commit("clearCurrentStepForm")
           resolve(step)
         })
         .catch(error => {

@@ -1,7 +1,11 @@
 <template>
   <v-container class="daily-schedule-page">
     <div v-for="(schedule, index) in schedules" :key="schedule.id" class="schedule-wrapper">
-      <Schedule :schedule="schedule" :index="index" />
+      <Schedule
+          :has-earlier-schedule="index === schedules.length - 1"
+          :schedule="schedule"
+          :index="index"
+      />
     </div>
   </v-container>
 </template>
