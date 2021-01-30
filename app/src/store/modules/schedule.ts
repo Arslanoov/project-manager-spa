@@ -37,6 +37,11 @@ class Schedule extends VuexModule {
   }
 
   @Mutation
+  public addNextSchedule(schedule: ScheduleInterface): void {
+    this.schedules.unshift(schedule)
+  }
+
+  @Mutation
   public addTaskForm(form: TaskForm): void {
     this.taskForms.push(form)
   }
@@ -188,9 +193,31 @@ class Schedule extends VuexModule {
         reject(new Error("Empty schedules list"))
       }
 
+      const firstSchedule: ScheduleInterface = this.schedules[0]
+
+      service.getNextSchedule(firstSchedule.id)
+        .then(response => {
+          const schedule: ScheduleInterface = response.data
+          this.context.commit("addNextSchedule", schedule)
+          resolve(schedule)
+        })
+        .catch(error => {
+          console.log(error)
+          reject(error.response)
+        })
+    })
+  }
+
+  @Action({ rawError: true })
+  public getPrevSchedule(): Promise<ScheduleInterface> {
+    return new Promise((resolve, reject) => {
+      if (this.schedules.length === 0) {
+        reject(new Error("Empty schedules list"))
+      }
+
       const latestSchedule: ScheduleInterface = this.schedules[this.schedules.length - 1]
 
-      service.getNextSchedule(latestSchedule.id)
+      service.getPrevSchedule(latestSchedule.id)
         .then(response => {
           const schedule: ScheduleInterface = response.data
           this.context.commit("addSchedule", schedule)

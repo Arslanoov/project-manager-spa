@@ -1,7 +1,6 @@
 <template>
   <div class="schedule">
-    <!--  TODO: Add day  -->
-    <h2>{{ schedule.date.string }}</h2>
+    <h2>{{ getScheduleDateString(schedule) }}</h2>
     <v-timeline
         :key="schedule.id"
         class="schedule"
@@ -33,6 +32,7 @@
           <template v-slot:append>
             <v-btn
                 @click="onSubmit"
+                :disabled="isLoading"
                 class="mx-0"
                 color="white"
                 depressed
@@ -41,6 +41,7 @@
             </v-btn>
             <v-btn
                 @click="toggleTaskForm"
+                :disabled="isLoading"
                 class="mx-0"
                 color="white"
                 depressed
@@ -53,7 +54,7 @@
             </v-btn>
           </template>
         </v-text-field>
-        <v-dialog @input="v => v || toggleTaskForm()" :value="isOpenAddTaskForm" max-width="500px">
+        <v-dialog @change="v => v || toggleTaskForm()" :value="isOpenAddTaskForm" max-width="500px">
           <v-card>
             <v-card-title>
               <span class="headline">Add Task</span>
@@ -108,6 +109,7 @@
               <v-spacer></v-spacer>
               <v-btn
                   @click="toggleTaskForm"
+                  :disabled="isLoading"
                   color="blue darken-1"
                   text
               >
@@ -150,9 +152,10 @@
                 <div class="button">
                   <v-btn
                       @click="removeTask({
-                      task,
-                      schedule
-                    })"
+                        task,
+                        schedule
+                      })"
+                      :disabled="isLoading"
                       class="mx-0"
                       outlined
                   >
@@ -165,13 +168,6 @@
         </v-timeline-item>
       </v-slide-x-transition>
     </v-timeline>
-    <v-btn
-        v-if="!hasEarlierSchedule"
-        color="blue darken-1"
-        text
-    >
-      Load earlier schedule
-    </v-btn>
   </div>
 </template>
 
@@ -193,6 +189,8 @@ import ScheduleInterface from "@/types/schedule/ScheduleInterface"
 
 import TaskDialog from "@/components/dialogs/TaskDialog.vue"
 
+import { getScheduleDateString } from "@/helpers/date"
+
 const scheduleModule = namespace("Schedule")
 
 @Component({
@@ -206,8 +204,6 @@ const scheduleModule = namespace("Schedule")
 // TODO: Add remove color
 export default class Schedule extends Vue {
   @Prop({ required: true }) readonly schedule: ScheduleInterface
-  @Prop({ required: true }) readonly index: number
-  @Prop({ required: true }) readonly hasEarlierSchedule: boolean
 
   @scheduleModule.State("taskForms") taskForms: Array<TaskForm>
   @scheduleModule.State("importantLevelsList") importantLevelsList: Array<string>
@@ -221,13 +217,20 @@ export default class Schedule extends Vue {
   @scheduleModule.Action("addTask") addTask: typeof ScheduleStoreModule.prototype.addTask
   @scheduleModule.Action("removeTask") removeTask: typeof ScheduleStoreModule.prototype.removeTask
 
+  public getScheduleDateString = getScheduleDateString
+
   public get taskForm(): TaskForm {
-    return this.taskForms && this.taskForms[this.index] ? this.taskForms[this.index] : this.clearTaskForm
+    if (this.taskForms) {
+      const taskForm: TaskForm | undefined = this.taskForms.find(form => form.scheduleId === this.schedule.id)
+      if (taskForm) return taskForm
+    }
+
+    return this.clearTaskForm
   }
 
   public importantLevels = ImportantLevelColor
-
   public importantLevelIndex = 1
+  public isLoading = false
 
   // TODO: local storage?
   public removedColor = false
@@ -266,7 +269,9 @@ export default class Schedule extends Vue {
   }
 
   public onSubmit(): void {
+    this.isLoading = true
     this.addTask(this.schedule.id)
+      .finally(() => this.isLoading = false)
   }
 
   public taskIcon(task: TaskInterface): string {
