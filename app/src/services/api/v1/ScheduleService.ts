@@ -9,6 +9,10 @@ export default class ScheduleService {
     return axios.get(`${API_PREFIX}/todo/daily/today`)
   }
 
+  public getPrevSchedule(id: string): Promise<AxiosResponse> {
+    return axios.get(`${API_PREFIX}/todo/daily/previous/${id}`)
+  }
+
   public getNextSchedule(id: string): Promise<AxiosResponse> {
     return axios.get(`${API_PREFIX}/todo/daily/next/${id}`)
   }
