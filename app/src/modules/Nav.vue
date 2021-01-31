@@ -1,49 +1,64 @@
 <template>
-  <nav class="nav">
-    <template v-if="isAuth">
-      <v-btn
-          @click="onGoSchedule"
-          text
+  <v-navigation-drawer
+      @click.stop="toggleNavVisibility"
+      @input="v => v || toggleNavVisibility()"
+      :value="isShowNav"
+      temporary
+      absolute
+  >
+    <v-list
+        nav
+        dense
+    >
+      <v-list-item-group
+          active-class="deep-purple--text text--accent-4"
       >
-        <span class="mr-2">Daily schedule</span>
-      </v-btn>
-      <v-btn
-          @click="onExit"
-          text
-      >
-        <span class="mr-2">Logout</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
-    </template>
-    <template v-else>
-      <v-btn
-          @click="onLogin"
-          text
-      >
-        <span class="mr-2">Login</span>
-      </v-btn>
+        <template v-if="isAuth">
+          <v-list-item @click="onGoPage(routesNames.Home)">
+            <v-list-item-icon>
+              <v-icon>mdi-home</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Home</v-list-item-title>
+          </v-list-item>
 
-      <v-btn
-          @click="onSignUp"
-          text
-      >
-        <span class="mr-2">Sign Up</span>
-      </v-btn>
-    </template>
-  </nav>
+          <v-list-item @click="onExit">
+            <v-list-item-icon>
+              <v-icon>mdi-logout</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Logout</v-list-item-title>
+          </v-list-item>
+        </template>
+        <template v-else>
+          <v-list-item @click="onGoPage(routesNames.Login)">
+            <v-list-item-icon>
+              <v-icon>mdi-login</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Login</v-list-item-title>
+          </v-list-item>
+          <v-list-item @click="onGoPage(routesNames.SignUp)">
+            <v-list-item-icon>
+              <v-icon>mdi-account-plus</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Sign Up</v-list-item-title>
+          </v-list-item>
+        </template>
+      </v-list-item-group>
+    </v-list>
+  </v-navigation-drawer>
 </template>
 
 <script lang="ts">
 import Vue from "vue"
 import Component from "vue-class-component"
-import {
-  namespace
-} from "vuex-class"
+import { namespace } from "vuex-class"
 
 import { routesNames } from "@/router"
 
 import User from "@/store/modules/user"
 
+import NavStoreModule from "@/store/modules/nav"
+
+const navModule = namespace("Nav")
 const userModule = namespace("User")
 
 @Component({
@@ -51,33 +66,25 @@ const userModule = namespace("User")
 })
 
 export default class Nav extends Vue {
+  @navModule.State("isShowNav") isShowNav: boolean
+
   @userModule.Getter("isAuth") isAuth: boolean
+
+  @navModule.Mutation("toggleNavVisibility") toggleNavVisibility: typeof NavStoreModule.prototype.toggleNavVisibility
 
   @userModule.Action("logout") logout: typeof User.prototype.logout
 
-  public onGoSchedule(): void {
+  public routesNames = routesNames
+
+  public onGoPage(name: routesNames): void {
     this.$router.push({
-      name: routesNames.DailySchedule
-    }).catch(() => console.log("Already in schedule page"))
+      name: routesNames[name]
+    }).catch(() => console.log(`Already in ${name} page`))
   }
 
   public onExit(): void {
     this.logout()
-      .then(() => this.$router.push({
-        name: routesNames.Home
-      })).catch(() => console.log("Already in home page"))
-  }
-
-  public onLogin(): void {
-    this.$router.push({
-      name: routesNames.Login
-    }).catch(() => console.log("Already in auth page"))
-  }
-
-  public onSignUp(): void {
-    this.$router.push({
-      name: routesNames.SignUp
-    }).catch(() => console.log("Already in sign up page"))
+      .then(() => this.onGoPage(routesNames.Login))
   }
 }
 </script>

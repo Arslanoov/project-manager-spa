@@ -1,34 +1,35 @@
 <template>
-  <v-app-bar
-      app
-      color="primary"
-      dark
-  >
-    <div class="d-flex align-center logo" @click="onGoHome">
-      <v-img
-          alt="TODO"
-          class="shrink mr-2"
-          contain
-          src="~@/assets/logo.svg"
-          transition="scale-transition"
-          width="40"
-      />
+  <header class="header">
+    <v-app-bar
+        color="deep-purple accent-4"
+        app
+        dark
+        dense
+    >
+      <v-app-bar-nav-icon @click="toggleNavVisibility"></v-app-bar-nav-icon>
 
-      <h1 class="title">TODO</h1>
-    </div>
+      <div class="d-flex align-center logo" @click="onGoHome">
+        <h1 class="title">To Do</h1>
+      </div>
 
-    <v-spacer></v-spacer>
+      <v-spacer></v-spacer>
 
+    </v-app-bar>
     <Nav />
-  </v-app-bar>
+  </header>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator"
+import { namespace } from "vuex-class"
 
 import Nav from "@/modules/Nav.vue"
 
+import NavStoreModule from "@/store/modules/nav"
+
 import { routesNames } from "@/router"
+
+const navModule = namespace("Nav")
 
 @Component({
   name: "Header",
@@ -38,6 +39,8 @@ import { routesNames } from "@/router"
 })
 
 export default class Header extends Vue {
+  @navModule.Mutation("toggleNavVisibility") toggleNavVisibility: typeof NavStoreModule.prototype.toggleNavVisibility
+
   public onGoHome(): void {
     this.$router.push({
       name: routesNames.Home

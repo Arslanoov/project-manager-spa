@@ -6,6 +6,8 @@ import store from "./store"
 import vuetify from "./plugins/vuetify"
 import axios from "axios"
 
+import "@/helpers/axios/interceptor"
+
 import UserInterface from "@/types/user/UserInterface"
 
 Vue.config.productionTip = false

@@ -186,7 +186,10 @@ class User extends VuexModule {
       localStorage.setItem("user", JSON.stringify(user))
       axios.defaults.headers.common["Authorization"] = this.bearerToken
       this.context.commit("setUser", user)
+      return
     }
+
+    throw new Error("User not found")
   }
 
   @Action({ rawError: true })

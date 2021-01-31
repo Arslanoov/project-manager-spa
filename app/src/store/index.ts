@@ -1,6 +1,7 @@
 import Vue from "vue"
 import Vuex from "vuex"
 
+import Nav from "@/store/modules/nav"
 import User from "@/store/modules/user"
 import Schedule from "@/store/modules/schedule"
 import Task from "@/store/modules/task"
@@ -18,6 +19,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
+    Nav,
     User,
     Schedule,
     Task
