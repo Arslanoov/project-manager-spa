@@ -8,6 +8,14 @@
     >
       Load later schedule
     </v-btn>
+    <v-btn
+        @click="skipToTheLaterWeek"
+        :disabled="isLoading"
+        color="blue darken-1"
+        text
+    >
+      Skip to the later week
+    </v-btn>
     <div v-for="schedule in schedules" :key="schedule.id" class="schedule-wrapper">
       <Schedule :schedule="schedule"/>
     </div>
@@ -18,6 +26,14 @@
         text
     >
       Load earlier schedule
+    </v-btn>
+    <v-btn
+        @click="skipToThePrevWeek"
+        :disabled="isLoading"
+        color="blue darken-1"
+        text
+    >
+      Skip to the earlier week
     </v-btn>
   </v-container>
 </template>
@@ -50,6 +66,9 @@ export default class DailySchedule extends Vue {
   @scheduleModule.Action("getPrevSchedule") getPrevSchedule: typeof ScheduleStoreModule.prototype.getPrevSchedule
   @scheduleModule.Action("getNextSchedule") getNextSchedule: typeof ScheduleStoreModule.prototype.getNextSchedule
 
+  @scheduleModule.Action("getPrevScheduleWeek") getPrevScheduleWeek: typeof ScheduleStoreModule.prototype.getPrevScheduleWeek
+  @scheduleModule.Action("getNextScheduleWeek") getNextScheduleWeek: typeof ScheduleStoreModule.prototype.getNextScheduleWeek
+
   public isLoading = false
 
   public mounted(): void {
@@ -65,6 +84,18 @@ export default class DailySchedule extends Vue {
   public loadLaterSchedule(): void {
     this.isLoading = true
     this.getNextSchedule()
+      .finally(() => this.isLoading = false)
+  }
+
+  public skipToTheLaterWeek(): void {
+    this.isLoading = true
+    this.getPrevScheduleWeek()
+      .finally(() => this.isLoading = false)
+  }
+
+  public skipToThePrevWeek(): void {
+    this.isLoading = true
+    this.getNextScheduleWeek()
       .finally(() => this.isLoading = false)
   }
 }

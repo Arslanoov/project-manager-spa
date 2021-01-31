@@ -5,7 +5,7 @@
           @click="onGoSchedule"
           text
       >
-        <span class="mr-2">Schedule</span>
+        <span class="mr-2">Daily schedule</span>
       </v-btn>
       <v-btn
           @click="onExit"
@@ -57,7 +57,7 @@ export default class Nav extends Vue {
 
   public onGoSchedule(): void {
     this.$router.push({
-      name: routesNames.Schedule
+      name: routesNames.DailySchedule
     }).catch(() => console.log("Already in schedule page"))
   }
 

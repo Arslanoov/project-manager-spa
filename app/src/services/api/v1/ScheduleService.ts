@@ -13,8 +13,16 @@ export default class ScheduleService {
     return axios.get(`${API_PREFIX}/todo/daily/previous/${id}`)
   }
 
+  public getPrevWeekSchedule(id: string): Promise<AxiosResponse> {
+    return axios.get(`${API_PREFIX}/todo/daily/previous-week/${id}`)
+  }
+
   public getNextSchedule(id: string): Promise<AxiosResponse> {
     return axios.get(`${API_PREFIX}/todo/daily/next/${id}`)
+  }
+
+  public getNextWeekSchedule(id: string): Promise<AxiosResponse> {
+    return axios.get(`${API_PREFIX}/todo/daily/next-week/${id}`)
   }
 
   public addTask(form: TaskForm): Promise<AxiosResponse> {

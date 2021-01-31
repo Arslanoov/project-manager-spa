@@ -1,7 +1,6 @@
 import Vue from "vue"
 import VueRouter, { RouteConfig } from "vue-router"
 
-import Home from "@/views/Home.vue"
 import Login from "@/views/Auth/Login.vue"
 import SignUp from "@/views/Auth/SignUp.vue"
 import ConfirmSignUp from "@/views/Auth/ConfirmSignUp.vue"
@@ -16,7 +15,7 @@ export enum routesNames {
   Login = "Login",
   SignUp = "SignUp",
   ConfirmSignUp = "ConfirmSIgnUp",
-  Schedule = "Schedule",
+  DailySchedule = "DailySchedule",
   AccessDenied = "AccessDenied",
   NotFound = "NotFound"
 }
@@ -25,7 +24,9 @@ const routes: Array<RouteConfig> = [
   {
     path: "/",
     name: routesNames.Home,
-    component: Home
+    redirect: {
+      name: routesNames.DailySchedule
+    }
   },
   {
     path: "/auth/login",
@@ -43,8 +44,8 @@ const routes: Array<RouteConfig> = [
     component: ConfirmSignUp
   },
   {
-    path: "/schedule",
-    name: routesNames.Schedule,
+    path: "/today",
+    name: routesNames.DailySchedule,
     component: DailySchedule
   },
   {
