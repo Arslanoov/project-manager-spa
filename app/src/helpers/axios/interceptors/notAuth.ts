@@ -1,6 +1,7 @@
 import axios from "axios"
 import store from "@/store/index"
-import router, { routesNames } from "@/router/index"
+import router from "@/router/index"
+import { routesNames } from "@/router/names"
 
 axios.interceptors.response.use(response => response, error => {
   if (401 === error.response.status) {

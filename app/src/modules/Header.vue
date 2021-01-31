@@ -27,7 +27,7 @@ import Nav from "@/modules/Nav.vue"
 
 import NavStoreModule from "@/store/modules/nav"
 
-import { routesNames } from "@/router"
+import { routesNames } from "@/router/names"
 
 const navModule = namespace("Nav")
 

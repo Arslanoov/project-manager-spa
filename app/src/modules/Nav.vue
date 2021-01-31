@@ -52,7 +52,7 @@ import Vue from "vue"
 import Component from "vue-class-component"
 import { namespace } from "vuex-class"
 
-import { routesNames } from "@/router"
+import { routesNames } from "@/router/names"
 
 import User from "@/store/modules/user"
 
