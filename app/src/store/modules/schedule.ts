@@ -187,6 +187,50 @@ class Schedule extends VuexModule {
   }
 
   @Action({ rawError: true })
+  public getPrevSchedule(): Promise<ScheduleInterface> {
+    return new Promise((resolve, reject) => {
+      if (this.schedules.length === 0) {
+        reject(new Error("Empty schedules list"))
+      }
+
+      const latestSchedule: ScheduleInterface = this.schedules[this.schedules.length - 1]
+
+      service.getPrevSchedule(latestSchedule.id)
+        .then(response => {
+          const schedule: ScheduleInterface = response.data
+          this.context.commit("addSchedule", schedule)
+          resolve(schedule)
+        })
+        .catch(error => {
+          console.log(error)
+          reject(error.response)
+        })
+    })
+  }
+
+  @Action({ rawError: true })
+  public getPrevScheduleWeek(): Promise<ScheduleInterface> {
+    return new Promise((resolve, reject) => {
+      if (this.schedules.length === 0) {
+        reject(new Error("Empty schedules list"))
+      }
+
+      const firstSchedule: ScheduleInterface = this.schedules[0]
+
+      service.getNextWeekSchedule(firstSchedule.id)
+        .then(response => {
+          const schedule: ScheduleInterface = response.data
+          this.context.commit("addNextSchedule", schedule)
+          resolve(schedule)
+        })
+        .catch(error => {
+          console.log(error)
+          reject(error.response)
+        })
+    })
+  }
+
+  @Action({ rawError: true })
   public getNextSchedule(): Promise<ScheduleInterface> {
     return new Promise((resolve, reject) => {
       if (this.schedules.length === 0) {
@@ -209,7 +253,7 @@ class Schedule extends VuexModule {
   }
 
   @Action({ rawError: true })
-  public getPrevSchedule(): Promise<ScheduleInterface> {
+  public getNextScheduleWeek(): Promise<ScheduleInterface> {
     return new Promise((resolve, reject) => {
       if (this.schedules.length === 0) {
         reject(new Error("Empty schedules list"))
@@ -217,7 +261,7 @@ class Schedule extends VuexModule {
 
       const latestSchedule: ScheduleInterface = this.schedules[this.schedules.length - 1]
 
-      service.getPrevSchedule(latestSchedule.id)
+      service.getPrevWeekSchedule(latestSchedule.id)
         .then(response => {
           const schedule: ScheduleInterface = response.data
           this.context.commit("addSchedule", schedule)

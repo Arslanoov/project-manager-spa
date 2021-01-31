@@ -90,7 +90,7 @@ import {
   namespace
 } from "vuex-class"
 
-import { routesNames } from "@/router"
+import { routesNames } from "@/router/names"
 
 import User from "@/store/modules/user"
 import SignUpForm from "@/types/user/forms/SignUpForm"
