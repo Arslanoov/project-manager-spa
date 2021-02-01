@@ -3,7 +3,6 @@ export enum routesNames {
   Login = "Login",
   SignUp = "SignUp",
   ConfirmSignUp = "ConfirmSignUp",
-  DailySchedule = "DailySchedule",
   AccessDenied = "AccessDenied",
   NotFound = "NotFound"
 }

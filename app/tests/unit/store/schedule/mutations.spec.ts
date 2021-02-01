@@ -23,37 +23,6 @@ const factory = () => {
 const scheduleStore = factory()
 
 describe("Schedule Store", () => {
-  it("sets today schedule", () => {
-    expect(scheduleStore.schedules.length).toEqual(0)
-
-    const todaySchedule: ScheduleInterface = {
-      id: "4325",
-      date: {
-        day: 23,
-        month: 12,
-        year: 2012,
-        string: "23.12.2020"
-      },
-      tasksCount: 1,
-      tasks: [
-        {
-          id: "43267",
-          name: "task 1",
-          description: "desc",
-          importantLevel: "Not Important",
-          status: "Complete",
-          stepsCount: 2,
-          finishedSteps: 1
-        }
-      ]
-    }
-
-    scheduleStore.setTodaySchedule(todaySchedule)
-
-    expect(scheduleStore.schedules[0]).toEqual(todaySchedule)
-    expect(scheduleStore.schedules.length).toEqual(1)
-  })
-
   it("adds new schedule", () => {
     expect(scheduleStore.schedules.length).toEqual(1)
 
@@ -118,15 +87,15 @@ describe("Schedule Store", () => {
   })
 
   it("toggles add task form dialog", () => {
-    expect(scheduleStore.isOpenAddTaskForm).toEqual(false)
+    expect(scheduleStore.openedAddTaskFormScheduleId).toEqual(null)
 
-    scheduleStore.toggleAddTaskForm()
+    scheduleStore.toggleAddTaskForm("65")
 
-    expect(scheduleStore.isOpenAddTaskForm).toEqual(true)
+    expect(scheduleStore.openedAddTaskFormScheduleId).toEqual("65")
 
-    scheduleStore.toggleAddTaskForm()
+    scheduleStore.toggleAddTaskForm(null)
 
-    expect(scheduleStore.isOpenAddTaskForm).toEqual(false)
+    expect(scheduleStore.openedAddTaskFormScheduleId).toEqual(null)
   })
 
   // TODO: Finish test

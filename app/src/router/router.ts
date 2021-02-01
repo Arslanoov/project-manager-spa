@@ -4,7 +4,7 @@ import VueRouter, { RouteConfig } from "vue-router"
 import Login from "@/views/Auth/Login.vue"
 import SignUp from "@/views/Auth/SignUp.vue"
 import ConfirmSignUp from "@/views/Auth/ConfirmSignUp.vue"
-import DailySchedule from "@/views/Todo/DailySchedule.vue"
+import Home from "@/views/Home.vue"
 import AccessDenied from "@/views/AccessDenied.vue"
 import NotFound from "@/views/NotFound.vue"
 
@@ -15,9 +15,8 @@ Vue.use(VueRouter)
 const routes: Array<RouteConfig> = [
   {
     path: "/",
-    name: routesNames.Home,
     redirect: {
-      name: routesNames.DailySchedule
+      name: routesNames.Home
     }
   },
   {
@@ -37,8 +36,8 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: "/today",
-    name: routesNames.DailySchedule,
-    component: DailySchedule,
+    name: routesNames.Home,
+    component: Home,
     meta: {
       requiresAuth: true
     }

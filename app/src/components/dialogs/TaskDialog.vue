@@ -2,7 +2,9 @@
   <v-dialog
       @click.stop="closeDialog"
       @input="v => v || closeDialog()"
+      :retain-focus="false"
       :value="isOpenedStepsDialog && task.id === currentTaskId"
+      :key="schedule.id"
       transition="dialog-bottom-transition"
       class="task-dialog"
       fullscreen

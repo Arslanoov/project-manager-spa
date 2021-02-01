@@ -2,8 +2,10 @@
   <v-dialog
       @click.stop="toggleAddStepDialog"
       @input="v => v || toggleAddStepDialog()"
+      :retain-focus="false"
       :single-select="true"
       :value="isOpenedAddStepDialog"
+      :key="task.id"
       max-width="500px"
   >
     <template v-slot:activator="{ on, attrs }">
