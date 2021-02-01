@@ -11,5 +11,6 @@ export default interface ScheduleInterface {
   id: string,
   date: DateInterface,
   tasksCount: number,
-  tasks: Array<TaskInterface>
+  tasks: Array<TaskInterface>,
+  isMain?: boolean
 }

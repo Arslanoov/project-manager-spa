@@ -1,6 +1,6 @@
 <template>
   <div class="schedule">
-    <h2>{{ getScheduleDateString(schedule) }}</h2>
+    <h2 v-if="schedule.date">{{ getScheduleDateString(schedule) }}</h2>
     <v-timeline
         :key="schedule.id"
         class="schedule"
@@ -40,7 +40,7 @@
               Post
             </v-btn>
             <v-btn
-                @click="toggleTaskForm"
+                @click="onToggleAddTaskForm(true)"
                 :disabled="isLoading"
                 class="mx-0"
                 color="white"
@@ -54,7 +54,14 @@
             </v-btn>
           </template>
         </v-text-field>
-        <v-dialog @change="v => v || toggleTaskForm()" :value="isOpenAddTaskForm" max-width="500px">
+        <v-dialog
+            :value="openedAddTaskFormScheduleId === schedule.id"
+            :retain-focus="false"
+            :key="schedule.id"
+            max-width="500px"
+            @input="v => v || onToggleAddTaskForm(false)"
+            @click.stop="onToggleAddTaskForm(false)"
+        >
           <v-card>
             <v-card-title>
               <span class="headline">Add Task</span>
@@ -108,7 +115,7 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn
-                  @click="toggleTaskForm"
+                  @click="onToggleAddTaskForm(false)"
                   :disabled="isLoading"
                   color="blue darken-1"
                   text
@@ -207,7 +214,7 @@ export default class Schedule extends Vue {
 
   @scheduleModule.State("taskForms") taskForms: Array<TaskForm>
   @scheduleModule.State("importantLevelsList") importantLevelsList: Array<string>
-  @scheduleModule.State("isOpenAddTaskForm") isOpenAddTaskForm: boolean
+  @scheduleModule.State("openedAddTaskFormScheduleId") openedAddTaskFormScheduleId: string | null
 
   @scheduleModule.Mutation("fillTaskForm") fillTaskForm: typeof ScheduleStoreModule.prototype.fillTaskForm
   @scheduleModule.Mutation("addTaskForm") addTaskForm: typeof ScheduleStoreModule.prototype.addTaskForm
@@ -244,6 +251,10 @@ export default class Schedule extends Vue {
 
   public mounted(): void {
     this.addTaskForm(this.clearTaskForm)
+  }
+
+  public onToggleAddTaskForm(needToOpen: boolean): void {
+    needToOpen ? this.toggleTaskForm(this.schedule.id) : this.toggleTaskForm(null)
   }
 
   public setTaskFormName(value: string): void {

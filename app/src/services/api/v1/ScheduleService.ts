@@ -5,6 +5,10 @@ import { API_PREFIX } from "@/services/api/v1/const"
 import { TaskForm } from "@/types/schedule/task/TaskInterface"
 
 export default class ScheduleService {
+  public getMainSchedule(): Promise<AxiosResponse> {
+    return axios.get(`${API_PREFIX}/todo/main`)
+  }
+
   public getTodaySchedule(): Promise<AxiosResponse> {
     return axios.get(`${API_PREFIX}/todo/daily/today`)
   }

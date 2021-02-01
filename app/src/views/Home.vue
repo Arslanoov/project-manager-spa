@@ -1,40 +1,58 @@
 <template>
   <v-container class="daily-schedule-page">
-    <v-btn
-        @click="loadLaterSchedule"
-        :disabled="isLoading"
-        color="blue darken-1"
-        text
-    >
-      Load later schedule
-    </v-btn>
-    <v-btn
-        @click="skipToTheLaterWeek"
-        :disabled="isLoading"
-        color="blue darken-1"
-        text
-    >
-      Skip to the later week
-    </v-btn>
-    <div v-for="schedule in schedules" :key="schedule.id" class="schedule-wrapper">
-      <Schedule :schedule="schedule"/>
-    </div>
-    <v-btn
-        @click="loadEarlierSchedule"
-        :disabled="isLoading"
-        color="blue darken-1"
-        text
-    >
-      Load earlier schedule
-    </v-btn>
-    <v-btn
-        @click="skipToThePrevWeek"
-        :disabled="isLoading"
-        color="blue darken-1"
-        text
-    >
-      Skip to the earlier week
-    </v-btn>
+    <v-row>
+      <v-col
+          v-if="mainSchedule"
+          xs="12"
+          sm="12"
+          md="6"
+      >
+        <h2>Common tasks</h2>
+        <Schedule :schedule="mainSchedule"/>
+      </v-col>
+
+      <v-col
+        xs="12"
+        sm="12"
+        md="6"
+      >
+        <v-btn
+            @click="loadLaterSchedule"
+            :disabled="isLoading"
+            color="blue darken-1"
+            text
+        >
+          Load later schedule
+        </v-btn>
+        <v-btn
+            @click="skipToTheLaterWeek"
+            :disabled="isLoading"
+            color="blue darken-1"
+            text
+        >
+          Skip to the later week
+        </v-btn>
+        <div v-for="schedule in dailySchedules" :key="schedule.id" class="schedule-wrapper">
+          <Schedule :schedule="schedule"/>
+        </div>
+        <v-btn
+            @click="loadEarlierSchedule"
+            :disabled="isLoading"
+            color="blue darken-1"
+            text
+        >
+          Load earlier schedule
+        </v-btn>
+        <v-btn
+            @click="skipToThePrevWeek"
+            :disabled="isLoading"
+            color="blue darken-1"
+            text
+        >
+          Skip to the earlier week
+        </v-btn>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -59,9 +77,8 @@ import ScheduleInterface from "@/types/schedule/ScheduleInterface"
   }
 })
 
-export default class DailySchedule extends Vue {
-  @scheduleModule.State("schedules") schedules: Array<ScheduleInterface>
-
+export default class Home extends Vue {
+  @scheduleModule.Action("getMainSchedule") getMainSchedule: typeof ScheduleStoreModule.prototype.getMainSchedule
   @scheduleModule.Action("getTodaySchedule") getTodaySchedule: typeof ScheduleStoreModule.prototype.getTodaySchedule
   @scheduleModule.Action("getPrevSchedule") getPrevSchedule: typeof ScheduleStoreModule.prototype.getPrevSchedule
   @scheduleModule.Action("getNextSchedule") getNextSchedule: typeof ScheduleStoreModule.prototype.getNextSchedule
@@ -69,9 +86,13 @@ export default class DailySchedule extends Vue {
   @scheduleModule.Action("getPrevScheduleWeek") getPrevScheduleWeek: typeof ScheduleStoreModule.prototype.getPrevScheduleWeek
   @scheduleModule.Action("getNextScheduleWeek") getNextScheduleWeek: typeof ScheduleStoreModule.prototype.getNextScheduleWeek
 
+  @scheduleModule.Getter("dailySchedules") dailySchedules: Array<ScheduleInterface>
+  @scheduleModule.Getter("mainSchedule") mainSchedule: ScheduleInterface
+
   public isLoading = false
 
   public mounted(): void {
+    this.getMainSchedule()
     this.getTodaySchedule()
   }
 

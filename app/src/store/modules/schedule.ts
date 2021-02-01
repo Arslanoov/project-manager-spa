@@ -16,20 +16,16 @@ const service: ScheduleService = new ScheduleService()
 
 class Schedule extends VuexModule {
   public schedules: Array<ScheduleInterface> = []
+
   public taskForms: Array<TaskForm> = []
   public importantLevelsList: Array<string> = [
     "Very Important",
     "Important",
     "Not Important"
   ]
-  public isOpenAddTaskForm = false
+  public openedAddTaskFormScheduleId: string | null = null
   // TODO: Add
   public error: string | undefined = undefined
-
-  @Mutation
-  public setTodaySchedule(schedule: ScheduleInterface): void {
-    this.schedules = [schedule]
-  }
 
   @Mutation
   public addSchedule(schedule: ScheduleInterface): void {
@@ -62,8 +58,8 @@ class Schedule extends VuexModule {
   }
 
   @Mutation
-  public toggleAddTaskForm(): void {
-    this.isOpenAddTaskForm = !this.isOpenAddTaskForm
+  public toggleAddTaskForm(scheduleId: string | null): void {
+    this.openedAddTaskFormScheduleId = scheduleId
   }
 
   // TODO: FULL CHANGE
@@ -171,12 +167,28 @@ class Schedule extends VuexModule {
   }
 
   @Action({ rawError: true })
+  public getMainSchedule(): Promise<ScheduleInterface> {
+    return new Promise((resolve, reject) => {
+      service.getMainSchedule()
+        .then(response => {
+          const schedule: ScheduleInterface = response.data
+          this.context.commit("addSchedule", schedule)
+          resolve(schedule)
+        })
+        .catch(error => {
+          console.log(error)
+          reject(error.response)
+        })
+    })
+  }
+
+  @Action({ rawError: true })
   public getTodaySchedule(): Promise<ScheduleInterface> {
     return new Promise((resolve, reject) => {
       service.getTodaySchedule()
         .then(response => {
           const schedule: ScheduleInterface = response.data
-          this.context.commit("setTodaySchedule", schedule)
+          this.context.commit("addSchedule", schedule)
           resolve(schedule)
         })
         .catch(error => {
@@ -359,6 +371,14 @@ class Schedule extends VuexModule {
         }
       }
     })
+  }
+
+  public get dailySchedules(): Array<ScheduleInterface> {
+    return this.schedules.filter(schedule => !schedule.isMain)
+  }
+
+  public get mainSchedule(): ScheduleInterface | undefined {
+    return this.schedules.find(schedule => schedule.isMain)
   }
 }
 
