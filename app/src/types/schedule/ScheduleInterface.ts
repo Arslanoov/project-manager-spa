@@ -9,8 +9,10 @@ interface DateInterface {
 
 export default interface ScheduleInterface {
   id: string,
+  name?: string,
   date: DateInterface,
   tasksCount: number,
   tasks: Array<TaskInterface>,
-  isMain?: boolean
+  isMain?: boolean,
+  isCustom?: boolean
 }
