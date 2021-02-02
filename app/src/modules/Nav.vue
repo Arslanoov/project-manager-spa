@@ -21,6 +21,18 @@
             <v-list-item-title>Home</v-list-item-title>
           </v-list-item>
 
+          <template v-for="schedule in customSchedules">
+            <v-list-item :key="schedule.id" @click="onGoPage(routesNames.CustomSchedule, {
+              id: schedule.id
+            })">
+              <v-list-item-icon>
+                <!-- TODO: Change icon -->
+                <v-icon>mdi-home</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>{{ schedule.name }}</v-list-item-title>
+            </v-list-item>
+          </template>
+
           <v-list-item @click="onExit">
             <v-list-item-icon>
               <v-icon>mdi-logout</v-icon>
@@ -54,9 +66,10 @@ import { namespace } from "vuex-class"
 
 import { routesNames } from "@/router/names"
 
-import User from "@/store/modules/user"
-
+import UserStoreModule from "@/store/modules/user"
 import NavStoreModule from "@/store/modules/nav"
+
+import ScheduleInterface from "@/types/schedule/ScheduleInterface"
 
 const navModule = namespace("Nav")
 const userModule = namespace("User")
@@ -67,18 +80,27 @@ const userModule = namespace("User")
 
 export default class Nav extends Vue {
   @navModule.State("isShowNav") isShowNav: boolean
+  @navModule.State("customSchedules") customSchedules: Array<ScheduleInterface>
 
   @userModule.Getter("isAuth") isAuth: boolean
 
   @navModule.Mutation("toggleNavVisibility") toggleNavVisibility: typeof NavStoreModule.prototype.toggleNavVisibility
 
-  @userModule.Action("logout") logout: typeof User.prototype.logout
+  @userModule.Action("logout") logout: typeof UserStoreModule.prototype.logout
+  @navModule.Action("getCustomSchedules") getCustomSchedules: typeof NavStoreModule.prototype.getCustomSchedules
 
   public routesNames = routesNames
 
-  public onGoPage(name: routesNames): void {
+  public mounted(): void {
+    if (this.isAuth) {
+      this.getCustomSchedules()
+    }
+  }
+
+  public onGoPage(name: routesNames, query: {[ key: string]: string } = {}): void {
     this.$router.push({
-      name: routesNames[name]
+      name: routesNames[name],
+      query
     }).catch(() => console.log(`Already in ${name} page`))
   }
 

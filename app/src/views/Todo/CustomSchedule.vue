@@ -34,14 +34,14 @@ export default class CustomSchedule extends Vue {
   @scheduleModule.Action("getCustomSchedule") getCustomSchedule: typeof ScheduleStoreModule.prototype.getCustomSchedule
 
   public isLoading = false
-  public id: string | undefined = this.$route.query.id
+  public id: string | undefined = this.$route.query.id as string | undefined
 
   public mounted(): void {
     if (!this.id) {
       this.redirectToNotFoundPage()
     }
 
-    this.getCustomSchedule(this.id)
+    this.getCustomSchedule(this.id as string)
       .catch(error => {
         if (404 === error.response.status) {
           this.redirectToNotFoundPage()
