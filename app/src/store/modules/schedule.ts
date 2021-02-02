@@ -65,7 +65,7 @@ class Schedule extends VuexModule {
   // TODO: FULL CHANGE
   @Mutation
   public fillTaskForm(form: TaskForm): void {
-    const index: number = this.taskForms.findIndex(form => form.scheduleId === form.scheduleId)
+    const index: number = this.taskForms.findIndex(item => item.scheduleId === form.scheduleId)
 
     this.taskForms = this.taskForms.map((taskForm: TaskForm, formIndex: number) => {
       return index === formIndex ? {
