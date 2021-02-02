@@ -1,10 +1,11 @@
 import Vue from "vue"
 import VueRouter, { RouteConfig } from "vue-router"
 
+import Home from "@/views/Todo/Home.vue"
+import CustomSchedule from "@/views/Todo/CustomSchedule.vue"
 import Login from "@/views/Auth/Login.vue"
 import SignUp from "@/views/Auth/SignUp.vue"
 import ConfirmSignUp from "@/views/Auth/ConfirmSignUp.vue"
-import Home from "@/views/Home.vue"
 import AccessDenied from "@/views/AccessDenied.vue"
 import NotFound from "@/views/NotFound.vue"
 
@@ -38,6 +39,14 @@ const routes: Array<RouteConfig> = [
     path: "/today",
     name: routesNames.Home,
     component: Home,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/custom/:id",
+    name: routesNames.CustomSchedule,
+    component: CustomSchedule,
     meta: {
       requiresAuth: true
     }

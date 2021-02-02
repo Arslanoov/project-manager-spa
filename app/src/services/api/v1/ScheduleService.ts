@@ -9,6 +9,14 @@ export default class ScheduleService {
     return axios.get(`${API_PREFIX}/todo/main`)
   }
 
+  public getCustomSchedules(): Promise<AxiosResponse> {
+    return axios.get(`${API_PREFIX}/todo/custom/list`)
+  }
+
+  public getCustomSchedule(id: string): Promise<AxiosResponse> {
+    return axios.get(`${API_PREFIX}/todo/custom/get/${id}`)
+  }
+
   public getTodaySchedule(): Promise<AxiosResponse> {
     return axios.get(`${API_PREFIX}/todo/daily/today`)
   }

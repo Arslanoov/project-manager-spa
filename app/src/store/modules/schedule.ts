@@ -62,7 +62,6 @@ class Schedule extends VuexModule {
     this.openedAddTaskFormScheduleId = scheduleId
   }
 
-  // TODO: FULL CHANGE
   @Mutation
   public fillTaskForm(form: TaskForm): void {
     const index: number = this.taskForms.findIndex(item => item.scheduleId === form.scheduleId)
@@ -170,6 +169,22 @@ class Schedule extends VuexModule {
   public getMainSchedule(): Promise<ScheduleInterface> {
     return new Promise((resolve, reject) => {
       service.getMainSchedule()
+        .then(response => {
+          const schedule: ScheduleInterface = response.data
+          this.context.commit("addSchedule", schedule)
+          resolve(schedule)
+        })
+        .catch(error => {
+          console.log(error)
+          reject(error.response)
+        })
+    })
+  }
+
+  @Action({ rawError: true })
+  public getCustomSchedule(id: string): Promise<ScheduleInterface> {
+    return new Promise((resolve, reject) => {
+      service.getCustomSchedule(id)
         .then(response => {
           const schedule: ScheduleInterface = response.data
           this.context.commit("addSchedule", schedule)
@@ -374,7 +389,7 @@ class Schedule extends VuexModule {
   }
 
   public get dailySchedules(): Array<ScheduleInterface> {
-    return this.schedules.filter(schedule => !schedule.isMain)
+    return this.schedules.filter(schedule => !schedule.isMain && !schedule.isCustom)
   }
 
   public get mainSchedule(): ScheduleInterface | undefined {
