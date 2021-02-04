@@ -7,6 +7,10 @@ interface DateInterface {
   string: string
 }
 
+export interface CustomScheduleFormInterface {
+  name: string
+}
+
 export default interface ScheduleInterface {
   id: string,
   name?: string,
