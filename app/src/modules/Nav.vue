@@ -21,17 +21,24 @@
             <v-list-item-title>Home</v-list-item-title>
           </v-list-item>
 
+          <!-- TODO: Vertical align -->
           <template v-for="schedule in customSchedules">
-            <v-list-item :key="schedule.id" @click="onGoPage(routesNames.CustomSchedule, {
-              id: schedule.id
-            })">
+            <v-list-item :key="schedule.id">
               <v-list-item-icon>
-                <!-- TODO: Change icon -->
-                <v-icon>mdi-home</v-icon>
+                <v-icon>mdi-format-list-bulleted</v-icon>
               </v-list-item-icon>
-              <v-list-item-title>{{ schedule.name }}</v-list-item-title>
+              <v-list-item-content>
+                <v-list-item-title @click="onGoPage(routesNames.CustomSchedule, {
+                  id: schedule.id
+                })">{{ schedule.name }}</v-list-item-title>
+              </v-list-item-content>
+              <v-list-item-action @click.prevent="onScheduleRemove(schedule.id)">
+                <v-icon>mdi-close</v-icon>
+              </v-list-item-action>
             </v-list-item>
           </template>
+
+          <AddCustomSchedule />
 
           <v-list-item @click="onExit">
             <v-list-item-icon>
@@ -62,9 +69,12 @@
 <script lang="ts">
 import Vue from "vue"
 import Component from "vue-class-component"
+import { Watch } from "vue-property-decorator"
 import { namespace } from "vuex-class"
 
 import { routesNames } from "@/router/names"
+
+import AddCustomSchedule from "@/components/AddCustomSchedule.vue"
 
 import UserStoreModule from "@/store/modules/user"
 import NavStoreModule from "@/store/modules/nav"
@@ -75,7 +85,10 @@ const navModule = namespace("Nav")
 const userModule = namespace("User")
 
 @Component({
-  name: "Nav"
+  name: "Nav",
+  components: {
+    AddCustomSchedule
+  }
 })
 
 export default class Nav extends Vue {
@@ -88,20 +101,35 @@ export default class Nav extends Vue {
 
   @userModule.Action("logout") logout: typeof UserStoreModule.prototype.logout
   @navModule.Action("getCustomSchedules") getCustomSchedules: typeof NavStoreModule.prototype.getCustomSchedules
+  @navModule.Action("removeCustomSchedule") removeCustomSchedule: typeof NavStoreModule.prototype.removeCustomSchedule
 
   public routesNames = routesNames
 
+  @Watch("isAuth")
+  onAuthStateChange(): void {
+    this.init()
+  }
+
   public mounted(): void {
+    this.init()
+  }
+
+  public init(): void {
     if (this.isAuth) {
       this.getCustomSchedules()
     }
   }
 
-  public onGoPage(name: routesNames, query: {[ key: string]: string } = {}): void {
+  public onGoPage(name: routesNames, params: {[ key: string]: string } = {}): void {
     this.$router.push({
       name: routesNames[name],
-      query
+      params
     }).catch(() => console.log(`Already in ${name} page`))
+  }
+
+  public onScheduleRemove(id: string): void {
+    // TODO: Redirect on same page
+    this.removeCustomSchedule(id)
   }
 
   public onExit(): void {

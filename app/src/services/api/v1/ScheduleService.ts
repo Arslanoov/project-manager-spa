@@ -13,6 +13,20 @@ export default class ScheduleService {
     return axios.get(`${API_PREFIX}/todo/custom/list`)
   }
 
+  public addCustomSchedules(name: string): Promise<AxiosResponse> {
+    return axios.post(`${API_PREFIX}/todo/custom/create`, {
+      name
+    })
+  }
+
+  public removeCustomSchedule(id: string): Promise<AxiosResponse> {
+    return axios.delete(`${API_PREFIX}/todo/custom/remove`, {
+      data: {
+        id
+      }
+    })
+  }
+
   public getCustomSchedule(id: string): Promise<AxiosResponse> {
     return axios.get(`${API_PREFIX}/todo/custom/get/${id}`)
   }

@@ -44,7 +44,7 @@ const routes: Array<RouteConfig> = [
     }
   },
   {
-    path: "/custom/:id",
+    path: "/todo/:id",
     name: routesNames.CustomSchedule,
     component: CustomSchedule,
     meta: {

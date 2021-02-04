@@ -8,6 +8,7 @@
 <script lang="ts">
 import Vue from "vue"
 import Component from "vue-class-component"
+import { Watch } from "vue-property-decorator"
 import {
   namespace
 } from "vuex-class"
@@ -29,19 +30,27 @@ import ScheduleInterface from "@/types/schedule/ScheduleInterface"
 })
 
 export default class CustomSchedule extends Vue {
+  @Watch("$route.params")
+  onIdChange(): void {
+    this.init()
+  }
+
   @scheduleModule.State("schedules") schedules: Array<ScheduleInterface>
 
   @scheduleModule.Action("getCustomSchedule") getCustomSchedule: typeof ScheduleStoreModule.prototype.getCustomSchedule
 
   public isLoading = false
-  public id: string | undefined = this.$route.query.id as string | undefined
 
   public mounted(): void {
-    if (!this.id) {
+    this.init()
+  }
+
+  public init(): void {
+    if (!this.$route.params.id) {
       this.redirectToNotFoundPage()
     }
 
-    this.getCustomSchedule(this.id as string)
+    this.getCustomSchedule(this.$route.params.id as string)
       .catch(error => {
         if (404 === error.response.status) {
           this.redirectToNotFoundPage()
@@ -50,7 +59,7 @@ export default class CustomSchedule extends Vue {
   }
 
   public get customSchedule(): ScheduleInterface | undefined {
-    return this.schedules.find(schedule => schedule.id === this.id && schedule.isCustom)
+    return this.schedules.find(schedule => schedule.id === this.$route.params.id && schedule.isCustom)
   }
 
   private redirectToNotFoundPage(): void {
