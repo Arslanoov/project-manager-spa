@@ -20,6 +20,14 @@ export default class SettingsStorage {
     })
   }
 
+  public changeNightMode(value: boolean): void {
+    const settings = this.getSettings()
+    this.setSettings({
+      ...settings,
+      nightMode: value
+    })
+  }
+
   private setSettings(newSettings: SettingsInterface): void {
     localStorage.setItem("settings", JSON.stringify(newSettings))
   }

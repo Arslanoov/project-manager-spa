@@ -25,9 +25,21 @@ const settingsModule = namespace("Settings")
 
 export default class App extends Vue {
   @settingsModule.Action("fetchSettings") fetchSettings: typeof SettingsStoreModule.prototype.fetchSettings
+  @settingsModule.Action("changeNightMode") changeNightMode: typeof SettingsStoreModule.prototype.changeNightMode
 
   public mounted(): void {
     this.fetchSettings()
+
+    window.matchMedia("(prefers-color-scheme: dark)")
+      .addListener(e => this.changeTheme(e.matches))
+
+    window.matchMedia("(prefers-color-scheme: dark)")
+      .addEventListener("change", e => this.changeTheme(e.matches))
+  }
+
+  public changeTheme(isNightMode: boolean): void {
+    this.changeNightMode(isNightMode)
+    this.$vuetify.theme.dark = isNightMode
   }
 }
 </script>

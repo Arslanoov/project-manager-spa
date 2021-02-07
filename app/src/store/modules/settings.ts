@@ -23,7 +23,7 @@ class Settings extends VuexModule {
   }
 
   @Mutation
-  public changeNightMode(nightMode: boolean): void {
+  public setNightMode(nightMode: boolean): void {
     this.settings.nightMode = nightMode
   }
 
@@ -35,7 +35,13 @@ class Settings extends VuexModule {
   @Action({ rawError: true })
   public toggleNightMode(): void {
     storage.toggleNightMode()
-    this.context.commit("changeNightMode", !this.settings.nightMode)
+    this.context.commit("setNightMode", !this.settings.nightMode)
+  }
+
+  @Action({ rawError: true })
+  public changeNightMode(value: boolean): void {
+    storage.changeNightMode(value)
+    this.context.commit("setNightMode", value)
   }
 }
 
