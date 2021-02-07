@@ -4,6 +4,7 @@ export enum routesNames {
   Login = "Login",
   SignUp = "SignUp",
   ConfirmSignUp = "ConfirmSignUp",
+  Settings = "Settings",
   AccessDenied = "AccessDenied",
   NotFound = "NotFound"
 }

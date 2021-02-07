@@ -1,6 +1,6 @@
 <template>
   <v-container class="daily-schedule-page">
-    <v-row>
+    <v-row v-if="mainSchedule && dailySchedules.length > 0">
       <v-col
           v-if="mainSchedule"
           xs="12"
@@ -8,7 +8,7 @@
           md="6"
       >
         <h2>Common tasks</h2>
-        <Schedule :schedule="mainSchedule"/>
+        <Schedule :schedule="mainSchedule" :have-hot-keys="true" />
       </v-col>
 
       <v-col
@@ -33,7 +33,7 @@
           Skip to the later week
         </v-btn>
         <div v-for="schedule in dailySchedules" :key="schedule.id" class="schedule-wrapper">
-          <Schedule :schedule="schedule"/>
+          <Schedule :schedule="schedule" :have-hot-keys="false" />
         </div>
         <v-btn
             @click="loadEarlierSchedule"
@@ -78,13 +78,18 @@ import ScheduleInterface from "@/types/schedule/ScheduleInterface"
 })
 
 export default class Home extends Vue {
+  @scheduleModule.Mutation("clearSchedulesAndForms") clearSchedulesAndForms:
+      typeof ScheduleStoreModule.prototype.clearSchedulesAndForms
+
   @scheduleModule.Action("getMainSchedule") getMainSchedule: typeof ScheduleStoreModule.prototype.getMainSchedule
   @scheduleModule.Action("getTodaySchedule") getTodaySchedule: typeof ScheduleStoreModule.prototype.getTodaySchedule
   @scheduleModule.Action("getPrevSchedule") getPrevSchedule: typeof ScheduleStoreModule.prototype.getPrevSchedule
   @scheduleModule.Action("getNextSchedule") getNextSchedule: typeof ScheduleStoreModule.prototype.getNextSchedule
 
-  @scheduleModule.Action("getPrevScheduleWeek") getPrevScheduleWeek: typeof ScheduleStoreModule.prototype.getPrevScheduleWeek
-  @scheduleModule.Action("getNextScheduleWeek") getNextScheduleWeek: typeof ScheduleStoreModule.prototype.getNextScheduleWeek
+  @scheduleModule.Action("getPrevScheduleWeek") getPrevScheduleWeek:
+      typeof ScheduleStoreModule.prototype.getPrevScheduleWeek
+  @scheduleModule.Action("getNextScheduleWeek") getNextScheduleWeek:
+      typeof ScheduleStoreModule.prototype.getNextScheduleWeek
 
   @scheduleModule.Getter("dailySchedules") dailySchedules: Array<ScheduleInterface>
   @scheduleModule.Getter("mainSchedule") mainSchedule: ScheduleInterface
@@ -94,6 +99,10 @@ export default class Home extends Vue {
   public mounted(): void {
     this.getMainSchedule()
     this.getTodaySchedule()
+  }
+
+  public destroyed(): void {
+    this.clearSchedulesAndForms()
   }
 
   public loadEarlierSchedule(): void {

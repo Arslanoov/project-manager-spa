@@ -38,6 +38,12 @@ class Schedule extends VuexModule {
   }
 
   @Mutation
+  public clearSchedulesAndForms(): void {
+    this.schedules = []
+    this.taskForms = []
+  }
+
+  @Mutation
   public addTaskForm(form: TaskForm): void {
     this.taskForms.push(form)
   }
@@ -216,11 +222,11 @@ class Schedule extends VuexModule {
   @Action({ rawError: true })
   public getPrevSchedule(): Promise<ScheduleInterface> {
     return new Promise((resolve, reject) => {
-      if (this.schedules.length === 0) {
+      if (this.dailySchedules.length === 0) {
         reject(new Error("Empty schedules list"))
       }
 
-      const latestSchedule: ScheduleInterface = this.schedules[this.schedules.length - 1]
+      const latestSchedule: ScheduleInterface = this.dailySchedules[this.dailySchedules.length - 1]
 
       service.getPrevSchedule(latestSchedule.id)
         .then(response => {
@@ -238,11 +244,11 @@ class Schedule extends VuexModule {
   @Action({ rawError: true })
   public getPrevScheduleWeek(): Promise<ScheduleInterface> {
     return new Promise((resolve, reject) => {
-      if (this.schedules.length === 0) {
+      if (this.dailySchedules.length === 0) {
         reject(new Error("Empty schedules list"))
       }
 
-      const firstSchedule: ScheduleInterface = this.schedules[0]
+      const firstSchedule: ScheduleInterface = this.dailySchedules[0]
 
       service.getNextWeekSchedule(firstSchedule.id)
         .then(response => {
@@ -260,11 +266,11 @@ class Schedule extends VuexModule {
   @Action({ rawError: true })
   public getNextSchedule(): Promise<ScheduleInterface> {
     return new Promise((resolve, reject) => {
-      if (this.schedules.length === 0) {
+      if (this.dailySchedules.length === 0) {
         reject(new Error("Empty schedules list"))
       }
 
-      const firstSchedule: ScheduleInterface = this.schedules[0]
+      const firstSchedule: ScheduleInterface = this.dailySchedules[0]
 
       service.getNextSchedule(firstSchedule.id)
         .then(response => {
@@ -282,11 +288,11 @@ class Schedule extends VuexModule {
   @Action({ rawError: true })
   public getNextScheduleWeek(): Promise<ScheduleInterface> {
     return new Promise((resolve, reject) => {
-      if (this.schedules.length === 0) {
+      if (this.dailySchedules.length === 0) {
         reject(new Error("Empty schedules list"))
       }
 
-      const latestSchedule: ScheduleInterface = this.schedules[this.schedules.length - 1]
+      const latestSchedule: ScheduleInterface = this.dailySchedules[this.dailySchedules.length - 1]
 
       service.getPrevWeekSchedule(latestSchedule.id)
         .then(response => {
