@@ -1,5 +1,6 @@
 <template>
   <v-navigation-drawer
+      v-hotkey="keymap"
       @click.stop="toggleNavVisibility"
       @input="v => v || toggleNavVisibility()"
       :value="isShowNav"
@@ -122,6 +123,11 @@ export default class Nav extends Vue {
   @navModule.Action("removeCustomSchedule") removeCustomSchedule: typeof NavStoreModule.prototype.removeCustomSchedule
 
   public routesNames = routesNames
+
+  public keymap = {
+    'ctrl+u': this.toggleScheduleForm,
+    'ctrl+e': this.onExit
+  }
 
   @Watch("isAuth")
   onAuthStateChange(): void {

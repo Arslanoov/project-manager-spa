@@ -1,7 +1,7 @@
 <template>
   <v-container class="custom-schedule-page" v-if="customSchedule">
       <h2>{{ customSchedule.name }}</h2>
-      <Schedule :key="`custom-${customSchedule.id}`" :schedule="customSchedule"/>
+      <Schedule :key="`custom-${customSchedule.id}`" :schedule="customSchedule" :have-hot-keys="true" />
   </v-container>
 </template>
 

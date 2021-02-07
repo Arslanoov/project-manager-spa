@@ -1,5 +1,5 @@
 <template>
-  <div class="schedule">
+  <div class="schedule" v-hotkey="haveHotKeys ? keymap : {}">
     <h2 v-if="schedule.date">{{ getScheduleDateString(schedule) }}</h2>
     <v-timeline
         :key="schedule.id"
@@ -213,6 +213,7 @@ const settingsModule = namespace("Settings")
 // TODO: Add remove color
 export default class Schedule extends Vue {
   @Prop({ required: true }) readonly schedule: ScheduleInterface
+  @Prop({ required: true }) readonly haveHotKeys: boolean
 
   @scheduleModule.State("taskForms") taskForms: Array<TaskForm>
   @scheduleModule.State("importantLevelsList") importantLevelsList: Array<string>
@@ -228,6 +229,13 @@ export default class Schedule extends Vue {
   @scheduleModule.Action("removeTask") removeTask: typeof ScheduleStoreModule.prototype.removeTask
 
   public getScheduleDateString = getScheduleDateString
+
+  public keymap = {
+    'ctrl+f': this.onToggleAddTaskFormKeyup(true),
+    'ctrl+c': this.onToggleAddTaskFormKeyup(false),
+    'ctrl+i': this.changeImportantLevel,
+    'ctrl+s': this.onSubmit
+  }
 
   public get taskForm(): TaskForm {
     if (this.taskForms) {
@@ -258,6 +266,10 @@ export default class Schedule extends Vue {
 
   public onToggleAddTaskForm(needToOpen: boolean): void {
     needToOpen ? this.toggleTaskForm(this.schedule.id) : this.toggleTaskForm(null)
+  }
+
+  public onToggleAddTaskFormKeyup(needToOpen: boolean): Function {
+    return () => this.onToggleAddTaskForm(needToOpen)
   }
 
   public setTaskFormName(value: string): void {

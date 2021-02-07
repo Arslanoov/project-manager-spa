@@ -8,7 +8,7 @@
           md="6"
       >
         <h2>Common tasks</h2>
-        <Schedule :schedule="mainSchedule"/>
+        <Schedule :schedule="mainSchedule" :have-hot-keys="true" />
       </v-col>
 
       <v-col
@@ -33,7 +33,7 @@
           Skip to the later week
         </v-btn>
         <div v-for="schedule in dailySchedules" :key="schedule.id" class="schedule-wrapper">
-          <Schedule :schedule="schedule"/>
+          <Schedule :schedule="schedule" :have-hot-keys="false" />
         </div>
         <v-btn
             @click="loadEarlierSchedule"
