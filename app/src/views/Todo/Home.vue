@@ -78,13 +78,18 @@ import ScheduleInterface from "@/types/schedule/ScheduleInterface"
 })
 
 export default class Home extends Vue {
+  @scheduleModule.Mutation("clearSchedulesAndForms") clearSchedulesAndForms:
+      typeof ScheduleStoreModule.prototype.clearSchedulesAndForms
+
   @scheduleModule.Action("getMainSchedule") getMainSchedule: typeof ScheduleStoreModule.prototype.getMainSchedule
   @scheduleModule.Action("getTodaySchedule") getTodaySchedule: typeof ScheduleStoreModule.prototype.getTodaySchedule
   @scheduleModule.Action("getPrevSchedule") getPrevSchedule: typeof ScheduleStoreModule.prototype.getPrevSchedule
   @scheduleModule.Action("getNextSchedule") getNextSchedule: typeof ScheduleStoreModule.prototype.getNextSchedule
 
-  @scheduleModule.Action("getPrevScheduleWeek") getPrevScheduleWeek: typeof ScheduleStoreModule.prototype.getPrevScheduleWeek
-  @scheduleModule.Action("getNextScheduleWeek") getNextScheduleWeek: typeof ScheduleStoreModule.prototype.getNextScheduleWeek
+  @scheduleModule.Action("getPrevScheduleWeek") getPrevScheduleWeek:
+      typeof ScheduleStoreModule.prototype.getPrevScheduleWeek
+  @scheduleModule.Action("getNextScheduleWeek") getNextScheduleWeek:
+      typeof ScheduleStoreModule.prototype.getNextScheduleWeek
 
   @scheduleModule.Getter("dailySchedules") dailySchedules: Array<ScheduleInterface>
   @scheduleModule.Getter("mainSchedule") mainSchedule: ScheduleInterface
@@ -94,6 +99,10 @@ export default class Home extends Vue {
   public mounted(): void {
     this.getMainSchedule()
     this.getTodaySchedule()
+  }
+
+  public destroyed(): void {
+    this.clearSchedulesAndForms()
   }
 
   public loadEarlierSchedule(): void {

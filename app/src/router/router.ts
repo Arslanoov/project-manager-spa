@@ -6,6 +6,7 @@ import CustomSchedule from "@/views/Todo/CustomSchedule.vue"
 import Login from "@/views/Auth/Login.vue"
 import SignUp from "@/views/Auth/SignUp.vue"
 import ConfirmSignUp from "@/views/Auth/ConfirmSignUp.vue"
+import Settings from "@/views/Settings.vue"
 import AccessDenied from "@/views/AccessDenied.vue"
 import NotFound from "@/views/NotFound.vue"
 
@@ -23,22 +24,39 @@ const routes: Array<RouteConfig> = [
   {
     path: "/auth/login",
     name: routesNames.Login,
-    component: Login
+    component: Login,
+    meta: {
+      requiresNotAuth: true
+    }
   },
   {
     path: "/auth/sign-up",
     name: routesNames.SignUp,
-    component: SignUp
+    component: SignUp,
+    meta: {
+      requiresNotAuth: true
+    }
   },
   {
     path: "/auth/confirm-sign-up/:token",
     name: routesNames.ConfirmSignUp,
-    component: ConfirmSignUp
+    component: ConfirmSignUp,
+    meta: {
+      requiresNotAuth: true
+    }
   },
   {
     path: "/today",
     name: routesNames.Home,
     component: Home,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/settings",
+    name: routesNames.Settings,
+    component: Settings,
     meta: {
       requiresAuth: true
     }

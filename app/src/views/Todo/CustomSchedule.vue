@@ -1,7 +1,7 @@
 <template>
   <v-container class="custom-schedule-page" v-if="customSchedule">
       <h2>{{ customSchedule.name }}</h2>
-      <Schedule :schedule="customSchedule"/>
+      <Schedule :key="`custom-${customSchedule.id}`" :schedule="customSchedule"/>
   </v-container>
 </template>
 
@@ -37,12 +37,19 @@ export default class CustomSchedule extends Vue {
 
   @scheduleModule.State("schedules") schedules: Array<ScheduleInterface>
 
+  @scheduleModule.Mutation("clearSchedulesAndForms") clearSchedulesAndForms:
+      typeof ScheduleStoreModule.prototype.clearSchedulesAndForms
+
   @scheduleModule.Action("getCustomSchedule") getCustomSchedule: typeof ScheduleStoreModule.prototype.getCustomSchedule
 
   public isLoading = false
 
   public mounted(): void {
     this.init()
+  }
+
+  public destroyed(): void {
+    this.clearSchedulesAndForms()
   }
 
   public init(): void {

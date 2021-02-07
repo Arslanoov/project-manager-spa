@@ -3,9 +3,13 @@ import Vuetify from "vuetify/lib/framework"
 
 Vue.use(Vuetify)
 
-// TODO: Add dark theme
-const isDarkMode: boolean = localStorage.getItem("isDarkMode") === "true"
+import SettingsStorage from "@/services/storage/SettingsStorage"
+
+const storage = new SettingsStorage()
+const settings = storage.getSettings()
 
 export default new Vuetify({
-  theme: { dark: isDarkMode }
+  theme: {
+    dark: settings.nightMode
+  }
 })

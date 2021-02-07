@@ -38,6 +38,12 @@ class Schedule extends VuexModule {
   }
 
   @Mutation
+  public clearSchedulesAndForms(): void {
+    this.schedules = []
+    this.taskForms = []
+  }
+
+  @Mutation
   public addTaskForm(form: TaskForm): void {
     this.taskForms.push(form)
   }

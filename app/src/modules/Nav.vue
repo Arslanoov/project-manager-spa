@@ -24,7 +24,9 @@
           <!-- TODO: Vertical align -->
           <template v-for="schedule in customSchedules">
             <v-list-item :key="schedule.id">
-              <v-list-item-icon>
+              <v-list-item-icon @click="onGoPage(routesNames.CustomSchedule, {
+                  id: schedule.id
+                })">
                 <v-icon>mdi-calendar-today</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
@@ -46,7 +48,7 @@
             <v-list-item-title>Custom schedule</v-list-item-title>
           </v-list-item>
 
-          <v-list-item @click="onExit">
+          <v-list-item @click="onGoPage(routesNames.Settings)">
             <v-list-item-icon>
               <v-icon>mdi-book-cog-outline</v-icon>
             </v-list-item-icon>
