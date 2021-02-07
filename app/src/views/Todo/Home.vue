@@ -1,6 +1,6 @@
 <template>
   <v-container class="daily-schedule-page">
-    <v-row>
+    <v-row v-if="mainSchedule && dailySchedules.length > 0">
       <v-col
           v-if="mainSchedule"
           xs="12"
