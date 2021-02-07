@@ -13,6 +13,7 @@ const service = new ScheduleService()
 
 class Nav extends VuexModule {
   public isShowNav = false
+  public isOpenAddCustomScheduleForm = false
   public customSchedules: Array<ScheduleInterface> = []
   public addCustomScheduleForm: CustomScheduleFormInterface = {
     name: ""
@@ -21,6 +22,11 @@ class Nav extends VuexModule {
   @Mutation
   public toggleNavVisibility(): void {
     this.isShowNav = !this.isShowNav
+  }
+
+  @Mutation
+  public toggleAddCustomScheduleForm(): void {
+    this.isOpenAddCustomScheduleForm = !this.isOpenAddCustomScheduleForm
   }
 
   @Mutation

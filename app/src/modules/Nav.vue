@@ -25,7 +25,7 @@
           <template v-for="schedule in customSchedules">
             <v-list-item :key="schedule.id">
               <v-list-item-icon>
-                <v-icon>mdi-format-list-bulleted</v-icon>
+                <v-icon>mdi-calendar-today</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
                 <v-list-item-title @click="onGoPage(routesNames.CustomSchedule, {
@@ -33,12 +33,25 @@
                 })">{{ schedule.name }}</v-list-item-title>
               </v-list-item-content>
               <v-list-item-action @click.prevent="onScheduleRemove(schedule.id)">
-                <v-icon>mdi-close</v-icon>
+                <v-icon small>mdi-calendar-remove</v-icon>
               </v-list-item-action>
             </v-list-item>
           </template>
 
-          <AddCustomSchedule />
+          <AddCustomSchedule v-if="isOpenAddCustomScheduleForm" />
+          <v-list-item @click="toggleScheduleForm">
+            <v-list-item-icon>
+              <v-icon>mdi-calendar-plus</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Custom schedule</v-list-item-title>
+          </v-list-item>
+
+          <v-list-item @click="onExit">
+            <v-list-item-icon>
+              <v-icon>mdi-book-cog-outline</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Settings</v-list-item-title>
+          </v-list-item>
 
           <v-list-item @click="onExit">
             <v-list-item-icon>
@@ -94,10 +107,13 @@ const userModule = namespace("User")
 export default class Nav extends Vue {
   @navModule.State("isShowNav") isShowNav: boolean
   @navModule.State("customSchedules") customSchedules: Array<ScheduleInterface>
+  @navModule.State("isOpenAddCustomScheduleForm") isOpenAddCustomScheduleForm: boolean
 
   @userModule.Getter("isAuth") isAuth: boolean
 
   @navModule.Mutation("toggleNavVisibility") toggleNavVisibility: typeof NavStoreModule.prototype.toggleNavVisibility
+  @navModule.Mutation("toggleAddCustomScheduleForm") toggleScheduleForm:
+      typeof NavStoreModule.prototype.toggleAddCustomScheduleForm
 
   @userModule.Action("logout") logout: typeof UserStoreModule.prototype.logout
   @navModule.Action("getCustomSchedules") getCustomSchedules: typeof NavStoreModule.prototype.getCustomSchedules
