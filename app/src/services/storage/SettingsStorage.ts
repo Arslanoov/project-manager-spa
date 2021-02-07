@@ -7,6 +7,7 @@ export default class SettingsStorage {
     const parsed = JSON.parse(localStorage.getItem("settings") as string)
     if (!parsed) {
       this.setSettings(DEFAULT_SETTINGS)
+      return JSON.parse(localStorage.getItem("settings") as string)
     }
 
     return parsed
