@@ -64,8 +64,10 @@ import {
 } from "vuex-class"
 
 import ScheduleStoreModule from "@/store/modules/schedule"
+import AlertStoreModule from "@/store/modules/alert"
 
 const scheduleModule = namespace("Schedule")
+const alertModule = namespace("Alert")
 
 import Schedule from "@/components/Schedule.vue"
 import ScheduleInterface from "@/types/schedule/ScheduleInterface"
@@ -78,6 +80,8 @@ import ScheduleInterface from "@/types/schedule/ScheduleInterface"
 })
 
 export default class Home extends Vue {
+  @alertModule.Mutation("setMessage") setMessage: typeof AlertStoreModule.prototype.setMessage
+  
   @scheduleModule.Mutation("clearSchedulesAndForms") clearSchedulesAndForms:
       typeof ScheduleStoreModule.prototype.clearSchedulesAndForms
 
@@ -108,24 +112,40 @@ export default class Home extends Vue {
   public loadEarlierSchedule(): void {
     this.isLoading = true
     this.getPrevSchedule()
+      .catch(error => this.setMessage({
+        message: error.data.error,
+        type: "error"
+      }))
       .then(() => this.isLoading = false)
   }
 
   public loadLaterSchedule(): void {
     this.isLoading = true
     this.getNextSchedule()
+      .catch(error => this.setMessage({
+        message: error.data.error,
+        type: "error"
+      }))
       .finally(() => this.isLoading = false)
   }
 
   public skipToTheLaterWeek(): void {
     this.isLoading = true
     this.getPrevScheduleWeek()
+      .catch(error => this.setMessage({
+        message: error.data.error,
+        type: "error"
+      }))
       .finally(() => this.isLoading = false)
   }
 
   public skipToThePrevWeek(): void {
     this.isLoading = true
     this.getNextScheduleWeek()
+      .catch(error => this.setMessage({
+        message: error.data.error,
+        type: "error"
+      }))
       .finally(() => this.isLoading = false)
   }
 }

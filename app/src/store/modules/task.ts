@@ -201,9 +201,6 @@ class Task extends VuexModule {
         })
         .catch(error => {
           console.log(error)
-          if (error.response) {
-            // TODO: Add error catch
-          }
           reject(error.response)
         })
     })
@@ -254,9 +251,6 @@ class Task extends VuexModule {
         })
         .catch(error => {
           console.log(error)
-          if (error.response) {
-            // TODO: Add error catch
-          }
           reject(error.response)
         })
     })

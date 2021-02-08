@@ -29,8 +29,10 @@ import { namespace } from "vuex-class"
 import { CustomScheduleFormInterface } from "@/types/schedule/ScheduleInterface"
 
 import NavStoreModule from "@/store/modules/nav"
+import AlertStoreModule from "@/store/modules/alert"
 
 const navModule = namespace("Nav")
+const alertModule = namespace("Alert")
 
 @Component({
   name: "AddCustomSchedule"
@@ -43,6 +45,7 @@ export default class AddCustomSchedule extends Vue {
  @navModule.Mutation("toggleAddCustomScheduleForm") toggleScheduleForm:
       typeof NavStoreModule.prototype.toggleAddCustomScheduleForm
   @navModule.Action("createCustomSchedule") createCustomSchedule: typeof NavStoreModule.prototype.createCustomSchedule
+  @alertModule.Mutation("setMessage") setMessage: typeof AlertStoreModule.prototype.setMessage
 
   $refs!: {
     form: HTMLFormElement
@@ -62,6 +65,10 @@ export default class AddCustomSchedule extends Vue {
         this.$refs.form.reset()
         this.toggleScheduleForm()
       })
+      .catch(error => this.setMessage({
+        message: error.data.error,
+        type: "error"
+      }))
   }
 
   public onBlur(): void {

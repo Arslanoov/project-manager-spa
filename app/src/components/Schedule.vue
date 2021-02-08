@@ -191,6 +191,7 @@ import { importantLevelsList } from "@/types/schedule/task/TaskInterface"
 import { TaskForm } from "@/types/schedule/task/TaskInterface"
 
 import ScheduleStoreModule from "@/store/modules/schedule"
+import AlertStoreModule from "@/store/modules/alert"
 
 import ScheduleInterface from "@/types/schedule/ScheduleInterface"
 
@@ -201,6 +202,7 @@ import SettingsInterface from "@/types/settings/SettingsInterface"
 
 const scheduleModule = namespace("Schedule")
 const settingsModule = namespace("Settings")
+const alertModule = namespace("Alert")
 
 @Component({
   name: "Schedule",
@@ -223,6 +225,7 @@ export default class Schedule extends Vue {
   @scheduleModule.Mutation("fillTaskForm") fillTaskForm: typeof ScheduleStoreModule.prototype.fillTaskForm
   @scheduleModule.Mutation("addTaskForm") addTaskForm: typeof ScheduleStoreModule.prototype.addTaskForm
   @scheduleModule.Mutation("toggleAddTaskForm") toggleTaskForm: typeof ScheduleStoreModule.prototype.toggleAddTaskForm
+  @alertModule.Mutation("setMessage") setMessage: typeof AlertStoreModule.prototype.setMessage
 
   @scheduleModule.Action("toggleTaskStatus") toggleTaskStatus: typeof ScheduleStoreModule.prototype.toggleTaskStatus
   @scheduleModule.Action("addTask") addTask: typeof ScheduleStoreModule.prototype.addTask
@@ -297,6 +300,10 @@ export default class Schedule extends Vue {
   public onSubmit(): void {
     this.isLoading = true
     this.addTask(this.schedule.id)
+      .catch(error => this.setMessage({
+        message: error.data.error,
+        type: "error"
+      }))
       .finally(() => this.isLoading = false)
   }
 

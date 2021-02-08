@@ -14,8 +14,10 @@ import {
 } from "vuex-class"
 
 import ScheduleStoreModule from "@/store/modules/schedule"
+import AlertStoreModule from "@/store/modules/alert"
 
 const scheduleModule = namespace("Schedule")
+const alertModule = namespace("Alert")
 
 import { routesNames } from "@/router/names"
 
@@ -40,6 +42,8 @@ export default class CustomSchedule extends Vue {
   @scheduleModule.Mutation("clearSchedulesAndForms") clearSchedulesAndForms:
       typeof ScheduleStoreModule.prototype.clearSchedulesAndForms
 
+  @alertModule.Mutation("setMessage") setMessage: typeof AlertStoreModule.prototype.setMessage
+
   @scheduleModule.Action("getCustomSchedule") getCustomSchedule: typeof ScheduleStoreModule.prototype.getCustomSchedule
 
   public isLoading = false
@@ -59,6 +63,11 @@ export default class CustomSchedule extends Vue {
 
     this.getCustomSchedule(this.$route.params.id as string)
       .catch(error => {
+        this.setMessage({
+          message: error.data.error,
+          type: "error"
+        })
+
         if (404 === error.response.status) {
           this.redirectToNotFoundPage()
         }

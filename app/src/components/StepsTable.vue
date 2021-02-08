@@ -53,9 +53,12 @@ import AddStepDialog from "@/components/dialogs/AddStepDialog.vue"
 
 import TaskStoreModule from "@/store/modules/task"
 import ScheduleStoreModule from "@/store/modules/schedule"
+import AlertStoreModule from "@/store/modules/alert"
 
 const scheduleModule = namespace("Schedule")
 const taskModule = namespace("Task")
+const alertModule = namespace("Alert")
+
 
 @Component({
   name: "StepsTable",
@@ -70,7 +73,9 @@ export default class StepsList extends Vue {
   @Prop({ required: true }) readonly steps: Array<StepInterface>
 
   @scheduleModule.Mutation("removeTaskStep") removeTaskStep: typeof ScheduleStoreModule.prototype.removeTaskStep
-  @scheduleModule.Mutation("setTaskStepStatus") setTaskStepStatus: typeof ScheduleStoreModule.prototype.setTaskStepStatus
+  @scheduleModule.Mutation("setTaskStepStatus") setTaskStepStatus:
+      typeof ScheduleStoreModule.prototype.setTaskStepStatus
+  @alertModule.Mutation("setMessage") setMessage: typeof AlertStoreModule.prototype.setMessage
 
   @taskModule.Action("changeStepStatus") changeStepStatus: typeof TaskStoreModule.prototype.changeStepStatus
   @taskModule.Action("changeStepsStatus") changeStepsStatus: typeof TaskStoreModule.prototype.changeStepsStatus
@@ -104,6 +109,10 @@ export default class StepsList extends Vue {
       id: data.item.id,
       newStatus: data.value ? "Complete" : "Not Complete"
     })
+      .catch(error => this.setMessage({
+        message: error.data.error,
+        type: "error"
+      }))
 
     this.setTaskStepStatus({
       scheduleId: this.schedule.id,
@@ -118,6 +127,10 @@ export default class StepsList extends Vue {
       ids: steps.items.map(step => step.id),
       newStatus: steps.value ? "Complete" : "Not Complete"
     })
+      .catch(error => this.setMessage({
+        message: error.data.error,
+        type: "error"
+      }))
 
     steps.items.forEach(step => {
       this.setTaskStepStatus({
@@ -135,6 +148,10 @@ export default class StepsList extends Vue {
         scheduleId: this.schedule.id,
         taskId: this.task.id,
         step: step
+      }))
+      .catch(error => this.setMessage({
+        message: error.data.error,
+        type: "error"
       }))
   }
 }

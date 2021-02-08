@@ -2,6 +2,7 @@
   <v-main>
     <Header />
     <router-view></router-view>
+    <Alert />
   </v-main>
 </template>
 
@@ -10,9 +11,12 @@ import { Component, Vue } from "vue-property-decorator"
 
 import Header from "@/modules/Header.vue"
 
+import Alert from "@/components/base/Alert.vue"
+
 @Component({
   components: {
-    Header
+    Header,
+    Alert
   }
 })
 

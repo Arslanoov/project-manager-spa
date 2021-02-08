@@ -6,6 +6,7 @@ import User from "@/store/modules/user"
 import Schedule from "@/store/modules/schedule"
 import Task from "@/store/modules/task"
 import Settings from "@/store/modules/settings"
+import Alert from "@/store/modules/alert"
 
 // TODO: Fix local storage store
 
@@ -24,7 +25,8 @@ export default new Vuex.Store({
     User,
     Schedule,
     Task,
-    Settings
+    Settings,
+    Alert
   },
   strict: process.env.NODE_ENV !== "production",
   plugins: [
