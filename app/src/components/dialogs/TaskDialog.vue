@@ -14,7 +14,7 @@
       <!--   TODO: Add color condition   -->
       <div class="button">
         <v-btn
-            @click="fetchTaskSteps(task.id)"
+            @click="onFetchTaskSteps(task.id)"
             v-bind="attrs"
             class="mx-0"
             outlined
@@ -70,6 +70,8 @@ import { namespace } from "vuex-class"
 import { Prop } from "vue-property-decorator"
 
 import TaskStoreModule from "@/store/modules/task"
+import AlertStoreModule from "@/store/modules/alert"
+
 import ScheduleInterface from "@/types/schedule/ScheduleInterface"
 import TaskInterface from "@/types/schedule/task/TaskInterface"
 import StepInterface from "@/types/schedule/task/StepInterface"
@@ -77,6 +79,7 @@ import StepInterface from "@/types/schedule/task/StepInterface"
 import StepsTable from "@/components/StepsTable.vue"
 
 const taskModule = namespace("Task")
+const alertModule = namespace("Alert")
 
 @Component({
   name: "TaskDialog",
@@ -92,10 +95,20 @@ export default class StepsList extends Vue {
   @taskModule.State("currentTaskId") currentTaskId: string | null
   @taskModule.State("isOpenedStepsDialog") isOpenedStepsDialog: boolean
 
+  @alertModule.Mutation("setMessage") setMessage: typeof AlertStoreModule.prototype.setMessage
+
   @taskModule.Action("closeDialog") closeDialog: typeof TaskStoreModule.prototype.closeDialog
   @taskModule.Action("fetchTaskSteps") fetchTaskSteps: typeof TaskStoreModule.prototype.fetchTaskSteps
 
   @taskModule.Getter("currentTaskOrderedSteps") steps: Array<StepInterface>
+
+  public onFetchTaskSteps(taskId: string): void {
+    this.fetchTaskSteps(taskId)
+      .catch(error => this.setMessage({
+        message: error.data.error,
+        type: "error"
+      }))
+  }
 }
 </script>
 

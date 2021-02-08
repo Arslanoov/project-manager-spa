@@ -9,9 +9,8 @@ import StepInterface from "@/types/schedule/task/StepInterface"
 const service: ScheduleService = new ScheduleService()
 
 @Module({
-  namespaced: true
-  // Add for tests name: "schedule"
-  // TODO: Fix
+  namespaced: true,
+  name: process.env.NODE_ENV === "test" ? "schedule" : undefined
 })
 
 class Schedule extends VuexModule {
@@ -24,8 +23,6 @@ class Schedule extends VuexModule {
     "Not Important"
   ]
   public openedAddTaskFormScheduleId: string | null = null
-  // TODO: Add
-  public error: string | undefined = undefined
 
   @Mutation
   public addSchedule(schedule: ScheduleInterface): void {
@@ -146,9 +143,9 @@ class Schedule extends VuexModule {
     scheduleId: string,
     task: TaskInterface
   }): void {
-    const schedule = this.schedules.find(schedule => schedule.id === payload.scheduleId)
-    if (schedule) {
-      schedule.tasks.unshift({
+    const index = this.schedules.findIndex(schedule => schedule.id === payload.scheduleId)
+    if (index !== -1) {
+      this.schedules[index].tasks.unshift({
         id: payload.task.id,
         name: payload.task.name ?? "",
         description: payload.task.description ?? "Empty Description",
@@ -315,31 +312,29 @@ class Schedule extends VuexModule {
         reject(new Error("Schedule not found"))
       }
 
-      // TODO: Finish
-
       const taskForm: TaskForm | undefined = this.taskForms.find(form => form.scheduleId === (schedule as ScheduleInterface).id)
-      if (taskForm) {
-        service.addTask(taskForm)
-          .then(response => {
-            const task: TaskInterface = response.data
-            this.context.commit("addTaskToSchedule", {
-              scheduleId: taskForm.scheduleId,
-              task
-            })
-            this.context.commit("clearTaskForm", taskForm.scheduleId)
-            resolve(task)
-          })
-          .catch(error => {
-            console.log(error)
-            this.context.commit("removeTaskFromSchedule", {
-              scheduleId: (schedule as ScheduleInterface).id,
-              taskId: "new"
-            })
-            reject(error.response)
-          })
-
-        // TODO: Add rejects
+      if (!taskForm) {
+        reject(new Error("Task form not found"))
       }
+
+      service.addTask(taskForm as TaskForm)
+        .then(response => {
+          const task: TaskInterface = response.data
+          this.context.commit("addTaskToSchedule", {
+            scheduleId: (taskForm as TaskForm).scheduleId,
+            task
+          })
+          this.context.commit("clearTaskForm", (taskForm as TaskForm).scheduleId)
+          resolve(task)
+        })
+        .catch(error => {
+          console.log(error)
+          this.context.commit("removeTaskFromSchedule", {
+            scheduleId: (schedule as ScheduleInterface).id,
+            taskId: "new"
+          })
+          reject(error.response)
+        })
     })
   }
 

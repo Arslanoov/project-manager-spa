@@ -64,10 +64,13 @@ import TaskInterface from "@/types/schedule/task/TaskInterface"
 
 import TaskStoreModule from "@/store/modules/task"
 import ScheduleStoreModule from "@/store/modules/schedule"
+import AlertStoreModule from "@/store/modules/alert"
+
 import { StepForm } from "@/types/schedule/task/StepInterface"
 
 const scheduleModule = namespace("Schedule")
 const taskModule = namespace("Task")
+const alertModule = namespace("Alert")
 
 @Component({
   name: "AddStepDialog"
@@ -83,6 +86,7 @@ export default class AddStepDialog extends Vue {
   @taskModule.Mutation("toggleAddStepDialog") toggleAddStepDialog: typeof TaskStoreModule.prototype.toggleAddStepDialog
   @taskModule.Mutation("setAddStepFormName") setName: typeof TaskStoreModule.prototype.setAddStepFormName
   @scheduleModule.Mutation("addTaskStep") addTaskStep: typeof ScheduleStoreModule.prototype.addTaskStep
+  @alertModule.Mutation("setMessage") setMessage: typeof AlertStoreModule.prototype.setMessage
 
   @taskModule.Action("addStep") addStep: typeof TaskStoreModule.prototype.addStep
 
@@ -108,6 +112,10 @@ export default class AddStepDialog extends Vue {
           taskId: this.task.id
         })
       })
+      .catch(error => this.setMessage({
+        message: error.data.error,
+        type: "error"
+      }))
   }
 }
 </script>

@@ -9,9 +9,8 @@ import { DEFAULT_SETTINGS } from "@/const/settings"
 const storage = new SettingsStorage()
 
 @Module({
-  namespaced: true
-  // Add for tests name: "settings"
-  // TODO: Fix
+  namespaced: true,
+  name: process.env.NODE_ENV === "test" ? "settings" : undefined
 })
 
 class Settings extends VuexModule {

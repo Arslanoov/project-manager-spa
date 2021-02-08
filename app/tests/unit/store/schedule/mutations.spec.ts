@@ -5,7 +5,7 @@ import { createLocalVue } from "@vue/test-utils"
 
 import Schedule from "@/store/modules/schedule"
 import ScheduleInterface from "@/types/schedule/ScheduleInterface"
-import TaskInterface, {TaskForm} from "@/types/schedule/task/TaskInterface";
+import TaskInterface, { TaskForm } from "@/types/schedule/task/TaskInterface";
 
 const Vue = createLocalVue()
 Vue.use(Vuex)
@@ -22,71 +22,88 @@ const factory = () => {
 
 const scheduleStore = factory()
 
+const schedule: ScheduleInterface = {
+  id: "4325",
+  date: {
+    day: 12,
+    month: 12,
+    year: 2015,
+    string: "23.12.2020"
+  },
+  tasksCount: 1,
+  tasks: [
+    {
+      id: "7654",
+      name: "task 2",
+      description: "desc 1",
+      importantLevel: "Very Important",
+      status: "Not Complete",
+      stepsCount: 3,
+      finishedSteps: 2
+    }
+  ]
+}
+const scheduleWithoutTasks: ScheduleInterface = {
+  id: "4325",
+  date: {
+    day: 12,
+    month: 12,
+    year: 2015,
+    string: "23.12.2020"
+  },
+  tasksCount: 0,
+  tasks: []
+}
+const task: TaskInterface = {
+  id: "someid",
+  name: "task",
+  description: "desc",
+  importantLevel: "Important",
+  status: "Not Finished",
+  stepsCount: 0,
+  finishedSteps: 0
+}
+const form: TaskForm = {
+  scheduleId: "id",
+  name: undefined,
+  description: undefined,
+  importantLevel: undefined
+}
+
 describe("Schedule Store", () => {
   it("adds new schedule", () => {
-    expect(scheduleStore.schedules.length).toEqual(1)
+    scheduleStore.clearSchedulesAndForms()
 
-    const schedule: ScheduleInterface = {
-      id: "4325",
-      date: {
-        day: 12,
-        month: 12,
-        year: 2015,
-        string: "23.12.2020"
-      },
-      tasksCount: 1,
-      tasks: [
-        {
-          id: "7654",
-          name: "task 2",
-          description: "desc 1",
-          importantLevel: "Very Important",
-          status: "Not Complete",
-          stepsCount: 3,
-          finishedSteps: 2
-        }
-      ]
-    }
+    expect(scheduleStore.schedules.length).toEqual(0)
 
     scheduleStore.addSchedule(schedule)
 
-    expect(scheduleStore.schedules[1]).toEqual(schedule)
-    expect(scheduleStore.schedules.length).toEqual(2)
+    expect(scheduleStore.schedules[0]).toEqual(schedule)
+    expect(scheduleStore.schedules.length).toEqual(1)
+
+    scheduleStore.clearSchedulesAndForms()
   })
 
-  it("adds new task form", () => {
-    expect(scheduleStore.taskForms.length).toEqual(0)
+  it("adds and fills new task form", () => {
+    scheduleStore.clearSchedulesAndForms()
 
-    const form: TaskForm = {
-      scheduleId: "id",
-      name: undefined,
-      description: undefined,
-      importantLevel: undefined
-    }
+    expect(scheduleStore.taskForms.length).toEqual(0)
 
     scheduleStore.addTaskForm(form)
 
     expect(scheduleStore.taskForms[0]).toEqual(form)
     expect(scheduleStore.taskForms.length).toEqual(1)
-  })
-
-  it("adds fills task form", () => {
-    expect(scheduleStore.taskForms.length).toEqual(1)
-
-    const form: TaskForm = {
-      scheduleId: "id",
-      name: "Some name",
-      description: "Some desc",
-      importantLevel: "Very Important"
-    }
 
     scheduleStore.fillTaskForm(form)
 
     expect(scheduleStore.taskForms[0]).toEqual(form)
     expect(scheduleStore.taskForms.length).toEqual(1)
+
+    scheduleStore.clearSchedulesAndForms()
   })
 
   it("toggles add task form dialog", () => {
+    scheduleStore.clearSchedulesAndForms()
     expect(scheduleStore.openedAddTaskFormScheduleId).toEqual(null)
 
     scheduleStore.toggleAddTaskForm("65")
@@ -96,23 +113,16 @@ describe("Schedule Store", () => {
     scheduleStore.toggleAddTaskForm(null)
 
     expect(scheduleStore.openedAddTaskFormScheduleId).toEqual(null)
+
+    scheduleStore.clearSchedulesAndForms()
   })
 
-  // TODO: Finish test
   it("adds and removes task to schedule", () => {
-    const scheduleId = "scheduleId"
+    scheduleStore.clearSchedulesAndForms()
+
+    scheduleStore.addSchedule(scheduleWithoutTasks)
 
     expect(scheduleStore.schedules[0].tasks.length).toEqual(0)
-
-    const task: TaskInterface = {
-      id: "someid",
-      name: "task",
-      description: "desc",
-      importantLevel: "Important",
-      status: "Not Finished",
-      stepsCount: 0,
-      finishedSteps: 0
-    }
 
     scheduleStore.addTaskToSchedule({
       scheduleId: scheduleStore.schedules[0].id,
@@ -127,5 +137,7 @@ describe("Schedule Store", () => {
     })
 
     expect(scheduleStore.schedules[0].tasks.length).toEqual(0)
+
+    scheduleStore.clearSchedulesAndForms()
   })
 })

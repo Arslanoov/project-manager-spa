@@ -9,7 +9,8 @@ const taskService: TaskService = new TaskService()
 const stepService: StepService = new StepService()
 
 @Module({
-  namespaced: true
+  namespaced: true,
+  name: process.env.NODE_ENV === "test" ? "task" : undefined
 })
 
 class Task extends VuexModule {
@@ -201,9 +202,6 @@ class Task extends VuexModule {
         })
         .catch(error => {
           console.log(error)
-          if (error.response) {
-            // TODO: Add error catch
-          }
           reject(error.response)
         })
     })
@@ -254,9 +252,6 @@ class Task extends VuexModule {
         })
         .catch(error => {
           console.log(error)
-          if (error.response) {
-            // TODO: Add error catch
-          }
           reject(error.response)
         })
     })
