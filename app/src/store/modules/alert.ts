@@ -1,8 +1,8 @@
 import { VuexModule, Module, Mutation } from "vuex-module-decorators"
+
 @Module({
-  namespaced: true
-  // Add for tests name: "alert"
-  // TODO: Fix
+  namespaced: true,
+  name: process.env.NODE_ENV === "test" ? "alert" : undefined
 })
 
 class Alert extends VuexModule {

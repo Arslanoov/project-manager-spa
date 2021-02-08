@@ -12,9 +12,8 @@ import UserService from "@/services/api/v1/UserService"
 const service: UserService = new UserService()
 
 @Module({
-  namespaced: true
-  // Add for tests name: "user"
-  // TODO: Fix
+  namespaced: true,
+  name: process.env.NODE_ENV === "test" ? "user" : undefined
 })
 
 class User extends VuexModule {

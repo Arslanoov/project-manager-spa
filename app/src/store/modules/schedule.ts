@@ -9,9 +9,8 @@ import StepInterface from "@/types/schedule/task/StepInterface"
 const service: ScheduleService = new ScheduleService()
 
 @Module({
-  namespaced: true
-  // Add for tests name: "schedule"
-  // TODO: Fix
+  namespaced: true,
+  name: process.env.NODE_ENV === "test" ? "schedule" : undefined
 })
 
 class Schedule extends VuexModule {
@@ -144,9 +143,9 @@ class Schedule extends VuexModule {
     scheduleId: string,
     task: TaskInterface
   }): void {
-    const schedule = this.schedules.find(schedule => schedule.id === payload.scheduleId)
-    if (schedule) {
-      schedule.tasks.unshift({
+    const index = this.schedules.findIndex(schedule => schedule.id === payload.scheduleId)
+    if (index !== -1) {
+      this.schedules[index].tasks.unshift({
         id: payload.task.id,
         name: payload.task.name ?? "",
         description: payload.task.description ?? "Empty Description",

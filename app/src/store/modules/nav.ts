@@ -6,9 +6,8 @@ import ScheduleService from "@/services/api/v1/ScheduleService"
 const service = new ScheduleService()
 
 @Module({
-  namespaced: true
-  // Add for tests name: "nav"
-  // TODO: Fix
+  namespaced: true,
+  name: process.env.NODE_ENV === "test" ? "nav" : undefined
 })
 
 class Nav extends VuexModule {

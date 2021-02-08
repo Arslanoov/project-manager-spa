@@ -9,7 +9,8 @@ const taskService: TaskService = new TaskService()
 const stepService: StepService = new StepService()
 
 @Module({
-  namespaced: true
+  namespaced: true,
+  name: process.env.NODE_ENV === "test" ? "task" : undefined
 })
 
 class Task extends VuexModule {
