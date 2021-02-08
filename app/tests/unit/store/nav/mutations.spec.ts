@@ -79,4 +79,11 @@ describe("Nav Store", () => {
 
     expect(navStore.addCustomScheduleForm.name).toEqual(newName)
   })
+
+  it("deletes custom schedule form name", () => {
+    const prevLength: number = navStore.customSchedules.length
+    navStore.deleteCustomSchedule(customSchedule.id)
+
+    expect(navStore.customSchedules.length).toEqual(prevLength - 1)
+  })
 })
