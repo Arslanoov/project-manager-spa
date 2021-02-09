@@ -26,9 +26,10 @@
               :counter="32"
               :rules="rules.email"
               :value="authForm.email"
-              @input="setEmail"
               label="E-mail"
+              class="email-field"
               type="email"
+              @input="setEmail"
               required
           ></v-text-field>
 
@@ -36,9 +37,10 @@
               :counter="32"
               :rules="rules.password"
               :value="authForm.password"
-              @input="setPassword"
+              class="password-field"
               label="Password"
               type="password"
+              @input="setPassword"
               required
           ></v-text-field>
 
