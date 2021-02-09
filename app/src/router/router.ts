@@ -8,7 +8,6 @@ Vue.use(VueRouter)
 const loadView = (path: string): Function => {
   return () => import(
     /* webpackChunkName: "view-[request]" */
-    /* webpackPrefetch: false */
     `@/views/${path}.vue`
   )
 }
