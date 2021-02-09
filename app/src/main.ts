@@ -8,6 +8,7 @@ import vuetify from "@/plugins/vuetify"
 import "@/plugins/hotKey"
 
 Vue.config.productionTip = false
+Vue.config.performance = process.env.NODE_ENV !== "production"
 
 import "@/helpers/axios/interceptors"
 

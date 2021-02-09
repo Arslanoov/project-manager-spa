@@ -1,18 +1,16 @@
 import Vue from "vue"
 import VueRouter, { RouteConfig } from "vue-router"
 
-import Home from "@/views/Todo/Home.vue"
-import CustomSchedule from "@/views/Todo/CustomSchedule.vue"
-import Login from "@/views/Auth/Login.vue"
-import SignUp from "@/views/Auth/SignUp.vue"
-import ConfirmSignUp from "@/views/Auth/ConfirmSignUp.vue"
-import Settings from "@/views/Settings.vue"
-import AccessDenied from "@/views/AccessDenied.vue"
-import NotFound from "@/views/NotFound.vue"
-
 import { routesNames } from "@/router/names"
 
 Vue.use(VueRouter)
+
+const loadView = (path: string): Function => {
+  return () => import(
+    /* webpackChunkName: "view-[request]" */
+    `@/views/${path}.vue`
+  )
+}
 
 const routes: Array<RouteConfig> = [
   {
@@ -24,7 +22,7 @@ const routes: Array<RouteConfig> = [
   {
     path: "/auth/login",
     name: routesNames.Login,
-    component: Login,
+    component: loadView("Auth/Login"),
     meta: {
       requiresNotAuth: true
     }
@@ -32,7 +30,7 @@ const routes: Array<RouteConfig> = [
   {
     path: "/auth/sign-up",
     name: routesNames.SignUp,
-    component: SignUp,
+    component: loadView("Auth/SignUp"),
     meta: {
       requiresNotAuth: true
     }
@@ -40,7 +38,7 @@ const routes: Array<RouteConfig> = [
   {
     path: "/auth/confirm-sign-up/:token",
     name: routesNames.ConfirmSignUp,
-    component: ConfirmSignUp,
+    component: loadView("Auth/ConfirmSignUp"),
     meta: {
       requiresNotAuth: true
     }
@@ -48,7 +46,7 @@ const routes: Array<RouteConfig> = [
   {
     path: "/today",
     name: routesNames.Home,
-    component: Home,
+    component: loadView("Todo/Home"),
     meta: {
       requiresAuth: true
     }
@@ -56,7 +54,7 @@ const routes: Array<RouteConfig> = [
   {
     path: "/settings",
     name: routesNames.Settings,
-    component: Settings,
+    component: loadView("Settings"),
     meta: {
       requiresAuth: true
     }
@@ -64,7 +62,7 @@ const routes: Array<RouteConfig> = [
   {
     path: "/todo/:id",
     name: routesNames.CustomSchedule,
-    component: CustomSchedule,
+    component: loadView("Todo/CustomSchedule"),
     meta: {
       requiresAuth: true
     }
@@ -72,12 +70,12 @@ const routes: Array<RouteConfig> = [
   {
     path: "/403",
     name: routesNames.AccessDenied,
-    component: AccessDenied
+    component: loadView("AccessDenied")
   },
   {
     path: "*",
     name: routesNames.NotFound,
-    component: NotFound
+    component: loadView("NotFound")
   }
 ]
 

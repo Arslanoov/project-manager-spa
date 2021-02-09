@@ -23,20 +23,22 @@
             lazy-validation
         >
           <v-text-field
+              @input="setEmail"
               :counter="32"
               :rules="rules.email"
               :value="authForm.email"
-              @input="setEmail"
               label="E-mail"
+              class="email-field"
               type="email"
               required
           ></v-text-field>
 
           <v-text-field
+              @input="setPassword"
               :counter="32"
               :rules="rules.password"
               :value="authForm.password"
-              @input="setPassword"
+              class="password-field"
               label="Password"
               type="password"
               required
@@ -44,25 +46,25 @@
 
           <div class="buttons">
             <v-btn
+                @click="onSubmit"
                 color="success"
                 class="button mr-4"
-                @click="onSubmit"
             >
               Submit
             </v-btn>
 
             <v-btn
+                @click="onReset"
                 color="error"
                 class="button mr-4"
-                @click="onReset"
             >
               Reset Form
             </v-btn>
 
             <v-btn
+                @click="onResetValidation"
                 color="warning"
                 class="button"
-                @click="onResetValidation"
             >
               Reset Validation
             </v-btn>

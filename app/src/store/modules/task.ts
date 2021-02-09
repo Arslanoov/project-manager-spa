@@ -1,6 +1,6 @@
 import { VuexModule, Module, Mutation, Action } from "vuex-module-decorators"
 
-import StepInterface, {StepForm} from "@/types/schedule/task/StepInterface"
+import StepInterface, { StepForm } from "@/types/schedule/task/StepInterface"
 
 import TaskService from "@/services/api/v1/TaskService"
 import StepService from "@/services/api/v1/StepService"
@@ -27,9 +27,6 @@ class Task extends VuexModule {
     ...this.clearStepForm
   }
 
-  public taskError: string | null = null
-  public stepsError: string | null = null
-
   @Mutation
   public setCurrentTask(id: string): void {
     this.currentTaskId = id
@@ -41,7 +38,6 @@ class Task extends VuexModule {
     this.currentTaskSteps = list
   }
 
-  // TODO: Change task steps count
   @Mutation
   public addCurrentTaskStep(step: StepInterface): void {
     this.currentTaskSteps.unshift(step)
@@ -51,26 +47,6 @@ class Task extends VuexModule {
   public clearCurrentTask(): void {
     this.currentTaskId = null
     this.currentTaskSteps = []
-  }
-
-  @Mutation
-  public setTaskError(error: string): void {
-    this.taskError = error
-  }
-
-  @Mutation
-  public setStepsError(error: string): void {
-    this.stepsError = error
-  }
-
-  @Mutation
-  public clearTaskError(): void {
-    this.taskError = null
-  }
-
-  @Mutation
-  public clearStepsError(): void {
-    this.stepsError = null
   }
 
   @Mutation
@@ -140,7 +116,7 @@ class Task extends VuexModule {
   }
 
   @Action
-  closeDialog(): void {
+  public closeDialog(): void {
     this.context.commit("closeStepsDialog")
     this.context.commit("clearCurrentTask")
   }
@@ -228,9 +204,6 @@ class Task extends VuexModule {
         })
         .catch(error => {
           console.log(error)
-          if (error.response) {
-            // TODO: Add error catch
-          }
           reject(error.response)
         })
     })
