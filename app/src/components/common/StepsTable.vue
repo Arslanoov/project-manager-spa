@@ -60,6 +60,10 @@ const taskModule = namespace("Task")
 const alertModule = namespace("Alert")
 
 
+/**
+ * Steps table
+ * @version 1.0.0
+ */
 @Component({
   name: "StepsTable",
   components: {
@@ -68,8 +72,37 @@ const alertModule = namespace("Alert")
 })
 
 export default class StepsList extends Vue {
+  /**
+   * Schedule Interface <br>
+   * id: string, <br>
+   * name?: string, <br>
+   * date: DateInterface, <br>
+   * tasksCount: number, <br>
+   * tasks: Array<TaskInterface>, <br>
+   * isMain?: boolean, <br>
+   * isCustom?: boolean <br>
+   */
   @Prop({ required: true }) readonly schedule: ScheduleInterface
+  /**
+   * TaskInterface
+   * id: string,
+   * name: string,
+   * description: string,
+   * importantLevel: string,
+   * status: string,
+   * stepsCount: number,
+   * finishedSteps: number
+   */
   @Prop({ required: true }) readonly task: TaskInterface
+  // TODO: Take out interfaces
+  /**
+   * Array of StepInterface
+   * StepInterface
+   * id: number,
+   * name: string,
+   * sort_order: string,
+   * status: string
+   */
   @Prop({ required: true }) readonly steps: Array<StepInterface>
 
   @scheduleModule.Mutation("removeTaskStep") removeTaskStep: typeof ScheduleStoreModule.prototype.removeTaskStep

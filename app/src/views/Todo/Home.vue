@@ -69,7 +69,7 @@ import AlertStoreModule from "@/store/modules/alert"
 const scheduleModule = namespace("Schedule")
 const alertModule = namespace("Alert")
 
-import Schedule from "@/components/Schedule.vue"
+import Schedule from "@/components/common/Schedule.vue"
 import ScheduleInterface from "@/types/schedule/ScheduleInterface"
 
 @Component({

@@ -1,0 +1,4 @@
+AddCustomSchedule example:
+```vue
+<AddCustomSchedule />
+```

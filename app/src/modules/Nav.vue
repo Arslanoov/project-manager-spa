@@ -90,7 +90,7 @@ import { namespace } from "vuex-class"
 
 import { routesNames } from "@/router/names"
 
-import AddCustomSchedule from "@/components/AddCustomSchedule.vue"
+import AddCustomSchedule from "@/components/common/AddCustomSchedule.vue"
 
 import UserStoreModule from "@/store/modules/user"
 import NavStoreModule from "@/store/modules/nav"
@@ -100,6 +100,12 @@ import ScheduleInterface from "@/types/schedule/ScheduleInterface"
 const navModule = namespace("Nav")
 const userModule = namespace("User")
 
+/**
+ * @version 1.0.0 <br>
+ * Hot keys: <br>
+ * ctrl+u - toggle add custom schedule form <br>
+ * ctrl+e - Logout
+ */
 @Component({
   name: "Nav",
   components: {

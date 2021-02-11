@@ -21,7 +21,7 @@ const alertModule = namespace("Alert")
 
 import { routesNames } from "@/router/names"
 
-import Schedule from "@/components/Schedule.vue"
+import Schedule from "@/components/common/Schedule.vue"
 import ScheduleInterface from "@/types/schedule/ScheduleInterface"
 
 @Component({
