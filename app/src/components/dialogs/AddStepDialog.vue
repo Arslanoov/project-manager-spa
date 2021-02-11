@@ -72,12 +72,36 @@ const scheduleModule = namespace("Schedule")
 const taskModule = namespace("Task")
 const alertModule = namespace("Alert")
 
+/**
+ * Show add step form
+ * @version 1.0.0
+ */
 @Component({
   name: "AddStepDialog"
 })
 
 export default class AddStepDialog extends Vue {
+  /**
+   * Schedule Interface <br>
+   * id: string, <br>
+   * name?: string, <br>
+   * date: DateInterface, <br>
+   * tasksCount: number, <br>
+   * tasks: Array<TaskInterface>, <br>
+   * isMain?: boolean, <br>
+   * isCustom?: boolean
+   */
   @Prop({ required: true }) readonly schedule: ScheduleInterface
+  /**
+   * TaskInterface <br>
+   * id: string, <br>
+   * name: string, <br>
+   * description: string, <br>
+   * importantLevel: string, <br>
+   * status: string, <br>
+   * stepsCount: number, <br>
+   * finishedSteps: number
+   */
   @Prop({ required: true }) readonly task: TaskInterface
 
   @taskModule.State("isOpenedAddStepDialog") isOpenedAddStepDialog: boolean

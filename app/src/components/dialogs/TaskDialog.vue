@@ -76,11 +76,14 @@ import ScheduleInterface from "@/types/schedule/ScheduleInterface"
 import TaskInterface from "@/types/schedule/task/TaskInterface"
 import StepInterface from "@/types/schedule/task/StepInterface"
 
-import StepsTable from "@/components/StepsTable.vue"
+import StepsTable from "@/components/common/StepsTable.vue"
 
 const taskModule = namespace("Task")
 const alertModule = namespace("Alert")
 
+/**
+ * @version 1.0.0
+ */
 @Component({
   name: "TaskDialog",
   components: {
@@ -88,8 +91,32 @@ const alertModule = namespace("Alert")
   }
 })
 
+/**
+ * Show task dialog
+ * @version 1.0.0
+ */
 export default class StepsList extends Vue {
+  /**
+   * Schedule Interface <br>
+   * id: string, <br>
+   * name?: string, <br>
+   * date: DateInterface, <br>
+   * tasksCount: number, <br>
+   * tasks: Array<TaskInterface>, <br>
+   * isMain?: boolean, <br>
+   * isCustom?: boolean
+   */
   @Prop({ required: true }) readonly schedule: ScheduleInterface
+  /**
+   * TaskInterface <br>
+   * id: string, <br>
+   * name: string, <br>
+   * description: string, <br>
+   * importantLevel: string, <br>
+   * status: string, <br>
+   * stepsCount: number, <br>
+   * finishedSteps: number
+   */
   @Prop({ required: true }) readonly task: TaskInterface
 
   @taskModule.State("currentTaskId") currentTaskId: string | null

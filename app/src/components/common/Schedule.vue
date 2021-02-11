@@ -204,6 +204,11 @@ const scheduleModule = namespace("Schedule")
 const settingsModule = namespace("Settings")
 const alertModule = namespace("Alert")
 
+/**
+ * Schedule timeline
+ * @see Vuetify timeline https://vuetifyjs.com/en/components/timelines/
+ * @version 1.0.0
+ */
 @Component({
   name: "Schedule",
   components: {
@@ -211,10 +216,26 @@ const alertModule = namespace("Alert")
   }
 })
 
-// TODO: Add DND
-// TODO: Add remove color
 export default class Schedule extends Vue {
+  /**
+   * Schedule Interface <br>
+   * id: string, <br>
+   * name?: string, <br>
+   * date: DateInterface, <br>
+   * tasksCount: number, <br>
+   * tasks: Array<TaskInterface>, <br>
+   * isMain?: boolean, <br>
+   * isCustom?: boolean
+   */
   @Prop({ required: true }) readonly schedule: ScheduleInterface
+  /**
+   * Have hot keys
+   * Hot keys list: <br>
+   * ctrl+f - Open add task form <br>
+   * ctrl+c - Close add task form <br>
+   * ctrl+i - Change current task important level <br>
+   * ctrl+s - Submit add task form
+   */
   @Prop({ required: true }) readonly haveHotKeys: boolean
 
   @scheduleModule.State("taskForms") taskForms: Array<TaskForm>
@@ -253,7 +274,6 @@ export default class Schedule extends Vue {
   public importantLevelIndex = 1
   public isLoading = false
 
-  // TODO: local storage?
   public removedColor = false
 
   public clearTaskForm: TaskForm = {

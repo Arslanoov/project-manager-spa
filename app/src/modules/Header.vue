@@ -31,6 +31,9 @@ import { routesNames } from "@/router/names"
 
 const navModule = namespace("Nav")
 
+/**
+ * @version 1.0.0
+ */
 @Component({
   name: "Header",
   components: {

@@ -21,6 +21,11 @@ import AlertStoreModule from "@/store/modules/alert"
 
 const alertModule = namespace("Alert")
 
+/**
+ * Get message and type props in store alert module
+ * @see https://vuetifyjs.com/en/components/alerts/
+ * @version 1.0.0
+ */
 @Component({
   name: "Alert"
 })
@@ -32,7 +37,10 @@ export default class Alert extends Vue {
   @alertModule.Mutation("clearMessage") clearMessage: typeof AlertStoreModule.prototype.clearMessage
 
   public errorTypes = {
-    error: "error"
+    error: "error",
+    info: "info",
+    success: "success",
+    warning: "warning"
   }
 }
 </script>

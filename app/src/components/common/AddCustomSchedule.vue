@@ -34,6 +34,10 @@ import AlertStoreModule from "@/store/modules/alert"
 const navModule = namespace("Nav")
 const alertModule = namespace("Alert")
 
+/**
+ * Add custom schedule form
+ * @version 1.0.0
+ */
 @Component({
   name: "AddCustomSchedule"
 })
