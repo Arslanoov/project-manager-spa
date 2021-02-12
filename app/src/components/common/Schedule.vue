@@ -13,7 +13,7 @@
           fill-dot
       >
         <template v-slot:icon>
-          <div class="new-task-level" @click="changeImportantLevel">
+          <div class="new-task-level" @click="toggleImportantLevel">
             <v-icon
                 :color="settings.nightMode ? 'black' : 'white'"
             >
@@ -257,7 +257,7 @@ export default class Schedule extends Vue {
   public keymap = {
     'ctrl+f': this.onToggleAddTaskFormKeyup(true),
     'ctrl+c': this.onToggleAddTaskFormKeyup(false),
-    'ctrl+i': this.changeImportantLevel,
+    'ctrl+i': this.toggleImportantLevel,
     'ctrl+s': this.onSubmit
   }
 
@@ -309,7 +309,14 @@ export default class Schedule extends Vue {
     })
   }
 
-  public changeImportantLevel(): void {
+  public changeImportantLevel(level: string): void {
+    this.fillTaskForm({
+      ...this.taskForm,
+      importantLevel: level
+    })
+  }
+
+  public toggleImportantLevel(): void {
     this.importantLevelIndex++
     this.fillTaskForm({
       ...this.taskForm,

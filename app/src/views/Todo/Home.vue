@@ -103,6 +103,8 @@ export default class Home extends Vue {
   public mounted(): void {
     this.getMainSchedule()
     this.getTodaySchedule()
+
+    window.onbeforeunload = () => this.clearSchedulesAndForms()
   }
 
   public destroyed(): void {

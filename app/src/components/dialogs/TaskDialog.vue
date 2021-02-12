@@ -11,7 +11,6 @@
       hide-overlay
   >
     <template v-slot:activator="{ on, attrs }">
-      <!--   TODO: Add color condition   -->
       <div class="button">
         <v-btn
             @click="onFetchTaskSteps(task.id)"

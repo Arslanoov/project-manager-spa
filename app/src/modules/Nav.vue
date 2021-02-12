@@ -158,8 +158,10 @@ export default class Nav extends Vue {
   }
 
   public onScheduleRemove(id: string): void {
-    // TODO: Redirect on same page
     this.removeCustomSchedule(id)
+    this.$router.push({
+      name: routesNames.Home
+    }).catch(() => console.log("Already in home page"))
   }
 
   public onExit(): void {
