@@ -158,7 +158,6 @@ export default class Nav extends Vue {
   }
 
   public onScheduleRemove(id: string): void {
-    // TODO: Redirect on same page
     this.removeCustomSchedule(id)
   }
 
