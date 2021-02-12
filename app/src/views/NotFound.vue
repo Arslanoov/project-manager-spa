@@ -2,7 +2,7 @@
   <v-container class="not-found-page" fill-height fluid>
     <v-row justify="center" align-self="center">
       <div class="message">
-        <img class="not-found" src="~@/assets/404.svg" alt="404" />
+        <img class="not-found" src="~@/assets/images/404.svg" alt="404" />
         <v-btn
             color="success"
             class="button"
