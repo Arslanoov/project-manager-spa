@@ -3,8 +3,8 @@
       v-hotkey="keymap"
       @click.stop="toggleNavVisibility"
       @input="v => v || toggleNavVisibility()"
+      class="navigation"
       :value="isShowNav"
-      temporary
       absolute
   >
     <v-list
@@ -90,6 +90,9 @@ import { namespace } from "vuex-class"
 
 import { routesNames } from "@/router/names"
 
+import { isInIos } from "@/helpers/ios"
+import { scrollToTheTop } from "@/helpers/scroll"
+
 import AddCustomSchedule from "@/components/common/AddCustomSchedule.vue"
 
 import UserStoreModule from "@/store/modules/user"
@@ -138,6 +141,11 @@ export default class Nav extends Vue {
   @Watch("isAuth")
   onAuthStateChange(): void {
     this.init()
+  }
+
+  @Watch("isShowNav")
+  onToggleNav(): void {
+    if (isInIos()) scrollToTheTop()
   }
 
   public mounted(): void {
