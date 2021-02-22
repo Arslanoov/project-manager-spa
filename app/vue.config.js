@@ -10,6 +10,12 @@ module.exports = {
   },
   chainWebpack: config => {
     config.plugins.delete('prefetch')
+    config
+      .plugin("html")
+      .tap(args => {
+        args[0].title = "To Do"
+        return args
+      })
   },
   configureWebpack: {
     performance: {
