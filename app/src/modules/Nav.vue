@@ -178,3 +178,9 @@ export default class Nav extends Vue {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.navigation {
+  z-index: 5;
+}
+</style>
