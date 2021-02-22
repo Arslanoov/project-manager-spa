@@ -105,6 +105,7 @@ export default class Home extends Vue {
     this.getTodaySchedule()
 
     window.onbeforeunload = () => this.clearSchedulesAndForms()
+    window.onunload = () => this.clearSchedulesAndForms()
   }
 
   public destroyed(): void {
