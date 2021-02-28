@@ -1,8 +1,8 @@
 <template>
   <v-navigation-drawer
       v-hotkey="keymap"
-      @click.stop="toggleNavVisibility"
-      @input="v => v || toggleNavVisibility()"
+      @click.stop="isMobile ? toggleNavVisibility : () => {}"
+      @input="v => v || (isMobile ? {} : toggleNavVisibility())"
       class="navigation"
       :value="isShowNav"
       absolute
@@ -94,6 +94,7 @@ import { routesNames } from "@/router/names"
 
 import { isInIos } from "@/helpers/ios"
 import { scrollToTheTop } from "@/helpers/scroll"
+import { isMobile } from "@/helpers/media"
 
 import AddCustomSchedule from "@/components/common/AddCustomSchedule.vue"
 
@@ -136,6 +137,7 @@ export default class Nav extends Vue {
   @navModule.Action("getCustomSchedules") getCustomSchedules: typeof NavStoreModule.prototype.getCustomSchedules
   @navModule.Action("removeCustomSchedule") removeCustomSchedule: typeof NavStoreModule.prototype.removeCustomSchedule
 
+  public isMobile = isMobile
   public routesNames = routesNames
 
   public keymap = {
