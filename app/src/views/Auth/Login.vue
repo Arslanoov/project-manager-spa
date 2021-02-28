@@ -133,10 +133,13 @@ export default class Login extends Vue {
   }
 
   public onSubmit(): void {
-    this.$refs.form.validate()
-
     this.login()
-      .then(() => this.$router.push("/"))
+      .then(() => {
+        this.$refs.form.validate()
+        this.$refs.form.reset()
+        this.$refs.form.resetValidation()
+        this.$router.push("/")
+      })
   }
 }
 </script>

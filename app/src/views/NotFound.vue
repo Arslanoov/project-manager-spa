@@ -8,7 +8,7 @@
             class="button"
             @click="onGoHome"
         >
-          Go Home
+          {{ $t("Go Home") }}
         </v-btn>
       </div>
     </v-row>
@@ -46,3 +46,11 @@ export default class NotFound extends Vue {
   }
 }
 </style>
+
+<i18n>
+{
+  "ru": {
+    "Go Home": "Домой"
+  }
+}
+</i18n>

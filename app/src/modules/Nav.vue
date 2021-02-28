@@ -56,6 +56,13 @@
             <v-list-item-title>Settings</v-list-item-title>
           </v-list-item>
 
+          <v-list-item @click="toggleLanguage">
+            <v-list-item-icon>
+              <v-icon>mdi-book-cog-outline</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>{{ toggledLanguage }}</v-list-item-title>
+          </v-list-item>
+
           <v-list-item @click="onExit">
             <v-list-item-icon>
               <v-icon>mdi-logout</v-icon>
@@ -92,6 +99,7 @@ import { routesNames } from "@/router/names"
 
 import { isInIos } from "@/helpers/ios"
 import { scrollToTheTop } from "@/helpers/scroll"
+import { getToggledLanguage, getLanguageName } from "@/helpers/language"
 
 import AddCustomSchedule from "@/components/common/AddCustomSchedule.vue"
 
@@ -120,6 +128,7 @@ export default class Nav extends Vue {
   @navModule.State("isShowNav") isShowNav: boolean
   @navModule.State("customSchedules") customSchedules: Array<ScheduleInterface>
   @navModule.State("isOpenAddCustomScheduleForm") isOpenAddCustomScheduleForm: boolean
+  @navModule.State("language") language: string
 
   @userModule.Getter("isAuth") isAuth: boolean
 
@@ -128,14 +137,15 @@ export default class Nav extends Vue {
       typeof NavStoreModule.prototype.toggleAddCustomScheduleForm
 
   @userModule.Action("logout") logout: typeof UserStoreModule.prototype.logout
+  @navModule.Action("changeLanguage") changeLanguage: typeof NavStoreModule.prototype.changeLanguage
   @navModule.Action("getCustomSchedules") getCustomSchedules: typeof NavStoreModule.prototype.getCustomSchedules
   @navModule.Action("removeCustomSchedule") removeCustomSchedule: typeof NavStoreModule.prototype.removeCustomSchedule
 
   public routesNames = routesNames
 
   public keymap = {
-    'ctrl+u': this.toggleScheduleForm,
-    'ctrl+e': this.onExit
+    "ctrl+u": this.toggleScheduleForm,
+    "ctrl+e": this.onExit
   }
 
   @Watch("isAuth")
@@ -158,6 +168,12 @@ export default class Nav extends Vue {
     }
   }
 
+  public toggleLanguage(): void {
+    const toggledLanguage = getToggledLanguage(this.language)
+    this.changeLanguage(toggledLanguage)
+    this.$i18n.locale = getLanguageName(toggledLanguage)
+  }
+
   public onGoPage(name: routesNames, params: {[ key: string]: string } = {}): void {
     this.$router.push({
       name: routesNames[name],
@@ -175,6 +191,10 @@ export default class Nav extends Vue {
   public onExit(): void {
     this.logout()
       .then(() => this.onGoPage(routesNames.Login))
+  }
+
+  public get toggledLanguage(): string {
+    return getToggledLanguage(this.language)
   }
 }
 </script>
