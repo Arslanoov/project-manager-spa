@@ -35,13 +35,10 @@ export default class Nav extends Vue {
 
   @navModule.Action("changeLanguage") changeLanguage: typeof NavStoreModule.prototype.changeLanguage
 
-<<<<<<< HEAD
   public keymap = {
     'ctrl+l': this.toggleLanguage
   }
 
-=======
->>>>>>> d29e7af185aec26fe30571aa90d91d37aba4b5df
   public toggleLanguage(): void {
     const toggledLanguage = getToggledLanguage(this.language)
     this.changeLanguage(toggledLanguage)
