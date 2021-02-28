@@ -18,7 +18,9 @@
             class="mx-0"
             outlined
         >
-          Show steps
+          <v-icon>
+            mdi-checkbox-multiple-blank
+          </v-icon>
           <template v-if="task.stepsCount > 0">
             ({{ task.finishedSteps }} / {{ task.stepsCount }})
           </template>

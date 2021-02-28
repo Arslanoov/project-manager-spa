@@ -15,12 +15,12 @@
           class="mx-0"
           outlined
       >
-        Add Step
+        {{ $t("Add Step") }}
       </v-btn>
     </template>
 
     <v-card>
-      <v-card-title class="headline">Add Step</v-card-title>
+      <v-card-title class="headline">{{ $t("Add Step") }}</v-card-title>
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-form
@@ -38,15 +38,19 @@
                     @input="setName"
                     :rules="rules.name"
                     :value="currentStepForm.name"
-                    label="Name"
+                    :label="$t(`Name`)"
                     required
                 ></v-text-field>
               </v-col>
             </v-row>
           </v-container>
         </v-form>
-        <v-btn @click="toggleAddStepDialog" color="blue darken-1" text>Cancel</v-btn>
-        <v-btn @click="onSubmit" color="blue darken-1" text>Add Step</v-btn>
+        <v-btn @click="toggleAddStepDialog" color="blue darken-1" text>
+          <v-icon>mdi-close</v-icon>
+        </v-btn>
+        <v-btn @click="onSubmit" color="blue darken-1" text>
+          <v-icon>mdi-check</v-icon>
+        </v-btn>
         <v-spacer></v-spacer>
       </v-card-actions>
     </v-card>
@@ -120,8 +124,8 @@ export default class AddStepDialog extends Vue {
 
   public rules = {
     name: [
-      (v: string) => !!v || "Name is required",
-      (v: string) => (v && v.length < 32) || "Name must be less than 32 characters"
+      (v: string) => !!v || this.$t("Name is required"),
+      (v: string) => (v && v.length < 32) || this.$t("Name must be less than 32 characters")
     ]
   }
 
@@ -143,3 +147,20 @@ export default class AddStepDialog extends Vue {
   }
 }
 </script>
+
+<i18n>
+{
+  "en": {
+    "Add Step": "Add Step",
+    "Name": "Name",
+    "Name is required": "Name is required",
+    "Name must be less than 32 characters": "Name must be less than 32 characters"
+  },
+  "ru": {
+    "Add Step": "Добавить",
+    "Name": "Название",
+    "Name is required": "Введите название",
+    "Name must be less than 32 characters": "Название должно быть не больше 32 символов в длину"
+  }
+}
+</i18n>

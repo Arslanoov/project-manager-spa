@@ -148,7 +148,7 @@ class Schedule extends VuexModule {
       this.schedules[index].tasks.unshift({
         id: payload.task.id,
         name: payload.task.name ?? "",
-        description: payload.task.description ?? "Empty Description",
+        description: payload.task.description ?? null,
         importantLevel: payload.task.importantLevel ?? "Important",
         status: "Not Complete",
         stepsCount: 0,

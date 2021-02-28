@@ -1,0 +1,4 @@
+{
+  "$vuetify.noDataText": "Empty",
+  "$vuetify.dataTable.itemsPerPageText": "Items per page"
+}

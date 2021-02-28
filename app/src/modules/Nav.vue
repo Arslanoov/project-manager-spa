@@ -1,8 +1,8 @@
 <template>
   <v-navigation-drawer
       v-hotkey="keymap"
-      @click.stop="toggleNavVisibility"
-      @input="v => v || toggleNavVisibility()"
+      @click.stop="isMobile ? toggleNavVisibility : () => {}"
+      @input="v => v || (isMobile ? {} : toggleNavVisibility())"
       class="navigation"
       :value="isShowNav"
       absolute
@@ -19,10 +19,9 @@
             <v-list-item-icon>
               <v-icon>mdi-home</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>Home</v-list-item-title>
+            <v-list-item-title>{{ $t("Home") }}</v-list-item-title>
           </v-list-item>
 
-          <!-- TODO: Vertical align -->
           <template v-for="schedule in customSchedules">
             <v-list-item :key="schedule.id">
               <v-list-item-icon @click="onGoPage(routesNames.CustomSchedule, {
@@ -42,25 +41,26 @@
           </template>
 
           <AddCustomSchedule v-if="isOpenAddCustomScheduleForm" />
+
           <v-list-item @click="toggleScheduleForm">
             <v-list-item-icon>
               <v-icon>mdi-calendar-plus</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>Custom schedule</v-list-item-title>
+            <v-list-item-title>{{ $t("Custom schedule") }}</v-list-item-title>
           </v-list-item>
 
           <v-list-item @click="onGoPage(routesNames.Settings)">
             <v-list-item-icon>
               <v-icon>mdi-book-cog-outline</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>Settings</v-list-item-title>
+            <v-list-item-title>{{ $t("Settings") }}</v-list-item-title>
           </v-list-item>
 
           <v-list-item @click="onExit">
             <v-list-item-icon>
               <v-icon>mdi-logout</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>Logout</v-list-item-title>
+            <v-list-item-title>{{ $t("Logout") }}</v-list-item-title>
           </v-list-item>
         </template>
         <template v-else>
@@ -68,15 +68,17 @@
             <v-list-item-icon>
               <v-icon>mdi-login</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>Login</v-list-item-title>
+            <v-list-item-title>{{ $t("Login") }}</v-list-item-title>
           </v-list-item>
           <v-list-item @click="onGoPage(routesNames.SignUp)">
             <v-list-item-icon>
               <v-icon>mdi-account-plus</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>Sign Up</v-list-item-title>
+            <v-list-item-title>{{ $t("Sign Up") }}</v-list-item-title>
           </v-list-item>
         </template>
+
+        <ChangeLanguage />
       </v-list-item-group>
     </v-list>
   </v-navigation-drawer>
@@ -92,6 +94,7 @@ import { routesNames } from "@/router/names"
 
 import { isInIos } from "@/helpers/ios"
 import { scrollToTheTop } from "@/helpers/scroll"
+import { isMobile } from "@/helpers/media"
 
 import AddCustomSchedule from "@/components/common/AddCustomSchedule.vue"
 
@@ -99,6 +102,8 @@ import UserStoreModule from "@/store/modules/user"
 import NavStoreModule from "@/store/modules/nav"
 
 import ScheduleInterface from "@/types/schedule/ScheduleInterface"
+
+import ChangeLanguage from "@/components/common/ChangeLanguage.vue"
 
 const navModule = namespace("Nav")
 const userModule = namespace("User")
@@ -112,6 +117,7 @@ const userModule = namespace("User")
 @Component({
   name: "Nav",
   components: {
+    ChangeLanguage,
     AddCustomSchedule
   }
 })
@@ -131,11 +137,12 @@ export default class Nav extends Vue {
   @navModule.Action("getCustomSchedules") getCustomSchedules: typeof NavStoreModule.prototype.getCustomSchedules
   @navModule.Action("removeCustomSchedule") removeCustomSchedule: typeof NavStoreModule.prototype.removeCustomSchedule
 
+  public isMobile = isMobile
   public routesNames = routesNames
 
   public keymap = {
-    'ctrl+u': this.toggleScheduleForm,
-    'ctrl+e': this.onExit
+    "ctrl+u": this.toggleScheduleForm,
+    "ctrl+e": this.onExit
   }
 
   @Watch("isAuth")
@@ -184,3 +191,16 @@ export default class Nav extends Vue {
   z-index: 5;
 }
 </style>
+
+<i18n>
+{
+  "ru": {
+    "Home": "Главная",
+    "Custom schedule": "Создать список",
+    "Settings": "Настройки",
+    "Logout": "Выйти",
+    "Login": "Войти",
+    "Sign Up": "Регистрация"
+  }
+}
+</i18n>

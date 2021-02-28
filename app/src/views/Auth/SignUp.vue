@@ -6,7 +6,7 @@
           sm="9"
           md="4"
       >
-        <h2 class="title text-center">Sign Up</h2>
+        <h2 class="title text-center">{{ $t("Sign Up") }}</h2>
 
         <v-alert
             v-if="signUpForm.error"
@@ -27,8 +27,8 @@
               :counter="32"
               :rules="rules.login"
               :value="signUpForm.login"
+              :label="$t(`Login`)"
               class="login-field"
-              label="Login"
               type="text"
               required
           ></v-text-field>
@@ -49,8 +49,8 @@
               :counter="32"
               :rules="rules.password"
               :value="signUpForm.password"
+              :label="$t(`Password`)"
               class="password-field"
-              label="Password"
               type="password"
               required
           ></v-text-field>
@@ -61,7 +61,7 @@
                 color="success"
                 class="button mr-4"
             >
-              Submit
+              {{ $t("Submit") }}
             </v-btn>
 
             <v-btn
@@ -69,7 +69,7 @@
                 color="error"
                 class="button mr-4"
             >
-              Reset Form
+              {{ $t("Reset Form") }}
             </v-btn>
 
             <v-btn
@@ -77,7 +77,7 @@
                 color="warning"
                 class="button"
             >
-              Reset Validation
+              {{ $t("Reset Validation") }}
             </v-btn>
           </div>
         </v-form>
@@ -176,3 +176,24 @@ export default class SignUp extends Vue {
   }
 }
 </style>
+
+<i18n>
+{
+  "en": {
+    "Sign Up": "Sign Up",
+    "Login": "Login",
+    "Password": "Password",
+    "Submit": "Submit",
+    "Reset Form": "Reset Form",
+    "Reset Validation": "Reset Validation"
+  },
+  "ru": {
+    "Sign Up": "Регистрация",
+    "Login": "Логин",
+    "Password": "Пароль",
+    "Submit": "Отправить письмо на почту",
+    "Reset Form": "Очистить",
+    "Reset Validation": "Очистить ошибки валидации"
+  }
+}
+</i18n>

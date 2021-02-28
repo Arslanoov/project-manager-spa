@@ -1,13 +1,12 @@
 <template>
   <v-container>
-    <h2>Settings</h2>
+    <h2>{{ $t("Settings") }}</h2>
 
     <template v-if="settings">
-      <!-- TODO: Fix -->
       <v-checkbox
           @change="onToggleNightMode"
           :value="settings.nightMode"
-          label="Night mode"
+          :label="$t(`Night mode`)"
       ></v-checkbox>
     </template>
   </v-container>
@@ -41,3 +40,16 @@ export default class Settings extends Vue {
   }
 }
 </script>
+
+<i18n>
+{
+  "en": {
+    "Settings": "Settings",
+    "Night mode": "Night mode"
+  },
+  "ru": {
+    "Settings": "Настройки",
+    "Night mode": "Темный режим"
+  }
+}
+</i18n>

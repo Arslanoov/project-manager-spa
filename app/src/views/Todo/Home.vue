@@ -7,7 +7,7 @@
           sm="12"
           md="6"
       >
-        <h2>Common tasks</h2>
+        <h2>{{ $t("Common tasks") }}</h2>
         <Schedule :schedule="mainSchedule" :have-hot-keys="true" />
       </v-col>
 
@@ -22,7 +22,7 @@
             color="blue darken-1"
             text
         >
-          Load later schedule
+          {{ $t("Load later schedule") }}
         </v-btn>
         <v-btn
             @click="skipToTheLaterWeek"
@@ -30,7 +30,7 @@
             color="blue darken-1"
             text
         >
-          Skip to the later week
+          {{ $t("Skip to the later week") }}
         </v-btn>
         <div v-for="schedule in dailySchedules" :key="schedule.id" class="schedule-wrapper">
           <Schedule :schedule="schedule" :have-hot-keys="false" />
@@ -41,7 +41,7 @@
             color="blue darken-1"
             text
         >
-          Load earlier schedule
+          {{ $t("Load earlier schedule") }}
         </v-btn>
         <v-btn
             @click="skipToThePrevWeek"
@@ -49,7 +49,7 @@
             color="blue darken-1"
             text
         >
-          Skip to the earlier week
+          {{ $t("Skip to the earlier week") }}
         </v-btn>
       </v-col>
     </v-row>
@@ -158,3 +158,21 @@ export default class Home extends Vue {
 .daily-schedule-page {
 }
 </style>
+
+<i18n>
+{
+  "en": {
+    "Common tasks": "Common tasks",
+    "Load later schedule": "Load later schedule",
+    "Skip to the later week": "Skip to the later week",
+    "Load earlier schedule": "Load earlier schedule"
+  },
+  "ru": {
+    "Common tasks": "Общие задачи",
+    "Load later schedule": "Следующий список",
+    "Skip to the later week": "Пропустить неделю",
+    "Load earlier schedule": "Предыдущий список",
+    "Skip to the earlier week": "Предыдущая неделя"
+  }
+}
+</i18n>

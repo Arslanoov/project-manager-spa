@@ -14,7 +14,7 @@
       <v-toolbar
           flat
       >
-        <v-toolbar-title>Steps</v-toolbar-title>
+        <v-toolbar-title>{{ $t("Steps") }}</v-toolbar-title>
         <v-divider
             class="mx-4"
             inset
@@ -118,13 +118,13 @@ export default class StepsList extends Vue {
 
   public headers = [
     {
-      text: "Name",
+      text: this.$t("Name"),
       align: "start",
       sortable: true,
       value: "name"
     },
     {
-      text: "Status",
+      text: this.$t("Status"),
       align: "start",
       sortable: true,
       value: "status"
@@ -195,3 +195,18 @@ export default class StepsList extends Vue {
 
 }
 </style>
+
+<i18n>
+{
+  "en": {
+    "Steps": "Steps",
+    "Name": "Name",
+    "Status": "Status"
+  },
+  "ru": {
+    "Steps": "Шаги",
+    "Name": "Имя",
+    "Status": "Статус"
+  }
+}
+</i18n>

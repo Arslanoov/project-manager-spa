@@ -14,8 +14,14 @@ class Nav extends VuexModule {
   public isShowNav = false
   public isOpenAddCustomScheduleForm = false
   public customSchedules: Array<ScheduleInterface> = []
+  public language = "ru"
   public addCustomScheduleForm: CustomScheduleFormInterface = {
     name: ""
+  }
+
+  @Mutation
+  public setLanguage(name: string): void {
+    this.language = name
   }
 
   @Mutation
@@ -49,6 +55,13 @@ class Nav extends VuexModule {
     if (index !== -1) {
       this.customSchedules.splice(index, 1)
     }
+  }
+
+  // TODO: Add test
+  @Action
+  public changeLanguage(name: string): void {
+    localStorage.setItem("language", name)
+    this.context.commit("setLanguage", name)
   }
 
   @Action({ rawError: true })
