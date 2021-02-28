@@ -6,7 +6,7 @@
           sm="9"
           md="4"
       >
-        <h2 class="title text-center">Log In</h2>
+        <h2 class="title text-center">{{ $t("Log In") }}</h2>
 
         <v-alert
             v-if="authForm.error"
@@ -38,8 +38,8 @@
               :counter="32"
               :rules="rules.password"
               :value="authForm.password"
+              :label="$t(`Password`)"
               class="password-field"
-              label="Password"
               type="password"
               required
           ></v-text-field>
@@ -50,7 +50,7 @@
                 color="success"
                 class="button mr-4"
             >
-              Submit
+              {{ $t("Submit") }}
             </v-btn>
 
             <v-btn
@@ -58,7 +58,7 @@
                 color="error"
                 class="button mr-4"
             >
-              Reset Form
+              {{ $t("Reset Form") }}
             </v-btn>
 
             <v-btn
@@ -66,7 +66,7 @@
                 color="warning"
                 class="button"
             >
-              Reset Validation
+              {{ $t("Reset Validation") }}
             </v-btn>
           </div>
         </v-form>
@@ -161,3 +161,22 @@ export default class Login extends Vue {
   }
 }
 </style>
+
+<i18n>
+{
+  "en": {
+    "Password": "Password",
+    "Submit": "Submit",
+    "Reset Form": "Reset Form",
+    "Reset Validation": "Reset Validation",
+    "Log In": "Log In"
+  },
+  "ru": {
+    "Password": "Пароль",
+    "Submit": "Войти",
+    "Reset Form": "Очистить",
+    "Reset Validation": "Очистить ошибки валидации",
+    "Log In": "Войти"
+  }
+}
+</i18n>

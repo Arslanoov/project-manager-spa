@@ -59,6 +59,9 @@ export default class AccessDenied extends Vue {
 
 <i18n>
 {
+  "en": {
+    "Go Home": "Go Home"
+  },
   "ru": {
     "Go Home": "Домой"
   }
