@@ -11,9 +11,9 @@
           @blur="onBlur"
           @input="setCustomScheduleFormName"
           :rules="rules.name"
+          :label="$t(`Schedule name`)"
           :value="form.name"
           height="15px"
-          label="Schedule name"
           required
           rounded
       ></v-text-field>
@@ -93,3 +93,14 @@ export default class AddCustomSchedule extends Vue {
   }
 }
 </style>
+
+<i18n>
+{
+  "en": {
+    "Schedule name": "Schedule name"
+  },
+  "ru": {
+    "Schedule name": "Название"
+  }
+}
+</i18n>

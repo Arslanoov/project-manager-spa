@@ -6,7 +6,7 @@
           sm="9"
           md="4"
       >
-        <h2 class="title text-center">Confirm Sign Up</h2>
+        <h2 class="title text-center">{{ $t("Confirm Sign Up") }}</h2>
 
         <v-alert
             v-if="confirmSignUpForm.error"
@@ -18,7 +18,7 @@
           {{ confirmSignUpForm.error }}
         </v-alert>
 
-        <p class="token">Token: {{ token }}</p>
+        <p class="token">{{ $t("Token") }}: {{ token }}</p>
 
         <div class="buttons">
           <v-btn
@@ -26,7 +26,7 @@
               class="button"
               @click="onSubmit"
           >
-            Join
+            {{ $t("Join") }}
           </v-btn>
         </div>
       </v-col>
@@ -97,3 +97,18 @@ export default class SignUp extends Vue {
   }
 }
 </style>
+
+<i18n>
+{
+  "en": {
+    "Confirm Sign Up": "Confirm Sign Up",
+    "Token": "Token",
+    "Join": "Join"
+  },
+  "ru": {
+    "Confirm Sign Up": "Подтверждение регистрации",
+    "Token": "Токен",
+    "Join": "Добро пожаловать"
+  }
+}
+</i18n>

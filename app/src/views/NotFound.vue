@@ -49,6 +49,9 @@ export default class NotFound extends Vue {
 
 <i18n>
 {
+  "en": {
+    "Go Home": "Go Home"
+  },
   "ru": {
     "Go Home": "Домой"
   }

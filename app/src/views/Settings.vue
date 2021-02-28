@@ -43,6 +43,10 @@ export default class Settings extends Vue {
 
 <i18n>
 {
+  "en": {
+    "Settings": "Settings",
+    "Night mode": "Night mode"
+  },
   "ru": {
     "Settings": "Настройки",
     "Night mode": "Темный режим"

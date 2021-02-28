@@ -1,6 +1,10 @@
 <template>
   <div class="schedule" v-hotkey="haveHotKeys ? keymap : {}">
-    <h2 v-if="schedule.date">{{ getScheduleDateString(schedule) }}</h2>
+    <h2 v-if="schedule.date">{{ getScheduleDateString(schedule, {
+      today: $t("Today"),
+      tomorrow: $t("Tomorrow"),
+      yesterday: $t("Yesterday")
+    }) }}</h2>
     <v-timeline
         :key="schedule.id"
         class="schedule"
@@ -25,7 +29,7 @@
             @input="setTaskFormName"
             @keydown.enter="onSubmit"
             :value="taskForm.name"
-            label="Leave a comment..."
+            :label="$t(`Leave a comment...`)"
             flat
             solo
         >
@@ -37,7 +41,7 @@
                 :color="settings.nightMode ? 'black' : 'white'"
                 depressed
             >
-              Post
+              {{ $t("Post") }}
             </v-btn>
             <v-btn
                 @click="onToggleAddTaskForm(true)"
@@ -64,7 +68,7 @@
         >
           <v-card>
             <v-card-title>
-              <span class="headline">Add Task</span>
+              <span class="headline">{{ $t("Add Task") }}</span>
             </v-card-title>
 
             <v-card-text>
@@ -78,7 +82,7 @@
                     <v-text-field
                         @input="setTaskFormName"
                         :value="taskForm.name"
-                        label="Name"
+                        :label="$t(`Name`)"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -90,9 +94,9 @@
                   >
                     <v-select
                       @change="changeImportantLevel"
-                      :items="importantLevelsList"
-                      :value="taskForm.importantLevel"
-                      label="Important Level"
+                      :items="translatedImportantLevelsList"
+                      :value="$t(taskForm.importantLevel)"
+                      :label="$t(`Important Level`)"
                   ></v-select>
                   </v-col>
                 </v-row>
@@ -105,7 +109,7 @@
                     <v-textarea
                         @change="setTaskFormDescription"
                         :value="taskForm.description"
-                        label="Description"
+                        :label="$t(`Description`)"
                     ></v-textarea>
                   </v-col>
                 </v-row>
@@ -120,7 +124,7 @@
                   color="blue darken-1"
                   text
               >
-                Close
+                {{ $t("Close") }}
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -166,7 +170,7 @@
                       class="mx-0"
                       outlined
                   >
-                    Delete
+                    <v-icon>mdi-close</v-icon>
                   </v-btn>
                 </div>
               </div>
@@ -196,6 +200,9 @@ import AlertStoreModule from "@/store/modules/alert"
 import ScheduleInterface from "@/types/schedule/ScheduleInterface"
 
 import TaskDialog from "@/components/dialogs/TaskDialog.vue"
+
+import translatedImportantLevels from "@/locales/importantLevels"
+import { translatedType } from "@/locales/importantLevels"
 
 import { getScheduleDateString } from "@/helpers/date"
 import SettingsInterface from "@/types/settings/SettingsInterface"
@@ -310,9 +317,10 @@ export default class Schedule extends Vue {
   }
 
   public changeImportantLevel(level: string): void {
+    const translated = translatedImportantLevels[level as translatedType]
     this.fillTaskForm({
       ...this.taskForm,
-      importantLevel: level
+      importantLevel: this.$i18n.locale === "en" ? level : translated
     })
   }
 
@@ -338,6 +346,10 @@ export default class Schedule extends Vue {
     if (task.stepsCount && task.finishedSteps === task.stepsCount) return "mdi-check-all"
     if (task.status === "Complete") return "mdi-check-bold"
     return "mdi-check"
+  }
+
+  public get translatedImportantLevelsList(): Array<string> {
+    return this.importantLevelsList.map(item => this.$t(item) as string)
   }
 }
 </script>
@@ -366,3 +378,38 @@ export default class Schedule extends Vue {
   }
 }
 </style>
+
+<i18n>
+{
+  "en": {
+    "Post": "Post",
+    "Today": "Today",
+    "Tomorrow": "Tomorrow",
+    "Yesterday": "Yesterday",
+    "Leave a comment...": "Leave a comment...",
+    "Add Task": "Add Task",
+    "Important Level": "Important Level",
+    "Name": "Name",
+    "Description": "Description",
+    "Close": "Close",
+    "Not Important": "Not Important",
+    "Important": "Important",
+    "Very Important": "Very Important"
+  },
+  "ru": {
+    "Post": "Создать",
+    "Today": "Сегодня",
+    "Tomorrow": "Завтра",
+    "Yesterday": "Вчера",
+    "Leave a comment...": "Опишите задачу",
+    "Add Task": "Добавление задачи",
+    "Important Level": "Приоритет",
+    "Name": "Название",
+    "Description": "Описание",
+    "Close": "Закрыть",
+    "Not Important": "Низкий",
+    "Important": "Высокий",
+    "Very Important": "Высочайший"
+  }
+}
+</i18n>
