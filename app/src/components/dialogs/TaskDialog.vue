@@ -39,14 +39,13 @@
         >
           <v-icon>mdi-close</v-icon>
         </v-btn>
-        <v-toolbar-title>Settings</v-toolbar-title>
+        <v-toolbar-title>{{ task.name }}</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items>
           <v-btn
               dark
               text
           >
-            {{ task.name }}
             <template v-if="task.stepsCount">
               ({{ task.finishedSteps }} / {{ task.stepsCount }})
             </template>
