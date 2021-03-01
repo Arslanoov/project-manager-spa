@@ -1,4 +1,5 @@
 {
   "$vuetify.noDataText": "Пусто",
-  "$vuetify.dataTable.itemsPerPageText": "Элементов на одной странице"
+  "$vuetify.dataTable.itemsPerPageText": "Элементов на одной странице",
+  "$vuetify.dataTable.sortBy": "Сортировка"
 }
