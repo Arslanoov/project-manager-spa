@@ -8,6 +8,12 @@
           :value="settings.nightMode"
           :label="$t(`Night mode`)"
       ></v-checkbox>
+
+      <v-checkbox
+        @change="toggleHideTasks"
+        :value="settings.hideFinishedTasks"
+        :label="$t(`Hide finished tasks`)"
+      ></v-checkbox>
     </template>
   </v-container>
 </template>
@@ -33,6 +39,7 @@ export default class Settings extends Vue {
   @settingsModule.State("settings") settings: SettingsInterface
 
   @settingsModule.Action("toggleNightMode") toggleNightMode: typeof SettingsStoreModule.prototype.toggleNightMode
+  @settingsModule.Action("toggleHideTasks") toggleHideTasks: typeof SettingsStoreModule.prototype.toggleHideTasks
 
   public onToggleNightMode(): void {
     this.toggleNightMode()
@@ -45,11 +52,13 @@ export default class Settings extends Vue {
 {
   "en": {
     "Settings": "Settings",
-    "Night mode": "Night mode"
+    "Night mode": "Night mode",
+    "Hide finished tasks": "Hide finished tasks"
   },
   "ru": {
     "Settings": "Настройки",
-    "Night mode": "Темный режим"
+    "Night mode": "Темный режим",
+    "Hide finished tasks": "Скрывать завершенные задачи"
   }
 }
 </i18n>
