@@ -86,4 +86,12 @@ describe("Nav Store", () => {
 
     expect(navStore.customSchedules.length).toEqual(prevLength - 1)
   })
+
+  it("changes language", () => {
+    expect(navStore.language).toEqual("ru")
+
+    navStore.changeLanguage("en")
+
+    expect(navStore.language).toEqual("en")
+  })
 })
