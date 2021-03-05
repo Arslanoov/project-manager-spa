@@ -26,6 +26,11 @@ class Settings extends VuexModule {
     this.settings.nightMode = nightMode
   }
 
+  @Mutation
+  public setHideTasksMode(nightMode: boolean): void {
+    this.settings.hideFinishedTasks = nightMode
+  }
+
   @Action({ rawError: true })
   public fetchSettings(): void {
     this.context.commit("setSettings", storage.getSettings())
@@ -35,6 +40,12 @@ class Settings extends VuexModule {
   public toggleNightMode(): void {
     storage.toggleNightMode()
     this.context.commit("setNightMode", !this.settings.nightMode)
+  }
+
+  @Action({ rawError: true })
+  public toggleHideTasks(): void {
+    storage.toggleHideTasks()
+    this.context.commit("setHideTasksMode", !this.settings.hideFinishedTasks)
   }
 
   @Action({ rawError: true })

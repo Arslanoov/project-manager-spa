@@ -132,51 +132,53 @@
       </v-timeline-item>
 
       <v-slide-x-transition group>
-        <v-timeline-item
-            v-for="task in schedule.tasks"
-            :color="removedColor ? '' : importantLevels[task.importantLevel]"
-            :key="task.id"
-            class="task"
-            fill-dot
-        >
-          <template v-slot:icon>
-            <div class="new-task-level" @click="toggleTaskStatus({
-              task,
-              schedule
-            })">
-              <v-icon
-                  :color="settings.nightMode ? 'black' : 'white'"
-              >
-                {{ taskIcon(task) }}
-              </v-icon>
-            </div>
-          </template>
-
-          <v-card>
-            <v-card-title class="title">
-              {{ task.name }}
-            </v-card-title>
-            <v-card-text :class="settings.nightMode ? 'black' : 'white'" class="text--primary card-description">
-              <p>{{ task.description }}</p>
-              <div class="text-right">
-                <TaskDialog :schedule="schedule" :task="task" />
-                <div class="button">
-                  <v-btn
-                      @click="removeTask({
-                        task,
-                        schedule
-                      })"
-                      :disabled="isLoading"
-                      class="mx-0"
-                      outlined
-                  >
-                    <v-icon>mdi-close</v-icon>
-                  </v-btn>
-                </div>
+        <template v-for="task in schedule.tasks">
+          <v-timeline-item
+              v-if="(task.status !== `Complete` && task.stepsCount === task.finishedSteps) || !settings.hideFinishedTasks"
+              :color="removedColor ? '' : importantLevels[task.importantLevel]"
+              :key="task.id"
+              class="task"
+              fill-dot
+          >
+            <template v-slot:icon>
+              <div class="new-task-level" @click="toggleTaskStatus({
+                task,
+                schedule
+              })">
+                <v-icon
+                    :color="settings.nightMode ? 'black' : 'white'"
+                >
+                  {{ taskIcon(task) }}
+                </v-icon>
               </div>
-            </v-card-text>
-          </v-card>
-        </v-timeline-item>
+            </template>
+
+            <v-card>
+              <v-card-title class="title">
+                {{ task.name }}
+              </v-card-title>
+              <v-card-text :class="settings.nightMode ? 'black' : 'white'" class="text--primary card-description">
+                <p>{{ task.description }}</p>
+                <div class="text-right">
+                  <TaskDialog :schedule="schedule" :task="task" />
+                  <div class="button">
+                    <v-btn
+                        @click="removeTask({
+                          task,
+                          schedule
+                        })"
+                        :disabled="isLoading"
+                        class="mx-0"
+                        outlined
+                    >
+                      <v-icon>mdi-close</v-icon>
+                    </v-btn>
+                  </div>
+                </div>
+              </v-card-text>
+            </v-card>
+          </v-timeline-item>
+        </template>
       </v-slide-x-transition>
     </v-timeline>
   </div>
@@ -242,6 +244,7 @@ export default class Schedule extends Vue {
    * ctrl+c - Close add task form <br>
    * ctrl+i - Change current task important level <br>
    * ctrl+s - Submit add task form
+   * ctrl+y - Hide finished tasks
    */
   @Prop({ required: true }) readonly haveHotKeys: boolean
 

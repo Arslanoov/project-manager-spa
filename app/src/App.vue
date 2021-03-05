@@ -28,11 +28,13 @@ const settingsModule = namespace("Settings")
 export default class App extends Vue {
   @settingsModule.State("settings") settings: SettingsInterface
 
+  @settingsModule.Action("toggleHideTasks") toggleHideTasks: typeof SettingsStoreModule.prototype.toggleHideTasks
   @settingsModule.Action("fetchSettings") fetchSettings: typeof SettingsStoreModule.prototype.fetchSettings
   @settingsModule.Action("changeNightMode") changeNightMode: typeof SettingsStoreModule.prototype.changeNightMode
 
   public keymap = {
-    'ctrl+m': this.toggleTheme
+    'ctrl+m': this.toggleTheme,
+    'ctrl+h': this.toggleHideTasks
   }
 
   public mounted(): void {

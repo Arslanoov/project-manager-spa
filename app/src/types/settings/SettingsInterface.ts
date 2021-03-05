@@ -1,3 +1,4 @@
 export default interface SettingsInterface {
-  nightMode: boolean
+  nightMode: boolean,
+  hideFinishedTasks: boolean
 }

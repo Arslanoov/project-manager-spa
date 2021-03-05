@@ -21,6 +21,14 @@ export default class SettingsStorage {
     })
   }
 
+  public toggleHideTasks(): void {
+    const settings = this.getSettings()
+    this.setSettings({
+      ...settings,
+      hideFinishedTasks: !settings.hideFinishedTasks
+    })
+  }
+
   public changeNightMode(value: boolean): void {
     const settings = this.getSettings()
     this.setSettings({
