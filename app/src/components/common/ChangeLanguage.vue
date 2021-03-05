@@ -12,6 +12,8 @@ import Vue from "vue"
 import Component from "vue-class-component"
 import { namespace } from "vuex-class"
 
+import axios from "axios"
+
 import { getToggledLanguage, getLanguageName } from "@/helpers/language"
 
 import NavStoreModule from "@/store/modules/nav"
@@ -43,6 +45,10 @@ export default class Nav extends Vue {
     const toggledLanguage = getToggledLanguage(this.language)
     this.changeLanguage(toggledLanguage)
     this.$i18n.locale = getLanguageName(toggledLanguage)
+    axios.defaults.params = {
+      ...axios.defaults.params,
+      language: getLanguageName(toggledLanguage)
+    }
   }
 
   public get toggledLanguage(): string {

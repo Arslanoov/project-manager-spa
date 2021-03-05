@@ -1,6 +1,6 @@
 import { VuexModule, Module, Mutation, Action } from "vuex-module-decorators"
 
-import ScheduleInterface, {CustomScheduleFormInterface} from "@/types/schedule/ScheduleInterface"
+import ScheduleInterface, { CustomScheduleFormInterface } from "@/types/schedule/ScheduleInterface"
 
 import ScheduleService from "@/services/api/v1/ScheduleService"
 const service = new ScheduleService()
@@ -57,8 +57,7 @@ class Nav extends VuexModule {
     }
   }
 
-  // TODO: Add test
-  @Action
+  @Action({ rawError: true })
   public changeLanguage(name: string): void {
     localStorage.setItem("language", name)
     this.context.commit("setLanguage", name)
