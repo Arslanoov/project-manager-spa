@@ -170,6 +170,7 @@ export default class Nav extends Vue {
       name: routesNames[name],
       params
     }).catch(() => console.log(`Already in ${name} page`))
+    this.toggleNavVisibility()
   }
 
   public onScheduleRemove(id: string): void {
