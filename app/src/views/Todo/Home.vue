@@ -165,7 +165,8 @@ export default class Home extends Vue {
     "Common tasks": "Common tasks",
     "Load later schedule": "Load later schedule",
     "Skip to the later week": "Skip to the later week",
-    "Load earlier schedule": "Load earlier schedule"
+    "Load earlier schedule": "Load earlier schedule",
+    "Skip to the earlier week": "Skip to the earlier week"
   },
   "ru": {
     "Common tasks": "Общие задачи",

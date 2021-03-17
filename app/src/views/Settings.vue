@@ -5,13 +5,13 @@
     <template v-if="settings">
       <v-checkbox
           @change="onToggleNightMode"
-          :value="settings.nightMode"
+          :input-value="Boolean(settings.nightMode)"
           :label="$t(`Night mode`)"
       ></v-checkbox>
 
       <v-checkbox
         @change="toggleHideTasks"
-        :value="settings.hideFinishedTasks"
+        :input-value="settings.hideFinishedTasks"
         :label="$t(`Hide finished tasks`)"
       ></v-checkbox>
     </template>

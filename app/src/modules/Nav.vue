@@ -195,6 +195,14 @@ export default class Nav extends Vue {
 
 <i18n>
 {
+  "en": {
+    "Home": "Home",
+    "Custom schedule": "Custom schedule",
+    "Settings": "Settings",
+    "Logout": "Logout",
+    "Login": "Login",
+    "Sign Up": "Sign Up"
+  },
   "ru": {
     "Home": "Главная",
     "Custom schedule": "Создать список",
