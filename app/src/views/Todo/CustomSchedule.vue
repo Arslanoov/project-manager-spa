@@ -1,5 +1,5 @@
 <template>
-  <v-container class="custom-schedule-page" v-if="customSchedule">
+  <v-container class="custom-schedule" v-if="customSchedule">
       <h2>{{ customSchedule.name }}</h2>
       <Schedule :key="`custom-${customSchedule.id}`" :schedule="customSchedule" :have-hot-keys="true" />
   </v-container>
@@ -85,8 +85,3 @@ export default class CustomSchedule extends Vue {
   }
 }
 </script>
-
-<style lang="scss">
-.custom-schedule-page {
-}
-</style>

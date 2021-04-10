@@ -1,16 +1,16 @@
 <template>
-  <v-container class="login-page" fill-height fluid>
-    <v-row class="form-row" justify="center" align-self="center">
+  <v-container class="login" fill-height fluid>
+    <v-row class="login__row" justify="center" align-self="center">
       <v-col
           xs="10"
           sm="9"
           md="4"
       >
-        <h2 class="title text-center">{{ $t("Log In") }}</h2>
+        <h2 class="login__title text-center">{{ $t("Log In") }}</h2>
 
         <v-alert
             v-if="authForm.error"
-            class="alert"
+            class="login__alert"
             border="bottom"
             color="pink darken-1"
             dark
@@ -28,7 +28,6 @@
               :rules="rules.email"
               :value="authForm.email"
               label="E-mail"
-              class="email-field"
               type="email"
               required
           ></v-text-field>
@@ -39,16 +38,15 @@
               :rules="rules.password"
               :value="authForm.password"
               :label="$t(`Password`)"
-              class="password-field"
               type="password"
               required
           ></v-text-field>
 
-          <div class="buttons">
+          <div class="login__buttons">
             <v-btn
                 @click="onSubmit"
                 color="success"
-                class="button mr-4"
+                class="login__button mr-4"
             >
               {{ $t("Submit") }}
             </v-btn>
@@ -56,7 +54,7 @@
             <v-btn
                 @click="onReset"
                 color="error"
-                class="button mr-4"
+                class="login__button mr-4"
             >
               {{ $t("Reset Form") }}
             </v-btn>
@@ -64,7 +62,7 @@
             <v-btn
                 @click="onResetValidation"
                 color="warning"
-                class="button"
+                class="login__button"
             >
               {{ $t("Reset Validation") }}
             </v-btn>
@@ -144,20 +142,18 @@ export default class Login extends Vue {
 }
 </script>
 
-<style lang="scss">
-.login-page {
-  .alert {
+<style lang="scss" scoped>
+.login {
+  &__alert {
     margin: 20px 0;
   }
 
-  .form-row {
+  &__row {
     margin-top: -64px;
   }
 
-  .buttons {
-    .button {
-      margin-top: 20px;
-    }
+  &__button {
+    margin-top: 20px;
   }
 }
 </style>

@@ -1,11 +1,11 @@
 <template>
-  <v-container class="not-found-page" fill-height fluid>
+  <v-container class="not-found" fill-height fluid>
     <v-row justify="center" align-self="center">
-      <div class="message">
-        <img class="not-found" src="~@/assets/images/404.svg" alt="404" />
+      <div class="not-found__message">
+        <img class="not-found__image" src="~@/assets/images/404.svg" alt="404" />
         <v-btn
             color="success"
-            class="button"
+            class="not-found__button"
             @click="onGoHome"
         >
           {{ $t("Go Home") }}
@@ -34,11 +34,11 @@ export default class NotFound extends Vue {
 }
 </script>
 
-<style lang="scss">
-.not-found-page {
+<style lang="scss" scoped>
+.not-found {
   margin-top: -64px;
 
-  .message {
+  &__message {
     display: flex;
     flex-direction: column;
     justify-content: center;

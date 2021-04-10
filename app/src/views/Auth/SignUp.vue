@@ -1,16 +1,16 @@
 <template>
-  <v-container class="sign-up-page" fill-height fluid>
-    <v-row class="form-row" justify="center" align-self="center">
+  <v-container class="sign-up" fill-height fluid>
+    <v-row class="sign-up__row" justify="center" align-self="center">
       <v-col
           xs="10"
           sm="9"
           md="4"
       >
-        <h2 class="title text-center">{{ $t("Sign Up") }}</h2>
+        <h2 class="sign-up__title text-center">{{ $t("Sign Up") }}</h2>
 
         <v-alert
             v-if="signUpForm.error"
-            class="alert"
+            class="sign-up__alert"
             border="bottom"
             color="pink darken-1"
             dark
@@ -28,7 +28,6 @@
               :rules="rules.login"
               :value="signUpForm.login"
               :label="$t(`Login`)"
-              class="login-field"
               type="text"
               required
           ></v-text-field>
@@ -38,7 +37,6 @@
               :counter="32"
               :rules="rules.email"
               :value="signUpForm.email"
-              class="email-field"
               label="E-mail"
               type="email"
               required
@@ -50,16 +48,15 @@
               :rules="rules.password"
               :value="signUpForm.password"
               :label="$t(`Password`)"
-              class="password-field"
               type="password"
               required
           ></v-text-field>
 
-          <div class="buttons">
+          <div class="sign-up__buttons">
             <v-btn
                 @click="onSubmit"
                 color="success"
-                class="button mr-4"
+                class="sign-up__button mr-4"
             >
               {{ $t("Submit") }}
             </v-btn>
@@ -67,7 +64,7 @@
             <v-btn
                 @click="onReset"
                 color="error"
-                class="button mr-4"
+                class="sign-up__button mr-4"
             >
               {{ $t("Reset Form") }}
             </v-btn>
@@ -75,7 +72,7 @@
             <v-btn
                 @click="onResetValidation"
                 color="warning"
-                class="button"
+                class="sign-up__button"
             >
               {{ $t("Reset Validation") }}
             </v-btn>
@@ -159,20 +156,18 @@ export default class SignUp extends Vue {
 }
 </script>
 
-<style lang="scss">
-.sign-up-page {
-  .alert {
+<style lang="scss" scoped>
+.sign-up {
+  &__alert {
     margin: 20px 0;
   }
 
-  .form-row {
+  &__row {
     margin-top: -64px;
   }
 
-  .buttons {
-    .button {
-      margin-top: 20px;
-    }
+  &__button {
+    margin-top: 20px;
   }
 }
 </style>

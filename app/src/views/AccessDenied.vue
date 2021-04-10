@@ -1,11 +1,11 @@
-<template>
-  <v-container class="access-denied-page" fill-height fluid>
+x<template>
+  <v-container class="access-denied" fill-height fluid>
     <v-row justify="center" align-self="center">
-      <div class="message">
+      <div class="access-denied__message">
         <h1>403</h1>
         <v-alert
             v-if="error"
-             class="alert"
+             class="access-denied__alert"
              border="bottom"
              color="pink darken-1"
              dark>
@@ -13,7 +13,7 @@
         </v-alert>
         <v-btn
             color="success"
-            class="button"
+            class="access-denied__button"
             @click="onGoHome"
         >
           $t("Go Home")
@@ -44,11 +44,11 @@ export default class AccessDenied extends Vue {
 }
 </script>
 
-<style lang="scss">
-.access-denied-page {
+<style lang="scss" scoped>
+.access-denied {
   margin-top: -64px;
 
-  .message {
+  &__message {
     display: flex;
     flex-direction: column;
     justify-content: center;

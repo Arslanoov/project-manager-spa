@@ -140,7 +140,6 @@ export default class StepsList extends Vue {
 </script>
 
 <style lang="scss" scoped>
-/* TODO: Merge */
 .button {
   display: inline-block;
 

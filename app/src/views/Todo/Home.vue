@@ -1,5 +1,5 @@
 <template>
-  <v-container class="daily-schedule-page">
+  <v-container class="daily-schedule">
     <v-row v-if="mainSchedule && dailySchedules.length > 0">
       <v-col
           v-if="mainSchedule"
@@ -153,11 +153,6 @@ export default class Home extends Vue {
   }
 }
 </script>
-
-<style lang="scss">
-.daily-schedule-page {
-}
-</style>
 
 <i18n>
 {
