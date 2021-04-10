@@ -1,16 +1,16 @@
 <template>
-  <v-container class="confirm-sign-up-page" fill-height fluid>
+  <v-container class="confirm" fill-height fluid>
     <v-row class="form-row" justify="center" align-self="center">
       <v-col
           xs="10"
           sm="9"
           md="4"
       >
-        <h2 class="title text-center">{{ $t("Confirm Sign Up") }}</h2>
+        <h2 class="confirm__title text-center">{{ $t("Confirm Sign Up") }}</h2>
 
         <v-alert
             v-if="confirmSignUpForm.error"
-            class="alert"
+            class="confirm__alert"
             border="bottom"
             color="pink darken-1"
             dark
@@ -18,12 +18,12 @@
           {{ confirmSignUpForm.error }}
         </v-alert>
 
-        <p class="token">{{ $t("Token") }}: {{ token }}</p>
+        <p class="confirm__token">{{ $t("Token") }}: {{ token }}</p>
 
-        <div class="buttons">
+        <div class="confirm__buttons">
           <v-btn
               color="success"
-              class="button"
+              class="confirm__button"
               @click="onSubmit"
           >
             {{ $t("Join") }}
@@ -79,20 +79,20 @@ export default class SignUp extends Vue {
 }
 </script>
 
-<style lang="scss">
-.confirm-sign-up-page {
+<style lang="scss" scoped>
+.confirm {
   margin-top: -64px;
 
-  .alert {
+  &__alert {
     margin: 20px 0;
     text-align: center;
   }
 
-  .token {
+  &__token {
     text-align: center;
   }
 
-  .buttons {
+  &__buttons {
     text-align: center;
   }
 }

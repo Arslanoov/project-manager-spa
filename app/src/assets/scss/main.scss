@@ -1,1 +1,5 @@
-@import "fonts";
+@import "abstracts/variables";
+@import "abstracts/mixins";
+
+@import "base/reset";
+@import "base/typography";

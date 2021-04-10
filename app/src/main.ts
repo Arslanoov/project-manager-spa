@@ -11,8 +11,6 @@ Vue.config.performance = process.env.NODE_ENV !== "production"
 
 import "@/helpers/axios/interceptors"
 
-import "@/assets/scss/main.scss"
-
 new Vue({
   router,
   store,

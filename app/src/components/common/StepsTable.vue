@@ -59,7 +59,6 @@ const scheduleModule = namespace("Schedule")
 const taskModule = namespace("Task")
 const alertModule = namespace("Alert")
 
-
 /**
  * Steps table
  * @version 1.0.0

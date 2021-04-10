@@ -7,7 +7,6 @@
     }) }}</h2>
     <v-timeline
         :key="schedule.id"
-        class="schedule"
         clipped
         dense
     >
@@ -17,7 +16,7 @@
           fill-dot
       >
         <template v-slot:icon>
-          <div class="new-task-level" @click="toggleImportantLevel">
+          <div class="schedule__level" @click="toggleImportantLevel">
             <v-icon
                 :color="settings.nightMode ? 'black' : 'white'"
             >
@@ -137,11 +136,10 @@
               v-if="(task.status !== `Complete` && task.stepsCount === task.finishedSteps) || !settings.hideFinishedTasks"
               :color="removedColor ? '' : importantLevels[task.importantLevel]"
               :key="task.id"
-              class="task"
               fill-dot
           >
             <template v-slot:icon>
-              <div class="new-task-level" @click="toggleTaskStatus({
+              <div class="schedule__level" @click="toggleTaskStatus({
                 task,
                 schedule
               })">
@@ -153,15 +151,15 @@
               </div>
             </template>
 
-            <v-card>
-              <v-card-title class="title">
+            <v-card class="task">
+              <v-card-title class="task__name">
                 {{ task.name }}
               </v-card-title>
-              <v-card-text :class="settings.nightMode ? 'black' : 'white'" class="text--primary card-description">
+              <v-card-text :class="settings.nightMode ? 'black' : 'white'" class="task__description text--primary">
                 <p>{{ task.description }}</p>
                 <div class="text-right">
                   <TaskDialog :schedule="schedule" :task="task" />
-                  <div class="button">
+                  <div class="task__button">
                     <v-btn
                         @click="removeTask({
                           task,
@@ -359,25 +357,21 @@ export default class Schedule extends Vue {
 
 <style lang="scss" scoped>
 .schedule {
-  .new-task-level {
-    &:hover {
-      cursor: pointer;
-    }
+  &__level {
+    @include pointer-on-hover();
+  }
+}
+
+.task {
+  &__description {
+    padding-top: 7px;
   }
 
-  .task {
-    .button {
-      display: inline-block;
+  &__button {
+    display: inline-block;
 
-      margin-top: 5px;
-      margin-right: 10px;
-    }
-  }
-
-  .card {
-    &-description {
-      padding-top: 7px;
-    }
+    margin-top: 5px;
+    margin-right: 10px;
   }
 }
 </style>

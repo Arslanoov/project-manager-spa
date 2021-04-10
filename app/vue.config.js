@@ -10,6 +10,14 @@ module.exports = {
     public: '0.0.0.0:8080'
   },
 
+  css: {
+    loaderOptions: {
+      scss: {
+        prependData: `@import "@/assets/scss/main";`
+      }
+    }
+  },
+
   chainWebpack: config => {
     config.plugins.delete('prefetch')
     config
@@ -29,9 +37,9 @@ module.exports = {
 
   pluginOptions: {
     i18n: {
-      locale: 'ru',
-      fallbackLocale: 'ru',
-      localeDir: 'locales',
+      locale: "ru",
+      fallbackLocale: "ru",
+      localeDir: "locales",
       enableInSFC: true
     }
   }
