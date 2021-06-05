@@ -14,3 +14,7 @@
 <div align="center">Create tasks</div>
 
 ![Create tasks](https://user-images.githubusercontent.com/51407990/120901009-9f2b5580-c651-11eb-9c0d-83bd436c73ad.gif)
+
+<div align="center">Add task steps</div>
+
+![Add task steps](https://user-images.githubusercontent.com/51407990/120901303-655b4e80-c653-11eb-8ead-0b2f97440d87.gif)
