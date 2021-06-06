@@ -40,17 +40,25 @@
 
 ![Create tasks](https://user-images.githubusercontent.com/51407990/120901009-9f2b5580-c651-11eb-9c0d-83bd436c73ad.gif)
 
+<br />
+
 <div align="center"><b>Add task steps</b></div>
 
 ![Add task steps](https://user-images.githubusercontent.com/51407990/120901303-655b4e80-c653-11eb-8ead-0b2f97440d87.gif)
+
+<br />
 
 <div align="center"><b>Use daily schedules</b></div>
 
 ![Use daily schedules](https://user-images.githubusercontent.com/51407990/120931577-a1ea8100-c70b-11eb-9725-b0b2cad5fef6.gif)
 
+<br />
+
 <div align="center"><b>Dark theme</b></div>
 
 ![Dark theme](https://user-images.githubusercontent.com/51407990/120931688-24734080-c70c-11eb-9498-20d6238f2345.gif)
+
+<br />
 
 <div align="center"><b>i18n</b></div>
 
