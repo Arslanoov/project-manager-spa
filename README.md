@@ -18,3 +18,7 @@
 <div align="center">Add task steps</div>
 
 ![Add task steps](https://user-images.githubusercontent.com/51407990/120901303-655b4e80-c653-11eb-8ead-0b2f97440d87.gif)
+
+<div align="center">Use daily schedules</div>
+
+![Use daily schedules](https://user-images.githubusercontent.com/51407990/120931577-a1ea8100-c70b-11eb-9725-b0b2cad5fef6.gif)
