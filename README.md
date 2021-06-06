@@ -27,3 +27,7 @@
 
 ![Dark theme](https://user-images.githubusercontent.com/51407990/120931688-24734080-c70c-11eb-9498-20d6238f2345.gif)
 
+<div align="center">i18n</div>
+
+![i18n](https://user-images.githubusercontent.com/51407990/120931768-7ddb6f80-c70c-11eb-94e3-b5b31440af6d.gif)
+
