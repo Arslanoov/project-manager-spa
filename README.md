@@ -22,3 +22,8 @@
 <div align="center">Use daily schedules</div>
 
 ![Use daily schedules](https://user-images.githubusercontent.com/51407990/120931577-a1ea8100-c70b-11eb-9725-b0b2cad5fef6.gif)
+
+<div align="center">Dark theme</div>
+
+![Dark theme](https://user-images.githubusercontent.com/51407990/120931688-24734080-c70c-11eb-9498-20d6238f2345.gif)
+
