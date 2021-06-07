@@ -19,20 +19,16 @@
     <li>Run:</li>
 </ol>
 
-    cd app
-    npm i
-    npm run serve
+    make serve
+    make install-deps
 
 <p align="center"><b>Run tests</b></p>
 
-    cd app
-    npm run test:unit
-    npm run test:e2e
+    make test
 
 <p align="center"><b>Build project</b></p>
 
-    cd app
-    npm run build
+    make build
 
 <h3 align="center">Short overview</h2>
 
