@@ -1,15 +1,15 @@
 <template>
   <header class="header">
     <v-app-bar
-        color="deep-purple accent-4"
-        app
-        dark
-        dense
+      color="deep-purple accent-4"
+      app
+      dark
+      dense
     >
       <v-app-bar-nav-icon @click="toggleNavVisibility"></v-app-bar-nav-icon>
 
       <div class="d-flex align-center logo" @click="onGoHome">
-        <h1 class="title">To Do</h1>
+        <h1 class="title">{{ $t("Task Manager") }}</h1>
       </div>
 
       <v-spacer></v-spacer>
@@ -59,3 +59,14 @@ export default class Header extends Vue {
   }
 }
 </style>
+
+<i18n>
+{
+  "en": {
+    "Task Manager": "Task Manager"
+  },
+  "ru": {
+    "Task Manager": "Менеджер задач"
+  }
+}
+</i18n>

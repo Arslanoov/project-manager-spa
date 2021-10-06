@@ -18,9 +18,9 @@ import { getToggledLanguage, getLanguageName } from "@/helpers/language"
 
 import NavStoreModule from "@/store/modules/nav"
 
-const navModule = namespace("Nav")
-
 import AddCustomSchedule from "@/components/common/AddCustomSchedule.vue"
+
+const navModule = namespace("Nav")
 
 /**
  * @version 1.0.0 <br>

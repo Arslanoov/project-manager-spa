@@ -46,7 +46,7 @@ export default class AddCustomSchedule extends Vue {
   @navModule.State("addCustomScheduleForm") form: CustomScheduleFormInterface
 
   @navModule.Mutation("setCustomScheduleFormName") setCustomScheduleFormName: typeof NavStoreModule.prototype.setCustomScheduleFormName
- @navModule.Mutation("toggleAddCustomScheduleForm") toggleScheduleForm:
+  @navModule.Mutation("toggleAddCustomScheduleForm") toggleScheduleForm:
       typeof NavStoreModule.prototype.toggleAddCustomScheduleForm
   @navModule.Action("createCustomSchedule") createCustomSchedule: typeof NavStoreModule.prototype.createCustomSchedule
   @alertModule.Mutation("setMessage") setMessage: typeof AlertStoreModule.prototype.setMessage
