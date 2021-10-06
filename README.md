@@ -1,4 +1,4 @@
-<h2 align="center">Todo App</h2>
+<h2 align="center">Task Manager SPA</h2>
 <p align="center">
     <img width="150px" src="https://upload.wikimedia.org/wikipedia/commons/9/95/Vue.js_Logo_2.svg" />
 </p>
