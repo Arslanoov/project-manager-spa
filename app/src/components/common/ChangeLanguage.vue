@@ -56,8 +56,3 @@ export default class Nav extends Vue {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-
-</style>
-

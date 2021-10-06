@@ -93,7 +93,6 @@ export default class StepsList extends Vue {
    * finishedSteps: number
    */
   @Prop({ required: true }) readonly task: TaskInterface
-  // TODO: Take out interfaces
   /**
    * Array of StepInterface
    * StepInterface
@@ -188,12 +187,6 @@ export default class StepsList extends Vue {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.steps-table {
-
-}
-</style>
 
 <i18n>
 {
