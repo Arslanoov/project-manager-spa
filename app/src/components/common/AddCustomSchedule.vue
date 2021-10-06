@@ -83,6 +83,22 @@ export default class AddCustomSchedule extends Vue {
 }
 </script>
 
+<style lang="scss">
+.add-custom-schedule {
+  .v-input {
+    .v-input__control {
+      .v-input__slot {
+        padding: 0;
+
+        .v-label {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}
+</style>
+
 <i18n>
 {
   "en": {
