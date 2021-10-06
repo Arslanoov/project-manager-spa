@@ -23,7 +23,7 @@ const userStore = factory()
 
 describe("User Store", () => {
   it("sets refresh token", () => {
-    const token: string = "token"
+    const token = "token"
 
     userStore.setRefreshToken(token)
 

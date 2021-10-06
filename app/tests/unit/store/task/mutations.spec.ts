@@ -4,7 +4,7 @@ import { getModule } from "vuex-module-decorators"
 import { createLocalVue } from "@vue/test-utils"
 
 import Task from "@/store/modules/task"
-import StepInterface from "@/types/schedule/task/StepInterface";
+import StepInterface from "@/types/schedule/task/StepInterface"
 
 const Vue = createLocalVue()
 Vue.use(Vuex)
@@ -32,7 +32,7 @@ const steps: Array<StepInterface> = [
 
 describe("Task Store", () => {
   it("sets current task", () => {
-    const taskId: string = "someId"
+    const taskId = "someId"
     taskStore.setCurrentTask(taskId)
 
     expect(taskStore.currentTaskId).toEqual(taskId)
@@ -47,7 +47,7 @@ describe("Task Store", () => {
   })
 
   it("change current task step status", () => {
-    const newStatus: string = "Not Complete"
+    const newStatus = "Not Complete"
     taskStore.changeCurrentTaskStepStatus({
       id: steps[0].id,
       newStatus
@@ -57,7 +57,7 @@ describe("Task Store", () => {
   })
 
   it("change current task steps statuses", () => {
-    const newStatus: string = "Some status"
+    const newStatus = "Some status"
     taskStore.changeCurrentTaskStepsStatus({
       ids: [steps[0].id],
       newStatus
@@ -118,7 +118,7 @@ describe("Task Store", () => {
   })
 
   it("sets add step form name", () => {
-    const name: string = "some name"
+    const name = "some name"
 
     taskStore.setAddStepFormName(name)
 

@@ -5,7 +5,7 @@ import { createLocalVue } from "@vue/test-utils"
 
 import Schedule from "@/store/modules/schedule"
 import ScheduleInterface from "@/types/schedule/ScheduleInterface"
-import TaskInterface, { TaskForm } from "@/types/schedule/task/TaskInterface";
+import TaskInterface, { TaskForm } from "@/types/schedule/task/TaskInterface"
 
 const Vue = createLocalVue()
 Vue.use(Vuex)

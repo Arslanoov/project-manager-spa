@@ -4,7 +4,7 @@ import { getModule } from "vuex-module-decorators"
 import { createLocalVue } from "@vue/test-utils"
 
 import Nav from "@/store/modules/nav"
-import ScheduleInterface from "@/types/schedule/ScheduleInterface";
+import ScheduleInterface from "@/types/schedule/ScheduleInterface"
 
 const Vue = createLocalVue()
 Vue.use(Vuex)

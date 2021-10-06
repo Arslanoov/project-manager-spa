@@ -5,7 +5,7 @@ import { createLocalVue } from "@vue/test-utils"
 
 import Settings from "@/store/modules/settings"
 import SettingsInterface from "@/types/settings/SettingsInterface"
-import {DEFAULT_SETTINGS} from "@/const/settings";
+import {DEFAULT_SETTINGS} from "@/const/settings"
 
 const Vue = createLocalVue()
 Vue.use(Vuex)
