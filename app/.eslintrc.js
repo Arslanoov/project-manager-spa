@@ -19,6 +19,7 @@ module.exports = {
     "@typescript-eslint/explicit-module-boundary-types": 0,
     "@typescript-eslint/no-var-requires": 0,
     "@typescript-eslint/no-empty-function": 0,
+    "@typescript-eslint/camelcase": 0,
     "vue/no-setup-props-destructure": 0,
 
     "semi": ["error", "never"],

@@ -1,5 +1,4 @@
 <template>
-  <!-- TODO: Add selected value -->
   <v-data-table
       @toggle-select-all="onSelectAll"
       @item-selected="onSelect"

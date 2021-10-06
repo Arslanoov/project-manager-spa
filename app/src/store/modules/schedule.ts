@@ -6,6 +6,8 @@ import ScheduleService from "@/services/api/v1/ScheduleService"
 import TaskInterface, { TaskForm } from "@/types/schedule/task/TaskInterface"
 import StepInterface from "@/types/schedule/task/StepInterface"
 
+import { LOW, HIGH, VERY_HIGH } from "@/locales/importantLevels"
+
 const service: ScheduleService = new ScheduleService()
 
 @Module({
@@ -18,9 +20,9 @@ class Schedule extends VuexModule {
 
   public taskForms: Array<TaskForm> = []
   public importantLevelsList: Array<string> = [
-    "Very Important",
-    "Important",
-    "Not Important"
+    VERY_HIGH,
+    HIGH,
+    LOW
   ]
   public openedAddTaskFormScheduleId: string | null = null
 
@@ -95,7 +97,10 @@ class Schedule extends VuexModule {
     if (index !== -1) {
       const taskIndex: number = this.schedules[index].tasks.findIndex(task => task.id === payload.taskId)
       if (taskIndex !== -1) {
-        this.schedules[index].tasks[taskIndex].stepsCount += 1
+        this.schedules[index].tasks[taskIndex] = {
+          ...this.schedules[index].tasks[taskIndex],
+          stepsCount: (this.schedules[index].tasks[taskIndex].stepsCount || 0) + 1
+        }
       }
     }
   }

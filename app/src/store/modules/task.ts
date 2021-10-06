@@ -13,6 +13,8 @@ const stepService: StepService = new StepService()
   name: process.env.NODE_ENV === "test" ? "task" : undefined
 })
 
+// TODO: Rewrite to async/await
+
 class Task extends VuexModule {
   public currentTaskId: string | null = null
   public currentTaskSteps: Array<StepInterface> = []
@@ -122,112 +124,97 @@ class Task extends VuexModule {
   }
 
   @Action({ rawError: true })
-  public fetchTaskSteps(id: string): Promise<Array<StepInterface>> {
-    return new Promise((resolve, reject) => {
-      this.context.commit("setCurrentTask", id)
+  public async fetchTaskSteps(id: string): Promise<Array<StepInterface>> {
+    this.context.commit("setCurrentTask", id)
 
-      taskService.getTaskSteps(this.currentTaskId as string)
-        .then(response => {
-          const steps: Array<StepInterface> = response.data.steps
-          this.context.commit("setCurrentTaskSteps", steps)
-          this.context.commit("openStepsDialog")
-          resolve(steps)
-        })
-        .catch(error => {
-          console.log(error)
-          if (error.response) {
-            this.context.commit("setCurrentTaskSteps", error.response.data.error)
-            this.context.commit("closeStepsDialog")
-          }
-          reject(error.response)
-        })
-    })
+    try {
+      const response = await taskService.getTaskSteps(this.currentTaskId as string)
+      const steps: Array<StepInterface> = response.data.steps
+      this.context.commit("setCurrentTaskSteps", steps)
+      this.context.commit("openStepsDialog")
+      return steps
+    } catch (error) {
+      console.log(error)
+      if (error.response) {
+        this.context.commit("setCurrentTaskSteps", error.response.data.error)
+        this.context.commit("closeStepsDialog")
+      }
+
+      return error.response
+    }
   }
 
   @Action({ rawError: true })
-  public removeStep(id: number): Promise<void> {
-    return new Promise((resolve, reject) => {
-      stepService.removeStep(id)
-        .then(() => {
-          this.context.commit("removeCurrentTaskStep", id)
-          resolve()
-        })
-        .catch(error => {
-          console.log(error)
-          reject(error.response)
-        })
-    })
+  public async removeStep(id: number): Promise<void> {
+    try {
+      await stepService.removeStep(id)
+      this.context.commit("removeCurrentTaskStep", id)
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
   }
 
   @Action({ rawError: true })
-  public addStep(): Promise<StepInterface> {
-    return new Promise((resolve, reject) => {
-      stepService.addStep(this.currentStepForm)
-        .then(response => {
-          const step: StepInterface = {
-            ...this.currentStepForm,
-            id: response.data.id,
-            // eslint-disable-next-line @typescript-eslint/camelcase
-            sort_order: response.data.id,
-            status: "Not Complete"
-          }
+  public async addStep(): Promise<StepInterface> {
+    try {
+      const response = await stepService.addStep(this.currentStepForm)
+      const step: StepInterface = {
+        ...this.currentStepForm,
+        id: response.data.id,
+        // eslint-disable-next-line @typescript-eslint/camelcase
+        sort_order: response.data.id,
+        status: "Not Complete"
+      }
 
-          this.context.commit("addCurrentTaskStep", step)
-          this.context.commit("clearCurrentStepForm")
-          resolve(step)
-        })
-        .catch(error => {
-          console.log(error)
-          reject(error.response)
-        })
-    })
+      this.context.commit("addCurrentTaskStep", step)
+      this.context.commit("clearCurrentStepForm")
+
+      return step
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
   }
 
   @Action({ rawError: true })
-  public changeStepStatus(payload: {
+  public async changeStepStatus(payload: {
     id: number,
     newStatus: string
   }): Promise<StepInterface> {
-    return new Promise((resolve, reject) => {
-      const step: StepInterface | undefined = this.currentTaskSteps.find(step => step.id === payload.id)
-      if (step === undefined) {
-        reject(new Error("Step not found"))
-      }
+    const step: StepInterface | undefined = this.currentTaskSteps.find(step => step.id === payload.id)
+    if (step === undefined) {
+      throw new Error("Step not found")
+    }
 
-      stepService.changeStepStatus(payload.id, payload.newStatus)
-        .then(() => {
-          this.context.commit("changeCurrentTaskStepStatus", {
-            id: payload.id,
-            newStatus: payload.newStatus
-          })
-          resolve(step)
-        })
-        .catch(error => {
-          console.log(error)
-          reject(error.response)
-        })
-    })
+    try {
+      await stepService.changeStepStatus(payload.id, payload.newStatus)
+      this.context.commit("changeCurrentTaskStepStatus", {
+        id: payload.id,
+        newStatus: payload.newStatus
+      })
+      return step
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
   }
 
   @Action
-  public changeStepsStatus(payload: {
+  public async changeStepsStatus(payload: {
     ids: Array<number>,
     newStatus: string
   }): Promise<void> {
-    return new Promise((resolve, reject) => {
-      stepService.changeStepsStatus(payload.ids, payload.newStatus)
-        .then(() => {
-          this.context.commit("changeCurrentTaskStepsStatus", {
-            ids: payload.ids,
-            newStatus: payload.newStatus
-          })
-          resolve()
-        })
-        .catch(error => {
-          console.log(error)
-          reject(error.response)
-        })
-    })
+    try {
+      await stepService.changeStepsStatus(payload.ids, payload.newStatus)
+      this.context.commit("changeCurrentTaskStepsStatus", {
+        ids: payload.ids,
+        newStatus: payload.newStatus
+      })
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
   }
 
   public get currentTaskOrderedSteps(): Array<StepInterface> {

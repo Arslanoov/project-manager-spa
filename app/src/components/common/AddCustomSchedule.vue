@@ -83,17 +83,6 @@ export default class AddCustomSchedule extends Vue {
 }
 </script>
 
-<style lang="scss">
-/* TODO: Change, temp solution */
-.v-text-field--rounded > .v-input__control > .v-input__slot {
-  padding: 0 !important;
-
-  .v-label {
-    font-size: 12px !important;
-  }
-}
-</style>
-
 <i18n>
 {
   "en": {
