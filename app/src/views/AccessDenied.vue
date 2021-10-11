@@ -16,7 +16,7 @@ x<template>
             class="access-denied__button"
             @click="onGoHome"
         >
-          $t("Go Home")
+          {{ $t("Go Home") }}
         </v-btn>
       </div>
     </v-row>

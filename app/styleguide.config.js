@@ -5,9 +5,9 @@ module.exports = {
 			name: "Components",
 			components: "src/components/**/[A-Z]*.vue"
 		},
-	  {
-		  name: "Modules",
-		  components: "src/modules/**/[A-Z]*.vue"
-	  }
+		{
+			name: "Modules",
+			components: "src/modules/**/[A-Z]*.vue"
+		}
 	]
 }

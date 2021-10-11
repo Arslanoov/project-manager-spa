@@ -46,7 +46,7 @@ export default class AddCustomSchedule extends Vue {
   @navModule.State("addCustomScheduleForm") form: CustomScheduleFormInterface
 
   @navModule.Mutation("setCustomScheduleFormName") setCustomScheduleFormName: typeof NavStoreModule.prototype.setCustomScheduleFormName
- @navModule.Mutation("toggleAddCustomScheduleForm") toggleScheduleForm:
+  @navModule.Mutation("toggleAddCustomScheduleForm") toggleScheduleForm:
       typeof NavStoreModule.prototype.toggleAddCustomScheduleForm
   @navModule.Action("createCustomSchedule") createCustomSchedule: typeof NavStoreModule.prototype.createCustomSchedule
   @alertModule.Mutation("setMessage") setMessage: typeof AlertStoreModule.prototype.setMessage
@@ -84,12 +84,17 @@ export default class AddCustomSchedule extends Vue {
 </script>
 
 <style lang="scss">
-/* TODO: Change, temp solution */
-.v-text-field--rounded > .v-input__control > .v-input__slot {
-  padding: 0 !important;
+.add-custom-schedule {
+  .v-input {
+    .v-input__control {
+      .v-input__slot {
+        padding: 0;
 
-  .v-label {
-    font-size: 12px !important;
+        .v-label {
+          font-size: 12px;
+        }
+      }
+    }
   }
 }
 </style>

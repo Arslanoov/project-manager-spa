@@ -22,8 +22,8 @@ const store = new Vuex.Store({
 })
 
 describe("Alert component", () => {
-  const message: string = "Error text"
-  const type: string = "error"
+  const message = "Error text"
+  const type = "error"
 
   it("show error", () => {
     store.commit("Alert/setMessage", {
