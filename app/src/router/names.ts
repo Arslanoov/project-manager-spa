@@ -1,7 +1,9 @@
 export enum routesNames {
-  Home = "Home",
+  AuthHome = "AuthHome",
+  LoginEmail = "LoginEmail",
+
+  TodoHome = "TodoHome",
   CustomSchedule = "CustomSchedule",
-  Login = "Login",
   SignUp = "SignUp",
   ConfirmSignUp = "ConfirmSignUp",
   Settings = "Settings",

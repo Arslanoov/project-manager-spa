@@ -38,7 +38,7 @@ export default class AccessDenied extends Vue {
 
   public onGoHome(): void {
     this.$router.push({
-      name: routesNames.Home
+      name: routesNames.TodoHome
     })
   }
 }

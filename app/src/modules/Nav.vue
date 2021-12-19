@@ -15,7 +15,7 @@
           active-class="deep-purple--text text--accent-4"
       >
         <template v-if="isAuth">
-          <v-list-item @click="onGoPage(routesNames.Home)">
+          <v-list-item @click="onGoPage(routesNames.TodoHome)">
             <v-list-item-icon>
               <v-icon>mdi-home</v-icon>
             </v-list-item-icon>
@@ -64,7 +64,7 @@
           </v-list-item>
         </template>
         <template v-else>
-          <v-list-item @click="onGoPage(routesNames.Login)">
+          <v-list-item @click="onGoPage(routesNames.AuthHome)">
             <v-list-item-icon>
               <v-icon>mdi-login</v-icon>
             </v-list-item-icon>
@@ -176,13 +176,13 @@ export default class Nav extends Vue {
   public onScheduleRemove(id: string): void {
     this.removeCustomSchedule(id)
     this.$router.push({
-      name: routesNames.Home
+      name: routesNames.TodoHome
     }).catch(() => console.log("Already in home page"))
   }
 
   public onExit(): void {
     this.logout()
-      .then(() => this.onGoPage(routesNames.Login))
+      .then(() => this.onGoPage(routesNames.AuthHome))
   }
 }
 </script>

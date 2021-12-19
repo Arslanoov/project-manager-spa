@@ -15,14 +15,17 @@ const loadView = (path: string): Function => {
 const routes: Array<RouteConfig> = [
   {
     path: "/",
-    redirect: {
-      name: routesNames.Home
+    name: routesNames.AuthHome,
+    component: loadView("Auth/Home"),
+    meta: {
+      layout: "auth",
+      requiresNotAuth: true
     }
   },
   {
-    path: "/auth/login",
-    name: routesNames.Login,
-    component: loadView("Auth/Login"),
+    path: "/auth/login/email",
+    name: routesNames.LoginEmail,
+    component: loadView("Auth/Login/Email"),
     meta: {
       layout: "auth",
       requiresNotAuth: true
@@ -47,7 +50,7 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: "/today",
-    name: routesNames.Home,
+    name: routesNames.TodoHome,
     component: loadView("Todo/Home"),
     meta: {
       requiresAuth: true

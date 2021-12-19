@@ -46,7 +46,7 @@ export default class Header extends Vue {
 
   public onGoHome(): void {
     this.$router.push({
-      name: routesNames.Home
+      name: routesNames.TodoHome
     }).catch(() => console.log("Already in home"))
   }
 }

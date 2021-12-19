@@ -61,6 +61,8 @@ export default class FormInput extends Vue {
   &__input {
     border: .1rem solid black;
     border-radius: .5rem;
+
+    background-color: #fff;
   }
 }
 </style>

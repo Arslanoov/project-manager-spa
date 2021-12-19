@@ -16,6 +16,6 @@ export default class AuthLayout extends Vue {}
 .layout {
   min-height: 100vh;
 
-  background-color: #e5e5e6;
+  background-color: #F0F4FD;
 }
 </style>
