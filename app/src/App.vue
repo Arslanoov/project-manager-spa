@@ -1,7 +1,5 @@
 <template>
-  <v-app>
-    <MainLayout v-hotkey="keymap" />
-  </v-app>
+  <Component :is="layout" v-hotkey="keymap" />
 </template>
 
 <script lang="ts">
@@ -11,6 +9,7 @@ import {
 } from "vuex-class"
 
 import MainLayout from "@/layouts/MainLayout.vue"
+import AuthLayout from "@/layouts/AuthLayout.vue"
 
 import SettingsStoreModule from "@/store/modules/settings"
 
@@ -21,7 +20,8 @@ const settingsModule = namespace("Settings")
 @Component({
   name: "App",
   components: {
-    MainLayout
+    MainLayout,
+    AuthLayout
   }
 })
 
@@ -31,6 +31,10 @@ export default class App extends Vue {
   @settingsModule.Action("toggleHideTasks") toggleHideTasks: typeof SettingsStoreModule.prototype.toggleHideTasks
   @settingsModule.Action("fetchSettings") fetchSettings: typeof SettingsStoreModule.prototype.fetchSettings
   @settingsModule.Action("changeNightMode") changeNightMode: typeof SettingsStoreModule.prototype.changeNightMode
+
+  public get layout() {
+    return this.$route.meta.layout ? `${this.$route.meta.layout}-layout` : "main-layout"
+  }
 
   public keymap = {
     'ctrl+m': this.toggleTheme,

@@ -24,6 +24,7 @@ const routes: Array<RouteConfig> = [
     name: routesNames.Login,
     component: loadView("Auth/Login"),
     meta: {
+      layout: "auth",
       requiresNotAuth: true
     }
   },
@@ -32,6 +33,7 @@ const routes: Array<RouteConfig> = [
     name: routesNames.SignUp,
     component: loadView("Auth/SignUp"),
     meta: {
+      layout: "auth",
       requiresNotAuth: true
     }
   },

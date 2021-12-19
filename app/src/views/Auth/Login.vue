@@ -1,76 +1,50 @@
 <template>
-  <v-container class="login" fill-height fluid>
-    <v-row class="login__row" justify="center" align-self="center">
-      <v-col
-          xs="10"
-          sm="9"
-          md="4"
-      >
-        <h2 class="login__title text-center">{{ $t("Log In") }}</h2>
+  <div class="login">
+    <h2 class="login__title text-center">{{ $t("Log In") }}</h2>
 
-        <v-alert
-            v-if="authForm.error"
-            class="login__alert"
-            border="bottom"
-            color="pink darken-1"
-            dark
-        >
-          {{ authForm.error }}
-        </v-alert>
+    <div v-if="authForm.error">
+      {{ authForm.error }}
+    </div>
 
-        <v-form
-            ref="form"
-            lazy-validation
-        >
-          <v-text-field
-              @input="setEmail"
-              :counter="32"
-              :rules="rules.email"
-              :value="authForm.email"
-              label="E-mail"
-              type="email"
-              required
-          ></v-text-field>
+    <form>
+      <FormGroup
+        @change="setEmail"
+        @update-error-state="setIsValid"
+        :value="authForm.email"
+        :rules="rules.email"
+        name="E-mail"
+        id="email"
+        type="email"
+      />
 
-          <v-text-field
-              @input="setPassword"
-              :counter="32"
-              :rules="rules.password"
-              :value="authForm.password"
-              :label="$t(`Password`)"
-              type="password"
-              required
-          ></v-text-field>
+      <!-- TODO: Counter -->
 
-          <div class="login__buttons">
-            <v-btn
-                @click="onSubmit"
-                color="success"
-                class="login__button mr-4"
-            >
-              {{ $t("Submit") }}
-            </v-btn>
+      <FormGroup
+        @change="setPassword"
+        @update-error-state="setIsValid"
+        :value="authForm.password"
+        :rules="rules.password"
+        :name="$t(`Password`)"
+        id="password"
+        type="password"
+      />
 
-            <v-btn
-                @click="onReset"
-                color="error"
-                class="login__button mr-4"
-            >
-              {{ $t("Reset Form") }}
-            </v-btn>
+      <div class="login__buttons">
+        <FormButton
+            @form-submit="onSubmit"
+            :name="$t('Submit')"
+            :disabled="!valid"
+            type="success"
+        />
 
-            <v-btn
-                @click="onResetValidation"
-                color="warning"
-                class="login__button"
-            >
-              {{ $t("Reset Validation") }}
-            </v-btn>
-          </div>
-        </v-form>
-      </v-col>
-    </v-row>
-  </v-container>
+        <FormButton
+            @form-submit="onReset"
+            :name="$t('Reset Form')"
+            type="error"
+        />
+      </div>
+    </form>
+  </div>
 </template>
 
 <script lang="ts">
@@ -84,10 +58,17 @@ import AuthForm from "@/types/user/forms/AuthForm"
 
 import User from "@/store/modules/user"
 
+import FormGroup from "@/components/base/form/group/FormGroup.vue"
+import FormButton from "@/components/base/form/button/FormButton.vue"
+
 const userModule = namespace("User")
 
 @Component({
-  name: "Login"
+  name: "Login",
+  components: {
+    FormButton,
+    FormGroup
+  }
 })
 
 export default class Login extends Vue {
@@ -109,9 +90,10 @@ export default class Login extends Vue {
   public rules = {
     email: [
       (v: string) => !!v || "E-mail is required",
+      (v: string) => /.+@.+\..+/.test(v) || "E-mail must be valid",
+      // TODO: Change validation errors
       (v: string) => (v && v.length > 5) || "E-mail must be more than 5 characters",
-      (v: string) => (v && v.length < 32) || "E-mail must be less than 32 characters",
-      (v: string) => /.+@.+\..+/.test(v) || "E-mail must be valid"
+      (v: string) => (v && v.length < 32) || "E-mail must be less than 32 characters"
     ],
     password: [
       (v: string) => !!v || "Password is required",
@@ -120,22 +102,20 @@ export default class Login extends Vue {
     ]
   }
 
-  public onReset(): void {
-    this.$refs.form.reset()
-    this.clearForm()
+  public setIsValid(isValid: boolean): void {
+    this.valid = isValid
   }
 
-  public onResetValidation(): void {
-    this.$refs.form.resetValidation()
+  public onReset(): void {
+    this.clearForm()
     this.clearFormError()
   }
 
   public onSubmit(): void {
     this.login()
       .then(() => {
-        this.$refs.form.validate()
-        this.$refs.form.reset()
-        this.$refs.form.resetValidation()
+        this.clearForm()
+        this.clearFormError()
         this.$router.push("/")
       })
   }
@@ -164,14 +144,12 @@ export default class Login extends Vue {
     "Password": "Password",
     "Submit": "Submit",
     "Reset Form": "Reset Form",
-    "Reset Validation": "Reset Validation",
     "Log In": "Log In"
   },
   "ru": {
     "Password": "Пароль",
     "Submit": "Войти",
     "Reset Form": "Очистить",
-    "Reset Validation": "Очистить ошибки валидации",
     "Log In": "Войти"
   }
 }

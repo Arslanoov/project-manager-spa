@@ -1,10 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;0,900;1,300&display=swap");
 
-.v-application {
-  font-family: $body-font-family, sans-serif !important;
+html {
+  font-size: 62.5%;
+}
 
-  .title,
-  .headline {
-    font-family: $title-font, sans-serif !important;
-  }
+body {
+  font-family: Poppins, sans-serif;
+  font-size: 1.6rem;
 }

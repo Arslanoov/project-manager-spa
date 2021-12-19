@@ -1,9 +1,11 @@
 <template>
-  <v-main>
-    <Header />
-    <router-view></router-view>
-    <Alert />
-  </v-main>
+  <v-app>
+    <v-main>
+      <Header />
+      <router-view></router-view>
+      <Alert />
+    </v-main>
+  </v-app>
 </template>
 
 <script lang="ts">
