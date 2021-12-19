@@ -18,7 +18,6 @@ module.exports = {
     "@typescript-eslint/ban-types": 0,
     "@typescript-eslint/explicit-module-boundary-types": 0,
     "@typescript-eslint/no-var-requires": 0,
-    "@typescript-eslint/no-empty-function": 0,
     "@typescript-eslint/camelcase": 0,
     "vue/no-setup-props-destructure": 0,
 
@@ -27,7 +26,8 @@ module.exports = {
     "vue/require-v-for-key": "off",
     "vue/experimental-script-setup-vars": "off",
     "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": "error"
+    "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/no-empty-function": "off"
   },
   overrides: [
     {

@@ -1,26 +1,26 @@
 <template>
   <div class="login">
-    <div class="login__logo">
-      <img class="login__logo-image" src="~@/assets/images/logo.svg" alt="Logo">
-      <h1 class="login__logo-title">{{ appName }}</h1>
-    </div>
+    <Logo class="login__logo" />
 
     <h2 class="login__message">{{ $t("message") }}</h2>
     <p class="login__submessage">{{ $t("submessage") }}</p>
 
-    <AuthMethod name="E-mail" link="/auth/login/email" />
+    <div class="login__methods">
+      <AuthMethod name="E-mail" link="/auth/login/email" />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import Vue from "vue"
-import Component from "vue-class-component"
+import { Component, Vue } from "vue-property-decorator"
 
+import Logo from "@/components/base/logo/Logo.vue"
 import AuthMethod from "@/components/common/auth/method/AuthMethod.vue"
 
 @Component({
   name: "Home",
   components: {
+    Logo,
     AuthMethod
   }
 })
@@ -37,25 +37,12 @@ export default class Login extends Vue {
 
   width: 100%;
 
-  &__logo {
-    display: flex;
-    align-items: center;
+  /* TODO: Add grid */
+  padding: 0 4rem;
 
+  &__logo {
     margin-top: 20%;
     margin-bottom: 15%;
-
-    gap: 2rem;
-
-    &-image {
-      width: 6.5rem;
-    }
-
-    &-title {
-      font-size: 3.5rem;
-      font-weight: 500;
-
-      color: #0A204B;
-    }
   }
 
   &__message,
@@ -78,6 +65,13 @@ export default class Login extends Vue {
   &__submessage {
     font-size: 1.6rem;
   }
+
+  &__methods {
+    width: 100%;
+
+    margin-top: 35%;
+    margin-bottom: 15%;
+  }
 }
 </style>
 
@@ -85,19 +79,11 @@ export default class Login extends Vue {
 {
   "en": {
     "message": "Manage your projects & tasks easily",
-    "submessage": "Easy way to manage daily task and office management.",
-    "Password": "Password",
-    "Submit": "Submit",
-    "Reset Form": "Reset Form",
-    "Log In": "Log In"
+    "submessage": "Easy way to manage daily task and office management."
   },
   "ru": {
     "message": "Manage your projects & tasks easily",
-    "submessage": "Easy way to manage daily task and office management.",
-    "Password": "Пароль",
-    "Submit": "Войти",
-    "Reset Form": "Очистить",
-    "Log In": "Войти"
+    "submessage": "Easy way to manage daily task and office management."
   }
 }
 </i18n>

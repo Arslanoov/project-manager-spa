@@ -1,10 +1,15 @@
 <template>
   <div class="auth-method">
     <div class="auth-method__content">
-      {{ name }}
+      Sign in with
+      <div class="auth-method__name">{{ name }}</div>
     </div>
     <div @click="onSubmit" class="auth-method__submit">
-      ->
+      <img
+        class="auth-method__icon"
+        src="~@/assets/images/icons/arrow-right.svg"
+        alt=""
+      >
     </div>
   </div>
 </template>
@@ -26,12 +31,46 @@ export default class AuthMethod extends Vue {
 
 <style lang="scss" scoped>
 .auth-method {
-  &__content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
+  width: 100%;
+
+  padding: 1rem 1.5rem;
+
+  background: #fff;
+
+  &,
+  &__submit {
+    border-radius: 1.4rem;
+  }
+
+  &__content {
+    display: flex;
+    align-items: center;
+
+    font-size: 1.6rem;
+  }
+
+  &__name {
+    margin-left: 2.2rem;
   }
 
   &__submit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
+    width: 5rem;
+    height: 5rem;
+
+    background: #F0F4FD;
+  }
+
+  &__icon {
+    width: 1.4rem;
+    height: 1.4rem;
   }
 }
 </style>

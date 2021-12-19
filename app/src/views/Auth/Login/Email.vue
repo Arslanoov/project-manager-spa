@@ -1,15 +1,15 @@
 <template>
   <div class="login">
-    <div class="login__logo">
-      <img class="login__logo-image" src="~@/assets/images/logo.svg" alt="Logo">
-      <h1 class="login__logo-title">{{ appName }}</h1>
-    </div>
+    <Logo class="login__logo" />
 
-    <div v-if="authForm.error">
+    <div
+      v-if="authForm.error"
+      class="login__error"
+    >
       {{ authForm.error }}
     </div>
 
-    <form>
+    <form class="login__form">
       <FormGroup
         @change="setEmail"
         @update-error-state="setIsValid"
@@ -19,8 +19,6 @@
         id="email"
         type="email"
       />
-
-      <!-- TODO: Counter -->
 
       <FormGroup
         @change="setPassword"
@@ -61,17 +59,17 @@ import AuthForm from "@/types/user/forms/AuthForm"
 
 import User from "@/store/modules/user"
 
-import { APP_NAME } from "@/const/app"
-
 import FormGroup from "@/components/base/form/group/FormGroup.vue"
 import FormButton from "@/components/base/form/button/FormButton.vue"
 import AuthMethod from "@/components/common/auth/method/AuthMethod.vue"
+import Logo from "@/components/base/logo/Logo.vue"
 
 const userModule = namespace("User")
 
 @Component({
   name: "Login",
   components: {
+    Logo,
     AuthMethod,
     FormButton,
     FormGroup
@@ -93,7 +91,6 @@ export default class Login extends Vue {
   }
 
   public valid = true
-  public appName = APP_NAME
 
   public rules = {
     email: [
@@ -139,51 +136,30 @@ export default class Login extends Vue {
   width: 100%;
 
   &__logo {
-    display: flex;
-    align-items: center;
-
     margin-top: 20%;
     margin-bottom: 15%;
+  }
 
-    gap: 2rem;
+  &__error {
+    align-self: flex-start;
 
-    &-image {
-      width: 6.5rem;
+    color: #F26950;
+  }
+
+  &__form {
+    & > * {
+      &:not(:last-of-type) {
+        margin-bottom: 1rem;
+      }
     }
-
-    &-title {
-      font-size: 3.5rem;
-      font-weight: 500;
-
-      color: #0A204B;
-    }
-  }
-
-  &__message,
-  &__submessage {
-    text-align: center;
-
-    color: #0B204C;
-  }
-
-  &__message {
-    margin-bottom: 5%;
-
-    font-weight: 600;
-    font-size: 3.5rem;
-    line-height: 4.5rem;
-
-    text-shadow: 0 .4rem .4rem rgba(0, 0, 0, .25);
-  }
-
-  &__submessage {
-    font-size: 1.6rem;
   }
 
   &__buttons {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    margin-top: 25%;
 
     & > * {
       &:not(:last-of-type) {

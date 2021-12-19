@@ -10,9 +10,12 @@
       class="form-group__input"
     >
 
-    <template v-if="error">
+    <div
+      v-if="error"
+      class="form-group__error"
+    >
       {{ error }}
-    </template>
+    </div>
   </div>
 </template>
 
@@ -54,15 +57,29 @@ export default class FormInput extends Vue {
 
 <style lang="scss" scoped>
 .form-group {
+  display: flex;
+  flex-direction: column;
+
   &__label {
     font-size: 1.4rem;
+    text-transform: uppercase;
+
+    color: rgba(#22215B, .5);
   }
 
   &__input {
-    border: .1rem solid black;
-    border-radius: .5rem;
+    padding: .6rem 0;
 
-    background-color: #fff;
+    caret-color: #5A55CA;
+
+    border-bottom: .1rem solid #0B204C;
+    outline: 0;
+  }
+
+  &__error {
+    color: #F26950;
+
+    word-break: break-word;
   }
 }
 </style>
