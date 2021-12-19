@@ -1,5 +1,9 @@
-@import "abstracts/variables";
-@import "abstracts/mixins";
+@import "abstracts/variables/media";
+@import "abstracts/variables/grid";
+@import "abstracts/mixins/media";
+@import "abstracts/mixins/grid";
 
 @import "base/reset";
 @import "base/typography";
+
+@import "layout/grid";

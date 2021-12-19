@@ -37,27 +37,11 @@ export default class App extends Vue {
   }
 
   public keymap = {
-    'ctrl+m': this.toggleTheme,
     'ctrl+h': this.toggleHideTasks
   }
 
   public mounted(): void {
     this.fetchSettings()
-
-    window.matchMedia("(prefers-color-scheme: dark)")
-      .addListener(e => this.changeTheme(e.matches))
-
-    window.matchMedia("(prefers-color-scheme: dark)")
-      .addEventListener("change", e => this.changeTheme(e.matches))
-  }
-
-  public changeTheme(isNightMode: boolean): void {
-    this.changeNightMode(isNightMode)
-    this.$vuetify.theme.dark = isNightMode
-  }
-
-  public toggleTheme(): void {
-    this.changeTheme(!this.settings.nightMode)
   }
 }
 </script>

@@ -1,50 +1,49 @@
 <template>
-  <div class="login">
-    <Logo class="login__logo" />
+  <div class="container">
+    <div class="login">
+      <Logo class="login__logo" />
 
-    <div
-      v-if="authForm.error"
-      class="login__error"
-    >
-      {{ authForm.error }}
-    </div>
+      <div v-if="authForm.error" class="login__error">
+        {{ authForm.error }}
+      </div>
 
-    <form class="login__form">
-      <FormGroup
-        @change="setEmail"
-        @update-error-state="setIsValid"
-        :value="authForm.email"
-        :rules="rules.email"
-        name="E-mail"
-        id="email"
-        type="email"
-      />
+      <form class="login__form">
+        <FormGroup
+          @change="setEmail"
+          @update-error-state="setIsValid"
+          :value="authForm.email"
+          :rules="rules.email"
+          name="E-mail"
+          id="email"
+          type="email"
+        />
 
-      <FormGroup
-        @change="setPassword"
-        @update-error-state="setIsValid"
-        :value="authForm.password"
-        :rules="rules.password"
-        :name="$t(`Password`)"
-        id="password"
-        type="password"
-      />
+        <FormGroup
+          @change="setPassword"
+          @update-error-state="setIsValid"
+          :value="authForm.password"
+          :rules="rules.password"
+          :name="$t(`Password`)"
+          id="password"
+          type="password"
+        />
 
-      <div class="login__buttons">
-        <FormButton
+        <div class="login__buttons">
+          <FormButton
             @form-submit="onSubmit"
             :name="$t('Submit')"
             :disabled="!valid"
             type="success"
-        />
+          />
 
-        <FormButton
+          <FormButton
             @form-submit="onReset"
             :name="$t('Reset Form')"
             type="error"
-        />
-      </div>
-    </form>
+          />
+        </div>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -86,10 +85,6 @@ export default class Login extends Vue {
 
   @userModule.Action("login") login: typeof User.prototype.login
 
-  $refs!: {
-    form: HTMLFormElement
-  }
-
   public valid = true
 
   public rules = {
@@ -129,11 +124,11 @@ export default class Login extends Vue {
 
 <style lang="scss" scoped>
 .login {
+  grid-column: col-start 1 / col-end 12;
+
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  width: 100%;
 
   &__logo {
     margin-top: 20%;
@@ -147,6 +142,8 @@ export default class Login extends Vue {
   }
 
   &__form {
+    width: 100%;
+
     & > * {
       &:not(:last-of-type) {
         margin-bottom: 1rem;

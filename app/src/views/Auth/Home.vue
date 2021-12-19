@@ -1,12 +1,14 @@
 <template>
-  <div class="login">
-    <Logo class="login__logo" />
+  <div class="container">
+    <div class="home">
+      <Logo class="home__logo" />
 
-    <h2 class="login__message">{{ $t("message") }}</h2>
-    <p class="login__submessage">{{ $t("submessage") }}</p>
+      <h2 class="home__message">{{ $t("message") }}</h2>
+      <p class="home__submessage">{{ $t("submessage") }}</p>
 
-    <div class="login__methods">
-      <AuthMethod name="E-mail" link="/auth/login/email" />
+      <div class="home__methods">
+        <AuthMethod name="E-mail" link="/auth/login/email" />
+      </div>
     </div>
   </div>
 </template>
@@ -30,15 +32,12 @@ export default class Login extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.login {
+.home {
+  grid-column: col-start 1 / col-end 12;
+
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  width: 100%;
-
-  /* TODO: Add grid */
-  padding: 0 4rem;
 
   &__logo {
     margin-top: 20%;
