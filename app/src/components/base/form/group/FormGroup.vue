@@ -72,8 +72,12 @@ export default class FormInput extends Vue {
 
     caret-color: #5A55CA;
 
-    border-bottom: .1rem solid #0B204C;
     outline: 0;
+    border: 0;
+
+    background: transparent;
+
+    border-bottom: .1rem solid #0B204C;
   }
 
   &__error {

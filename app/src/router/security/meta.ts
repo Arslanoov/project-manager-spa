@@ -18,7 +18,7 @@ router.beforeEach((to, from, next) => {
 
   if (requiresNotAuth && isAuth) {
     next({
-      name: routesNames.TodoHome
+      name: routesNames.Board
     })
     return
   }

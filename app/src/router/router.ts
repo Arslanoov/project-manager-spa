@@ -31,6 +31,18 @@ const routes: Array<RouteConfig> = [
       requiresNotAuth: true
     }
   },
+
+  {
+    path: "/board",
+    name: routesNames.Board,
+    component: loadView("Board/Home"),
+    meta: {
+      layout: "main",
+      requiresAuth: true,
+      withHeader: true
+    }
+  },
+
   {
     path: "/auth/sign-up",
     name: routesNames.SignUp,
