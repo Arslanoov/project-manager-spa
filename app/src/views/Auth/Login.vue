@@ -2,6 +2,8 @@
   <div class="login">
     <h2 class="login__title text-center">{{ $t("Log In") }}</h2>
 
+    <img src="~@/assets/images/logo.svg" alt="Logo">
+
     <div v-if="authForm.error">
       {{ authForm.error }}
     </div>
