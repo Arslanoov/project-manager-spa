@@ -1,10 +1,10 @@
 <template>
-  <div class="auth-method">
+  <div @click="onSubmit" class="auth-method">
     <div class="auth-method__content">
       Sign in with
       <div class="auth-method__name">{{ name }}</div>
     </div>
-    <div @click="onSubmit" class="auth-method__submit">
+    <div class="auth-method__submit">
       <img
         class="auth-method__icon"
         src="~@/assets/images/icons/arrow-right.svg"
@@ -41,6 +41,8 @@ export default class AuthMethod extends Vue {
 
   background: #fff;
 
+  @include pointer-on-hover();
+
   &,
   &__submit {
     border-radius: 1.4rem;
@@ -55,6 +57,8 @@ export default class AuthMethod extends Vue {
 
   &__name {
     margin-left: 2.2rem;
+
+    font-weight: 500;
   }
 
   &__submit {

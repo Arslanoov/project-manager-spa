@@ -44,8 +44,13 @@ export default class Login extends Vue {
   }
 
   &__logo {
-    margin-top: 6rem;
-    margin-bottom: 4.5rem;
+    margin-top: 4rem;
+    margin-bottom: 3.5rem;
+
+    @include mobile {
+      margin-top: 6rem;
+      margin-bottom: 4.5rem;
+    }
   }
 
   &__message,
@@ -72,8 +77,11 @@ export default class Login extends Vue {
   &__methods {
     width: 100%;
 
-    margin-top: 13rem;
-    margin-bottom: 2rem;
+    margin: 2rem 0;
+
+    @include mobile {
+      margin-top: 13rem;
+    }
   }
 }
 </style>

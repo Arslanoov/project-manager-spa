@@ -3,11 +3,11 @@
     <div class="login">
       <Logo class="login__logo" />
 
-      <div v-if="authForm.error" class="login__error">
-        {{ authForm.error }}
-      </div>
-
       <form class="login__form">
+        <div v-if="authForm.error" class="login__error">
+          {{ authForm.error }}
+        </div>
+
         <FormGroup
           @change="setEmail"
           @update-error-state="setIsValid"
@@ -130,14 +130,21 @@ export default class Login extends Vue {
   flex-direction: column;
   align-items: center;
 
+  @include desktop-sm {
+    grid-column: col-start 4 / col-end 8;
+  }
+
   &__logo {
-    margin-top: 20%;
-    margin-bottom: 15%;
+    margin-top: 4rem;
+    margin-bottom: 3.5rem;
+
+    @include mobile {
+      margin-top: 6rem;
+      margin-bottom: 4.5rem;
+    }
   }
 
   &__error {
-    align-self: flex-start;
-
     color: #F26950;
   }
 
@@ -156,12 +163,14 @@ export default class Login extends Vue {
     flex-direction: column;
     align-items: center;
 
-    margin-top: 25%;
+    margin-top: 3rem;
+
+    @include mobile {
+      margin-top: 8rem;
+    }
 
     & > * {
-      &:not(:last-of-type) {
-        margin-bottom: 1rem;
-      }
+      margin-bottom: 1rem;
     }
   }
 }
