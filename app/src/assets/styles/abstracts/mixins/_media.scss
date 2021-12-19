@@ -1,9 +1,3 @@
-@mixin pointer-on-hover() {
-  &:hover {
-    cursor: pointer;
-  }
-}
-
 @mixin mobile-sm() {
   @media screen and (min-width: $mobile-sm) {
     @content;

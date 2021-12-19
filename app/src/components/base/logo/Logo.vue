@@ -1,6 +1,6 @@
 <template>
   <div @click="onClick" class="logo">
-    <img class="logo__image" src="~@/assets/images/logo.svg" alt="Logo">
+    <img class="logo__image" src="~@/assets/images/logo.svg" alt="Logo" draggable="false">
     <h1 class="logo__title">{{ appName }}</h1>
   </div>
 </template>
@@ -35,6 +35,7 @@ export default class Logo extends Vue {
   gap: 2rem;
 
   @include pointer-on-hover();
+  @include no-select();
 
   &__image {
     width: 6.5rem;

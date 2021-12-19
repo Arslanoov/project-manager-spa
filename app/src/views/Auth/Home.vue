@@ -39,9 +39,13 @@ export default class Login extends Vue {
   flex-direction: column;
   align-items: center;
 
+  @include desktop-sm {
+    grid-column: col-start 2 / col-end 10;
+  }
+
   &__logo {
-    margin-top: 20%;
-    margin-bottom: 15%;
+    margin-top: 6rem;
+    margin-bottom: 4.5rem;
   }
 
   &__message,
@@ -52,7 +56,7 @@ export default class Login extends Vue {
   }
 
   &__message {
-    margin-bottom: 5%;
+    margin-bottom: 2.4rem;
 
     font-weight: 600;
     font-size: 3.5rem;
@@ -68,8 +72,8 @@ export default class Login extends Vue {
   &__methods {
     width: 100%;
 
-    margin-top: 35%;
-    margin-bottom: 15%;
+    margin-top: 13rem;
+    margin-bottom: 2rem;
   }
 }
 </style>
