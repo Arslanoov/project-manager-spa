@@ -1,9 +1,9 @@
 <template>
   <header class="header">
     <div class="header__content">
-      <div class="header__nav">
+      <div @click="goBack" class="header__nav">
         <img class="header__back" src="~@/assets/images/icons/back.svg" alt="back">
-        <div class="header__title">Header</div>
+        <div class="header__title">{{ title }}</div>
       </div>
     </div>
     <div class="header__overlay" />
@@ -11,12 +11,16 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator"
+import { Component, Vue, Prop } from "vue-property-decorator"
 
 @Component({})
 
 export default class Header extends Vue {
+  @Prop([String]) readonly title: string | undefined
 
+  public goBack() {
+    this.$router.back()
+  }
 }
 </script>
 

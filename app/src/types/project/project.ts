@@ -7,16 +7,12 @@ interface DateInterface {
   string: string
 }
 
-export interface CustomScheduleFormInterface {
-  name: string
-}
-
-export default interface ScheduleInterface {
+export default interface ProjectInterface {
   id: string,
   name?: string,
   date: DateInterface,
   tasksCount: number,
-  tasks: Array<TaskInterface>,
+  tasks?: Array<TaskInterface>,
   isMain?: boolean,
   isCustom?: boolean
 }

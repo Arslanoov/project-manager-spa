@@ -3,9 +3,8 @@ export enum routesNames {
   LoginEmail = "LoginEmail",
 
   Board = "Board",
+  ProjectCreate = "BoardCreate",
 
-  TodoHome = "TodoHome",
-  CustomSchedule = "CustomSchedule",
   SignUp = "SignUp",
   ConfirmSignUp = "ConfirmSignUp",
   Settings = "Settings",

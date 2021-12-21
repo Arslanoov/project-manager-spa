@@ -44,6 +44,18 @@ const routes: Array<RouteConfig> = [
   },
 
   {
+    path: "/board/project/create",
+    name: routesNames.ProjectCreate,
+    component: loadView("Board/Project/Create"),
+    meta: {
+      layout: "main",
+      requiresAuth: true,
+      withHeader: true,
+      title: "Project Create"
+    }
+  },
+
+  {
     path: "/auth/sign-up",
     name: routesNames.SignUp,
     component: loadView("Auth/SignUp"),
@@ -61,25 +73,9 @@ const routes: Array<RouteConfig> = [
     }
   },
   {
-    path: "/today",
-    name: routesNames.TodoHome,
-    component: loadView("Todo/Home"),
-    meta: {
-      requiresAuth: true
-    }
-  },
-  {
     path: "/settings",
     name: routesNames.Settings,
     component: loadView("Settings"),
-    meta: {
-      requiresAuth: true
-    }
-  },
-  {
-    path: "/todo/:id",
-    name: routesNames.CustomSchedule,
-    component: loadView("Todo/CustomSchedule"),
     meta: {
       requiresAuth: true
     }

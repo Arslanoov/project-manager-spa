@@ -70,6 +70,8 @@ export default class FormInput extends Vue {
   &__input {
     padding: .6rem 0;
 
+    font-size: 1.8rem;
+
     caret-color: #5A55CA;
 
     outline: 0;

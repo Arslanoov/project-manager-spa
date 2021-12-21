@@ -2,24 +2,27 @@ import axios, { AxiosResponse } from "axios"
 
 import { API_PREFIX } from "@/services/api/v1/const"
 
+import ProjectInterface from "@/types/project/project"
+import { GetProjectsResponse } from "@/types/project/response"
+
 import { TaskForm } from "@/types/schedule/task/TaskInterface"
 
-export default class ScheduleService {
-  public getMainSchedule(): Promise<AxiosResponse> {
+export default class ProjectService {
+  public getPersonalProject(): Promise<AxiosResponse> {
     return axios.get(`${API_PREFIX}/todo/main`)
   }
 
-  public getCustomSchedules(): Promise<AxiosResponse> {
+  public getCustomProjects(): Promise<AxiosResponse<GetProjectsResponse>> {
     return axios.get(`${API_PREFIX}/todo/custom/list`)
   }
 
-  public addCustomSchedules(name: string): Promise<AxiosResponse> {
+  public addCustomProject(name: string): Promise<ProjectInterface> {
     return axios.post(`${API_PREFIX}/todo/custom/create`, {
       name
     })
   }
 
-  public removeCustomSchedule(id: string): Promise<AxiosResponse> {
+  public removeCustomProject(id: string): Promise<void> {
     return axios.delete(`${API_PREFIX}/todo/custom/remove`, {
       data: {
         id
@@ -27,27 +30,27 @@ export default class ScheduleService {
     })
   }
 
-  public getCustomSchedule(id: string): Promise<AxiosResponse> {
+  public getCustomProject(id: string): Promise<ProjectInterface> {
     return axios.get(`${API_PREFIX}/todo/custom/get/${id}`)
   }
 
-  public getTodaySchedule(): Promise<AxiosResponse> {
+  public getTodayProject(): Promise<AxiosResponse> {
     return axios.get(`${API_PREFIX}/todo/daily/today`)
   }
 
-  public getPrevSchedule(id: string): Promise<AxiosResponse> {
+  public getPrevProject(id: string): Promise<AxiosResponse> {
     return axios.get(`${API_PREFIX}/todo/daily/previous/${id}`)
   }
 
-  public getPrevWeekSchedule(id: string): Promise<AxiosResponse> {
+  public getPrevWeekProject(id: string): Promise<AxiosResponse> {
     return axios.get(`${API_PREFIX}/todo/daily/previous-week/${id}`)
   }
 
-  public getNextSchedule(id: string): Promise<AxiosResponse> {
+  public getNextProject(id: string): Promise<AxiosResponse> {
     return axios.get(`${API_PREFIX}/todo/daily/next/${id}`)
   }
 
-  public getNextWeekSchedule(id: string): Promise<AxiosResponse> {
+  public getNextWeekProject(id: string): Promise<AxiosResponse> {
     return axios.get(`${API_PREFIX}/todo/daily/next-week/${id}`)
   }
 

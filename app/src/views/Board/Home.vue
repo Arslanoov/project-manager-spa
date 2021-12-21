@@ -29,21 +29,21 @@
 import { Component, Vue } from "vue-property-decorator"
 import { namespace } from "vuex-class"
 
-import ScheduleInterface from "@/types/schedule/ScheduleInterface"
+import ProjectInterface from "@/types/project/project"
 
-import NavStoreModule from "@/store/modules/nav"
+import ProjectStoreModule from "@/store/modules/project"
 
-const navModule = namespace("Nav")
+const projectModule = namespace("Project")
 
 @Component({})
 
 export default class Board extends Vue {
-  @navModule.State("customSchedules") projects: Array<ScheduleInterface>
+  @projectModule.State("projectList") projects: Array<ProjectInterface>
 
-  @navModule.Action("getCustomSchedules") getCustomSchedules: typeof NavStoreModule.prototype.getCustomSchedules
+  @projectModule.Action("fetchProjects") fetchProjects: typeof ProjectStoreModule.prototype.fetchProjects
 
   public created() {
-    this.getCustomSchedules()
+    this.fetchProjects()
   }
 
   public goToProject(id: string) {

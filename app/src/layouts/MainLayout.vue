@@ -1,6 +1,6 @@
 <template>
   <div class="main-layout">
-    <Header v-if="withHeader" />
+    <Header v-if="withHeader" :title="title" />
     <div class="container">
       <div class="main-layout__content">
         <router-view></router-view>
@@ -16,6 +16,8 @@ import { Component, Vue } from "vue-property-decorator"
 import Header from "@/modules/Header.vue"
 import TabBar from "@/components/common/tab-bar/TabBar.vue"
 
+// TODO: Add routesNames redirect
+
 @Component({
   components: {
     Header,
@@ -27,6 +29,10 @@ export default class MainLayout extends Vue {
   public get withHeader() {
     return this.$route.meta.withHeader ?? false
   }
+
+  public get title() {
+    return this.$route.meta.title ?? ""
+  }
 }
 </script>
 
@@ -36,14 +42,12 @@ export default class MainLayout extends Vue {
 
   min-height: 100vh;
 
-  padding: 1.5rem 0;
-
   background-color: #F0F4FD;
 
   &__content {
     grid-column: col-start 1 / col-end 12;
 
-    padding-top: .5rem;
+    padding: 1.5rem 0;
   }
 }
 </style>

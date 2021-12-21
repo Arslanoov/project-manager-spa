@@ -1,4 +1,0 @@
-ChangeLanguage example:
-```vue
-<ChangeLanguage />
-```

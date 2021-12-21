@@ -1,4 +1,4 @@
-import ScheduleInterface from "@/types/schedule/ScheduleInterface"
+import ProjectInterface from "@/types/project/project"
 
 export const isYesterday = (day: number, month: number, year: number): boolean => {
   const todayDateObject = new Date()
@@ -21,7 +21,7 @@ export const isTomorrow = (day: number, month: number, year: number): boolean =>
 }
 
 export const getScheduleDateString = (
-  schedule: ScheduleInterface,
+  schedule: ProjectInterface,
   signs: {
     today: string,
     tomorrow: string,
