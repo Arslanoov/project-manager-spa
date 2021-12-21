@@ -39,7 +39,7 @@ const routes: Array<RouteConfig> = [
     meta: {
       layout: "main",
       requiresAuth: true,
-      withHeader: true
+      withHeader: false
     }
   },
 

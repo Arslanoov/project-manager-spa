@@ -36,6 +36,8 @@ export default class MainLayout extends Vue {
 
   min-height: 100vh;
 
+  padding: 1.5rem 0;
+
   background-color: #F0F4FD;
 
   &__content {

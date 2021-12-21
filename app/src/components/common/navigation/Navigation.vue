@@ -7,7 +7,7 @@
       <li class="nav__list-item">
         <img src="~@/assets/images/icons/nav/task.svg" alt="">
       </li>
-      <li class="nav__list-item nav__list-item--plus">
+      <li @click="createProject" class="nav__list-item nav__list-item--plus">
         <img src="~@/assets/images/icons/nav/plus.svg" alt="">
       </li>
       <li class="nav__list-item">
@@ -26,7 +26,9 @@ import { Component, Vue } from "vue-property-decorator"
 @Component({})
 
 export default class Navigation extends Vue {
-
+  public createProject() {
+    this.$router.push("/board/project/create")
+  }
 }
 </script>
 

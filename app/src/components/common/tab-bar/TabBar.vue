@@ -1,12 +1,9 @@
 <template>
   <div class="tab-bar">
     <div class="tab-bar__space" />
-    <div class="tab-bar__wrapper">
-      <div class="tab-bar__overlay" />
-      <footer class="tab-bar__content">
-        <Navigation />
-      </footer>
-    </div>
+    <footer class="tab-bar__content">
+      <Navigation />
+    </footer>
   </div>
 </template>
 
@@ -34,36 +31,19 @@ export default class TabBar extends Vue {
 
   &__space,
   &__content {
-    height: 12rem;
-  }
-
-  &__wrapper {
-    position: fixed;
-
-    bottom: 0;
-    left: 0;
-    right: 0;
+    height: 9rem;
   }
 
   &__content {
-    padding-top: 3.5rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
 
     background: #5A55CA url("~@/assets/images/background.svg") no-repeat left top;
     background-size: cover;
-  }
 
-  &__overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    width: 100%;
-    height: 3.5rem;
-
-    background: #F0F4FD;
-
-    border-bottom-left-radius: 4rem;
-    border-bottom-right-radius: 4rem;
+    padding: .5rem 0;
   }
 }
 </style>
