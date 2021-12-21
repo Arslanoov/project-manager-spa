@@ -3,16 +3,16 @@ import axios, { AxiosResponse } from "axios"
 import { API_PREFIX } from "@/services/api/v1/const"
 
 import ProjectInterface from "@/types/project/project"
-import { GetProjectsResponse } from "@/types/project/response"
+import { GetPersonalProjectResponse, GetProjectsResponse } from "@/types/project/response"
 
 import { TaskForm } from "@/types/schedule/task/TaskInterface"
 
 export default class ProjectService {
-  public getPersonalProject(): Promise<AxiosResponse> {
+  public getPersonalProject(): GetPersonalProjectResponse {
     return axios.get(`${API_PREFIX}/todo/main`)
   }
 
-  public getCustomProjects(): Promise<AxiosResponse<GetProjectsResponse>> {
+  public getCustomProjects(): GetProjectsResponse {
     return axios.get(`${API_PREFIX}/todo/custom/list`)
   }
 

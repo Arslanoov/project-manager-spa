@@ -61,4 +61,23 @@ export default class Project extends VuexModule {
       console.log(e)
     }
   }
+
+  @Action({ rawError: true })
+  public async fetchPersonalProject(): Promise<void> {
+    try {
+      const response = await service.getPersonalProject()
+      this.context.commit('setCurrentProject')
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  @Action({ rawError: true })
+  public async fetchDailyProject(): Promise<void> {
+    try {
+      this.context.commit('setCurrentProject')
+    } catch (e) {
+      console.log(e)
+    }
+  }
 }

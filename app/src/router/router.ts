@@ -38,11 +38,9 @@ const routes: Array<RouteConfig> = [
     component: loadView("Board/Home"),
     meta: {
       layout: "main",
-      requiresAuth: true,
-      withHeader: false
+      requiresAuth: true
     }
   },
-
   {
     path: "/board/project/create",
     name: routesNames.ProjectCreate,
@@ -54,6 +52,28 @@ const routes: Array<RouteConfig> = [
       title: "Project Create"
     }
   },
+
+  {
+    path: "/board/project/:id",
+    name: routesNames.CustomProject,
+    component: loadView("Board/Project/Custom"),
+    meta: {
+      layout: "main",
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/board/project/daily/:date",
+    name: routesNames.DailyProject,
+    component: loadView("Board/Project/Daily"),
+    meta: {
+      layout: "main",
+      requiresAuth: true
+    }
+  },
+
+
+  /////////
 
   {
     path: "/auth/sign-up",

@@ -5,6 +5,9 @@ export enum routesNames {
   Board = "Board",
   ProjectCreate = "BoardCreate",
 
+  CustomProject = "CustomProject",
+  DailyProject = "DailyProject",
+
   SignUp = "SignUp",
   ConfirmSignUp = "ConfirmSignUp",
   Settings = "Settings",
