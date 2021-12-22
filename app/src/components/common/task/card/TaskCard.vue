@@ -10,8 +10,14 @@
       </div>
     </div>
     <div class="card__bottom">
-      <div class="card__steps">{{ task.stepsCount }} Steps</div>
-      <div class="card__steps-finished">{{ task.finishedSteps }} Finished</div>
+      <div class="card__steps">
+        <img class="card__icon" src="~@/assets/images/icons/task/total.svg" alt="">
+        {{ task.stepsCount }} Steps
+      </div>
+      <div class="card__steps-finished">
+        <img class="card__icon" src="~@/assets/images/icons/task/completed.svg" alt="">
+        {{ task.finishedSteps }} Finished
+      </div>
     </div>
   </div>
 </template>
@@ -63,8 +69,9 @@ export default class TaskCard extends Vue {
 
   &__content {
     display: flex;
-
     gap: 1rem;
+
+    margin-bottom: 2rem;
   }
 
   &__level {
@@ -81,10 +88,6 @@ export default class TaskCard extends Vue {
     background-color: #2CC09C;
   }
 
-  &__text {
-    margin-bottom: 3rem;
-  }
-
   &__title {
     font-size: 2rem;
     font-weight: 700;
@@ -97,11 +100,21 @@ export default class TaskCard extends Vue {
     color: #B2BAC9;
   }
 
+  &__steps,
+  &__steps-finished {
+    display: flex;
+    align-items: center;
+  }
+
   &__bottom {
     display: flex;
     align-items: center;
 
     gap: 3rem;
+  }
+
+  &__icon {
+    margin-right: .5rem;
   }
 }
 </style>
