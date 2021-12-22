@@ -56,7 +56,7 @@ const routes: Array<RouteConfig> = [
   {
     path: "/board/project/:id",
     name: routesNames.CustomProject,
-    component: loadView("Board/Project/Custom"),
+    component: loadView("Board/Project/View"),
     meta: {
       layout: "main",
       requiresAuth: true
