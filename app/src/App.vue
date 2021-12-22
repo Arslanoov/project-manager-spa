@@ -1,5 +1,5 @@
 <template>
-  <Component :is="layout" v-hotkey="keymap" />
+  <router-view />
 </template>
 
 <script lang="ts">
@@ -8,9 +8,6 @@ import {
   namespace
 } from "vuex-class"
 
-import MainLayout from "@/layouts/MainLayout.vue"
-import AuthLayout from "@/layouts/AuthLayout.vue"
-
 import SettingsStoreModule from "@/store/modules/settings"
 
 import SettingsInterface from "@/types/settings/SettingsInterface"
@@ -18,11 +15,7 @@ import SettingsInterface from "@/types/settings/SettingsInterface"
 const settingsModule = namespace("Settings")
 
 @Component({
-  name: "App",
-  components: {
-    MainLayout,
-    AuthLayout
-  }
+  name: "App"
 })
 
 export default class App extends Vue {

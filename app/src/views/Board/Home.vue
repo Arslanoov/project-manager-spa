@@ -1,41 +1,52 @@
 <template>
-  <div class="board">
-    <h2 class="board__title">Board</h2>
-    <div class="board__projects">
-      <div
-          @click="goToProject(project.id)"
-          v-for="project in projects"
-          :key="project.id"
-          class="board__project project"
-      >
-        <div class="project__icon">
-          <img v-if="project.isCustom" src="~@/assets/images/icons/board/custom.svg" class="project__icon-img" alt="" />
-          <img v-else src="~@/assets/images/icons/board/personal.svg" class="project__icon-img" alt="" />
+  <main-layout>
+    <template #default>
+      <div class="board">
+        <h2 class="board__title">Board</h2>
+        <div class="board__projects">
+          <div
+              @click="goToProject(project.id)"
+              v-for="project in projects"
+              :key="project.id"
+              class="board__project project"
+          >
+            <div class="project__icon">
+              <img v-if="project.isCustom" src="~@/assets/images/icons/board/custom.svg" class="project__icon-img" alt="" />
+              <img v-else src="~@/assets/images/icons/board/personal.svg" class="project__icon-img" alt="" />
+            </div>
+            <h4 class="project__title">{{ project.name }}</h4>
+            <div class="project__tasks">{{ project.tasksCount }} Task</div>
+          </div>
+          <div @click="createProject" class="board__project project">
+            <div class="project__icon">
+              <img src="~@/assets/images/icons/board/new.svg" class="project__icon-img" alt="" />
+            </div>
+            <h4 class="project__title">Create Project</h4>
+          </div>
         </div>
-        <h4 class="project__title">{{ project.name }}</h4>
-        <div class="project__tasks">{{ project.tasksCount }} Task</div>
       </div>
-      <div @click="createProject" class="board__project project">
-        <div class="project__icon">
-          <img src="~@/assets/images/icons/board/new.svg" class="project__icon-img" alt="" />
-        </div>
-        <h4 class="project__title">Create Project</h4>
-      </div>
-    </div>
-  </div>
+    </template>
+  </main-layout>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator"
 import { namespace } from "vuex-class"
 
-import ProjectInterface from "@/types/project/project"
+import { routesNames } from "@/router/names"
 
+import ProjectInterface from "@/types/project/project"
 import ProjectStoreModule from "@/store/modules/project"
+
+import MainLayout from "@/layouts/MainLayout.vue"
 
 const projectModule = namespace("Project")
 
-@Component({})
+@Component({
+  components: {
+    MainLayout
+  }
+})
 
 export default class Board extends Vue {
   @projectModule.State("projectList") projects: Array<ProjectInterface>
@@ -47,11 +58,18 @@ export default class Board extends Vue {
   }
 
   public goToProject(id: string) {
-    this.$router.push(`/board/project/${id}`)
+    this.$router.push({
+      name: routesNames.CustomProject,
+      params: {
+        id,
+      }
+    })
   }
 
   public createProject() {
-    this.$router.push("/board/project/create")
+    this.$router.push({
+      name: routesNames.ProjectCreate
+    })
   }
 }
 </script>

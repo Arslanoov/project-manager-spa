@@ -1,16 +1,23 @@
 <template>
-  <div class="project-create">
-    <form class="project-create__form form">
-      <FormGroup
-        @change="changeCreateFormName"
-        :value="form.name"
-        class="form__group"
-        name="name"
-        id="name"
-      />
-      <FormButton @form-submit="onSubmit" :name="$t('new-project')" />
-    </form>
-  </div>
+  <main-layout>
+    <template #header>
+      <Header title="Project Create" />
+    </template>
+    <template #default>
+      <div class="project-create">
+        <form class="project-create__form form">
+          <FormGroup
+            @change="changeCreateFormName"
+            :value="form.name"
+            class="form__group"
+            name="name"
+            id="name"
+          />
+          <FormButton @form-submit="onSubmit" :name="$t('new-project')" />
+        </form>
+      </div>
+    </template>
+  </main-layout>
 </template>
 
 <script lang="ts">
@@ -20,8 +27,10 @@ import { namespace } from "vuex-class"
 
 import { routesNames } from "@/router/names"
 
+import MainLayout from "@/layouts/MainLayout.vue"
+import Header from "@/modules/Header.vue"
 import FormGroup from "@/components/base/form/group/FormGroup.vue"
-import FormButton  from "@/components/base/form/button/FormButton.vue"
+import FormButton from "@/components/base/form/button/FormButton.vue"
 
 import { CreateProjectForm } from "@/types/project/createProject"
 
@@ -31,6 +40,8 @@ const projectModule = namespace("Project")
 
 @Component({
   components: {
+    MainLayout,
+    Header,
     FormButton,
     FormGroup
   }

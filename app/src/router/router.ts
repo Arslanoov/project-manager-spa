@@ -18,7 +18,6 @@ const routes: Array<RouteConfig> = [
     name: routesNames.AuthHome,
     component: loadView("Auth/Home"),
     meta: {
-      layout: "auth",
       requiresNotAuth: true
     }
   },
@@ -27,7 +26,6 @@ const routes: Array<RouteConfig> = [
     name: routesNames.LoginEmail,
     component: loadView("Auth/Login/Email"),
     meta: {
-      layout: "auth",
       requiresNotAuth: true
     }
   },
@@ -46,19 +44,15 @@ const routes: Array<RouteConfig> = [
     name: routesNames.ProjectCreate,
     component: loadView("Board/Project/Create"),
     meta: {
-      layout: "main",
-      requiresAuth: true,
-      withHeader: true,
-      title: "Project Create"
+      requiresAuth: true
     }
   },
 
   {
-    path: "/board/project/:id",
+    path: "/board/project/view/:id",
     name: routesNames.CustomProject,
     component: loadView("Board/Project/View"),
     meta: {
-      layout: "main",
       requiresAuth: true
     }
   },
@@ -67,11 +61,18 @@ const routes: Array<RouteConfig> = [
     name: routesNames.DailyProject,
     component: loadView("Board/Project/Daily"),
     meta: {
-      layout: "main",
       requiresAuth: true
     }
   },
 
+  {
+    path: "/board/project/:projectId/task/:id",
+    name: routesNames.TaskView,
+    component: loadView("Board/Project/Task/View"),
+    meta: {
+      requiresAuth: true
+    }
+  },
 
   /////////
 

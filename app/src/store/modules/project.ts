@@ -13,7 +13,7 @@ const service: ProjectService = new ProjectService()
 })
 
 export default class Project extends VuexModule {
-  public createForm: CreateProjectForm = emptyCreateForm
+  public createForm: CreateProjectForm = emptyCreateForm()
   public projectList: ProjectInterface[] = []
   public currentProject: ProjectInterface | null = null
 

@@ -7,6 +7,7 @@ export enum routesNames {
 
   CustomProject = "CustomProject",
   DailyProject = "DailyProject",
+  TaskView = "TaskView",
 
   SignUp = "SignUp",
   ConfirmSignUp = "ConfirmSignUp",

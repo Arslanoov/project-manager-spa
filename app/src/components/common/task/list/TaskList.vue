@@ -1,14 +1,24 @@
 <template>
   <div class="task-list">
-    <TaskCard @click="watchProject('id1')" class="task-list__item" />
-    <TaskCard @click="watchProject('id2')" class="task-list__item" />
-    <TaskCard @click="watchProject('id3')" class="task-list__item" />
-    <TaskCard @click="watchProject('id4')" class="task-list__item" />
+    <div @click="watchProject('id1')" class="task-list__item">
+      <TaskCard />
+    </div>
+    <div @click="watchProject('id1')" class="task-list__item">
+      <TaskCard />
+    </div>
+    <div @click="watchProject('id1')" class="task-list__item">
+      <TaskCard />
+    </div>
+    <div @click="watchProject('id1')" class="task-list__item">
+      <TaskCard />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator"
+
+import { routesNames } from "@/router/names"
 
 import TaskCard from "@/components/common/task/card/TaskCard.vue"
 
@@ -20,7 +30,13 @@ import TaskCard from "@/components/common/task/card/TaskCard.vue"
 
 export default class TaskList extends Vue {
   public watchProject(id: string) {
-    this.$router.push(`/board/project/${id}`)
+    this.$router.push({
+      name: routesNames.TaskView,
+      params: {
+        projectId: 'id',
+        id,
+      }
+    })
   }
 }
 </script>
@@ -28,6 +44,8 @@ export default class TaskList extends Vue {
 <style lang="scss" scoped>
 .task-list {
   &__item {
+    @include pointer-on-hover();
+
     &:not(:last-of-type) {
       margin-bottom: 1.5rem;
     }

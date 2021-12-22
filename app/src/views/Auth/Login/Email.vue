@@ -1,50 +1,52 @@
 <template>
-  <div class="container">
-    <div class="login">
-      <Logo class="login__logo" />
+  <auth-layout>
+    <div class="container">
+      <div class="login">
+        <Logo class="login__logo" />
 
-      <form class="login__form">
-        <div v-if="authForm.error" class="login__error">
-          {{ authForm.error }}
-        </div>
+        <form class="login__form">
+          <div v-if="authForm.error" class="login__error">
+            {{ authForm.error }}
+          </div>
 
-        <FormGroup
-          @change="setEmail"
-          @update-error-state="setIsValid"
-          :value="authForm.email"
-          :rules="rules.email"
-          name="E-mail"
-          id="email"
-          type="email"
-        />
-
-        <FormGroup
-          @change="setPassword"
-          @update-error-state="setIsValid"
-          :value="authForm.password"
-          :rules="rules.password"
-          :name="$t(`Password`)"
-          id="password"
-          type="password"
-        />
-
-        <div class="login__buttons">
-          <FormButton
-            @form-submit="onSubmit"
-            :name="$t('Submit')"
-            :disabled="!valid"
-            type="success"
+          <FormGroup
+              @change="setEmail"
+              @update-error-state="setIsValid"
+              :value="authForm.email"
+              :rules="rules.email"
+              name="E-mail"
+              id="email"
+              type="email"
           />
 
-          <FormButton
-            @form-submit="onReset"
-            :name="$t('Reset Form')"
-            type="error"
+          <FormGroup
+              @change="setPassword"
+              @update-error-state="setIsValid"
+              :value="authForm.password"
+              :rules="rules.password"
+              :name="$t(`Password`)"
+              id="password"
+              type="password"
           />
-        </div>
-      </form>
+
+          <div class="login__buttons">
+            <FormButton
+                @form-submit="onSubmit"
+                :name="$t('Submit')"
+                :disabled="!valid"
+                type="success"
+            />
+
+            <FormButton
+                @form-submit="onReset"
+                :name="$t('Reset Form')"
+                type="error"
+            />
+          </div>
+        </form>
+      </div>
     </div>
-  </div>
+  </auth-layout>
 </template>
 
 <script lang="ts">
@@ -54,10 +56,13 @@ import {
   namespace
 } from "vuex-class"
 
+import { routesNames } from "@/router/names"
+
 import AuthForm from "@/types/user/forms/AuthForm"
 
 import User from "@/store/modules/user"
 
+import AuthLayout from "@/layouts/AuthLayout.vue"
 import FormGroup from "@/components/base/form/group/FormGroup.vue"
 import FormButton from "@/components/base/form/button/FormButton.vue"
 import AuthMethod from "@/components/common/auth/method/AuthMethod.vue"
@@ -68,6 +73,7 @@ const userModule = namespace("User")
 @Component({
   name: "Login",
   components: {
+    AuthLayout,
     Logo,
     AuthMethod,
     FormButton,
@@ -116,7 +122,9 @@ export default class Login extends Vue {
       .then(() => {
         this.clearForm()
         this.clearFormError()
-        this.$router.push("/")
+        this.$router.push({
+          name: routesNames.Board
+        })
       })
   }
 }

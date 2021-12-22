@@ -1,9 +1,11 @@
 <template>
   <div class="main-layout">
-    <Header v-if="withHeader" :title="title" />
+    <slot name="header"></slot>
     <div class="container">
       <div class="main-layout__content">
-        <router-view></router-view>
+        <main>
+          <slot></slot>
+        </main>
       </div>
     </div>
     <TabBar />
@@ -26,13 +28,6 @@ import TabBar from "@/components/common/tab-bar/TabBar.vue"
 })
 
 export default class MainLayout extends Vue {
-  public get withHeader() {
-    return this.$route.meta.withHeader ?? false
-  }
-
-  public get title() {
-    return this.$route.meta.title ?? ""
-  }
 }
 </script>
 

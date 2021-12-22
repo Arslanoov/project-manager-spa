@@ -1,32 +1,36 @@
 <template>
-  <div class="project">
-    <h2 class="project__title">Task</h2>
+  <main-layout>
+    <div class="project">
+      <h2 class="project__title">Task</h2>
 
-    <div class="project__header">
-      <div class="project__current">
-        <div class="project__full-date">Dec 22, 2021</div>
-        <div class="project__name">Daily</div>
+      <div class="project__header">
+        <div class="project__current">
+          <div class="project__full-date">Dec 22, 2021</div>
+          <div class="project__name">Daily</div>
+        </div>
+        <button class="project__add-task">
+          <img class="project__add-icon" src="~@/assets/images/icons/task/plus.svg" alt="">
+          Add Task
+        </button>
       </div>
-      <button class="project__add-task">
-        <img class="project__add-icon" src="~@/assets/images/icons/task/plus.svg" alt="">
-        Add Task
-      </button>
+
+      <Timeline class="project__timeline" :days-count="7" :start-date="new Date()" :active-index="0" />
+
+      <TaskList class="project__tasks" />
     </div>
-
-    <Timeline class="project__timeline" :days-count="7" :start-date="new Date()" :active-index="0" />
-
-    <TaskList class="project__tasks" />
-  </div>
+  </main-layout>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator"
 
+import MainLayout from "@/layouts/MainLayout.vue"
 import Timeline from "@/components/common/timeline/Timeline.vue"
 import TaskList from "@/components/common/task/list/TaskList.vue"
 
 @Component({
   components: {
+    MainLayout,
     TaskList,
     Timeline
   }

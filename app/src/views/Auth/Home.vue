@@ -1,27 +1,31 @@
 <template>
-  <div class="container">
-    <div class="home">
-      <Logo class="home__logo" />
+  <auth-layout>
+    <div class="container">
+      <div class="home">
+        <Logo class="home__logo" />
 
-      <h2 class="home__message">{{ $t("message") }}</h2>
-      <p class="home__submessage">{{ $t("submessage") }}</p>
+        <h2 class="home__message">{{ $t("message") }}</h2>
+        <p class="home__submessage">{{ $t("submessage") }}</p>
 
-      <div class="home__methods">
-        <AuthMethod name="E-mail" link="/auth/login/email" />
+        <div class="home__methods">
+          <AuthMethod name="E-mail" link="/auth/login/email" />
+        </div>
       </div>
     </div>
-  </div>
+  </auth-layout>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator"
 
+import AuthLayout from "@/layouts/AuthLayout.vue"
 import Logo from "@/components/base/logo/Logo.vue"
 import AuthMethod from "@/components/common/auth/method/AuthMethod.vue"
 
 @Component({
   name: "Home",
   components: {
+    AuthLayout,
     Logo,
     AuthMethod
   }

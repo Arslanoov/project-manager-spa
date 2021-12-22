@@ -1,26 +1,37 @@
 <template>
-  <div class="project">
-    <h2 class="project__title">Task</h2>
+  <main-layout>
+    <template #header>
+      <Header title="Project name" />
+    </template>
+     <template #default>
+       <div class="project">
+         <h2 class="project__title">Task</h2>
 
-    <div class="project__header">
-      <div class="project__name">Name</div>
-      <button class="project__add-task">
-        <img class="project__add-icon" src="~@/assets/images/icons/task/plus.svg" alt="">
-        Add Task
-      </button>
-    </div>
+         <div class="project__header">
+           <div class="project__name">Name</div>
+           <button class="project__add-task">
+             <img class="project__add-icon" src="~@/assets/images/icons/task/plus.svg" alt="">
+             Add Task
+           </button>
+         </div>
 
-    <TaskList class="project__tasks" />
-  </div>
+         <TaskList class="project__tasks" />
+       </div>
+     </template>
+  </main-layout>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator"
 
+import MainLayout from "@/layouts/MainLayout.vue"
 import TaskList from "@/components/common/task/list/TaskList.vue"
+import Header from "@/modules/Header.vue"
 
 @Component({
   components: {
+    Header,
+    MainLayout,
     TaskList
   }
 })
