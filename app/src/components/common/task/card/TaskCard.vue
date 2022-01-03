@@ -1,42 +1,36 @@
 <template>
   <div class="card">
-    <div class="card__status">{{ task.status }}</div>
+    <div class="card__status">{{ item.status }}</div>
     <div class="card__line" />
     <div class="card__content">
       <div class="card__level" />
       <div class="card__text">
-        <h4 class="card__title">{{ task.name }}</h4>
-        <p class="card__description">{{ task.description }}</p>
+        <h4 class="card__title">{{ item.name }}</h4>
+        <p class="card__description">{{ item.description }}</p>
       </div>
     </div>
     <div class="card__bottom">
       <div class="card__steps">
         <img class="card__icon" src="~@/assets/images/icons/task/total.svg" alt="">
-        {{ task.stepsCount }} Steps
+        {{ item.stepsCount }} Steps
       </div>
       <div class="card__steps-finished">
         <img class="card__icon" src="~@/assets/images/icons/task/completed.svg" alt="">
-        {{ task.finishedSteps }} Finished
+        {{ item.finishedSteps }} Finished
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator"
+import { Component, Vue, Prop } from "vue-property-decorator"
+
+import TaskInterface from "@/types/task/task"
 
 @Component({})
 
 export default class TaskCard extends Vue {
-  public task = {
-    id: "313131",
-    name: "1 Web UI Design Project",
-    description: "Website UI Design for $500",
-    importantLevel: "Very Important",
-    status: "Not Complete",
-    stepsCount: 23,
-    finishedSteps: 2
-  }
+  @Prop([Object]) readonly item: TaskInterface
 }
 </script>
 

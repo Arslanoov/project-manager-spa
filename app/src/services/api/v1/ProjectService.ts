@@ -29,7 +29,7 @@ export default class ProjectService {
     })
   }
 
-  public getCustomProject(id: string): Promise<ProjectInterface> {
+  public getCustomProject(id: string): Promise<AxiosResponse<ProjectInterface>> {
     return axios.get(`${API_PREFIX}/todo/custom/get/${id}`)
   }
 

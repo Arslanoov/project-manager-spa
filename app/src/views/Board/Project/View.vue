@@ -1,7 +1,7 @@
 <template>
   <main-layout>
     <template #header>
-      <Header title="Project name" />
+      <Header :title="project.isCustom ? project.name : 'Personal'" :project-id="project.id" />
     </template>
      <template #default>
        <div class="project">
@@ -15,7 +15,7 @@
            </button>
          </div>
 
-         <TaskList class="project__tasks" />
+         <TaskList :items="project.tasks" class="project__tasks" />
        </div>
      </template>
   </main-layout>
@@ -23,12 +23,19 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator"
+import { namespace } from "vuex-class"
 
 import { routesNames } from "@/router/names"
 
 import MainLayout from "@/layouts/MainLayout.vue"
 import TaskList from "@/components/common/task/list/TaskList.vue"
 import Header from "@/modules/Header.vue"
+
+import TaskStoreModule from "@/store/modules/task"
+
+import ProjectInterface from "@/types/project/project"
+
+const taskModule = namespace("Task")
 
 @Component({
   components: {
@@ -39,6 +46,21 @@ import Header from "@/modules/Header.vue"
 })
 
 export default class CustomView extends Vue {
+  @taskModule.State("currentProject") project: ProjectInterface | null
+
+  @taskModule.Action("fetchProject") fetchProject: typeof TaskStoreModule.prototype.fetchProject
+
+  public created() {
+    this.fetchProject({
+      projectId: this.$route.params.id,
+      isPersonal: this.isPersonal
+    })
+  }
+
+  public get isPersonal(): boolean {
+    return this.$route.params.id === "personal"
+  }
+
   public onTaskAdd() {
     this.$router.push({
       name: routesNames.TaskCreate,

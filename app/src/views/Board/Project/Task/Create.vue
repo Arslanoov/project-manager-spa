@@ -30,7 +30,6 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator"
-
 import { namespace } from "vuex-class"
 
 import { routesNames } from "@/router/names"
@@ -42,11 +41,9 @@ import FormButton from "@/components/base/form/button/FormButton.vue"
 
 import { CreateTaskForm } from "@/types/task/createTask"
 
-import ProjectStoreModule from "@/store/modules/project"
 import TaskStoreModule from "@/store/modules/task"
 import FormRadioGroup from "@/components/base/form/radio-group/FormRadioGroup.vue"
 
-const projectModule = namespace("Project")
 const taskModule = namespace("Task")
 
 @Component({

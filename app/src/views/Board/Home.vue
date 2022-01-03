@@ -5,7 +5,7 @@
         <h2 class="board__title">Board</h2>
         <div class="board__projects">
           <div
-              @click="goToProject(project.id)"
+              @click="goToProject(project.id, project.isCustom)"
               v-for="project in projects"
               :key="project.id"
               class="board__project project"
@@ -57,11 +57,11 @@ export default class Board extends Vue {
     this.fetchProjects()
   }
 
-  public goToProject(id: string) {
+  public goToProject(id: string, isCustom: boolean) {
     this.$router.push({
       name: routesNames.CustomProject,
       params: {
-        id,
+        id: isCustom ? id : "personal",
       }
     })
   }

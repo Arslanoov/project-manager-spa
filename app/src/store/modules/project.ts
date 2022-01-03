@@ -33,16 +33,6 @@ export default class Project extends VuexModule {
     this.projectList = []
   }
 
-  @Mutation
-  public setCurrentProject(project: ProjectInterface): void {
-    this.currentProject = project
-  }
-
-  @Mutation
-  public clearCurrentProject(): void {
-    this.currentProject = null
-  }
-
   @Action({ rawError: true })
   public async fetchProjects(): Promise<void> {
     try {
@@ -58,25 +48,6 @@ export default class Project extends VuexModule {
   public async createProject(): Promise<void> {
     try {
       await service.addCustomProject(this.createForm.name)
-    } catch (e) {
-      console.log(e)
-    }
-  }
-
-  @Action({ rawError: true })
-  public async fetchPersonalProject(): Promise<void> {
-    try {
-      const response = await service.getPersonalProject()
-      this.context.commit('setCurrentProject')
-    } catch (e) {
-      console.log(e)
-    }
-  }
-
-  @Action({ rawError: true })
-  public async fetchDailyProject(): Promise<void> {
-    try {
-      this.context.commit('setCurrentProject')
     } catch (e) {
       console.log(e)
     }
