@@ -1,17 +1,25 @@
 <template>
   <main-layout>
     <template #header>
-      <Header title="Project Create" />
+      <Header title="Task Create" />
     </template>
     <template #default>
-      <div class="project-create">
-        <form class="project-create__form form">
+      <div class="task-create">
+        <form class="task-create__form form">
           <FormGroup
             @change="changeCreateFormName"
             :value="form.name"
             class="form__group"
             name="name"
             id="name"
+          />
+          <FormRadioGroup
+            @change="changeCreateFormLevel"
+            :selected="form.importantLevel"
+            :values="levelValues"
+            class="form__group"
+            name="description"
+            id="description"
           />
           <FormButton @form-submit="onSubmit" :name="$t('new-project')" />
         </form>
@@ -32,14 +40,18 @@ import Header from "@/modules/Header.vue"
 import FormGroup from "@/components/base/form/group/FormGroup.vue"
 import FormButton from "@/components/base/form/button/FormButton.vue"
 
-import { CreateProjectForm } from "@/types/project/createProject"
+import { CreateTaskForm } from "@/types/task/createTask"
 
 import ProjectStoreModule from "@/store/modules/project"
+import TaskStoreModule from "@/store/modules/task"
+import FormRadioGroup from "@/components/base/form/radio-group/FormRadioGroup.vue"
 
 const projectModule = namespace("Project")
+const taskModule = namespace("Task")
 
 @Component({
   components: {
+    FormRadioGroup,
     MainLayout,
     Header,
     FormButton,
@@ -47,17 +59,23 @@ const projectModule = namespace("Project")
   }
 })
 
-export default class CreateProject extends Vue {
-  @projectModule.State("createForm") form: CreateProjectForm
+export default class CreateTask extends Vue {
+  @taskModule.State("createForm") form: CreateTaskForm
 
-  @projectModule.Mutation("changeCreateFormName") changeCreateFormName:
-      typeof ProjectStoreModule.prototype.changeCreateFormName
-  @projectModule.Action("createProject") createProject:
-      typeof ProjectStoreModule.prototype.createProject
+  @taskModule.Mutation("changeCreateFormName") changeCreateFormName:
+      typeof TaskStoreModule.prototype.changeCreateFormName
+  @taskModule.Mutation("changeCreateFormLevel") changeCreateFormLevel:
+      typeof TaskStoreModule.prototype.changeCreateFormLevel
+  @taskModule.Mutation("changeCreateFormDescription") changeCreateFormDescription:
+      typeof TaskStoreModule.prototype.changeCreateFormDescription
+
+  @taskModule.Action("createTask") createTask: typeof TaskStoreModule.prototype.createTask
+
+  public levelValues = ['Not Important', 'Important', 'Very Important']
 
   public async onSubmit(): Promise<void> {
     try {
-      await this.createProject()
+      await this.createTask()
       await this.$router.push({
         name: routesNames.Board
       })

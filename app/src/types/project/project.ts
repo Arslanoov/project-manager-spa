@@ -1,4 +1,4 @@
-import TaskInterface from "@/types/schedule/task/TaskInterface"
+import TaskInterface from "@/types/task/task"
 
 interface DateInterface {
   day: number,

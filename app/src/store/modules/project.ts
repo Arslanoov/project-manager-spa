@@ -2,7 +2,7 @@ import { VuexModule, Module, Mutation, Action } from "vuex-module-decorators"
 
 import ProjectService from "@/services/api/v1/ProjectService"
 
-import { CreateProjectForm, emptyCreateForm } from "@/types/project/createProject"
+import { CreateProjectForm, emptyCreateProjectForm } from "@/types/project/createProject"
 import ProjectInterface from "@/types/project/project"
 
 const service: ProjectService = new ProjectService()
@@ -13,7 +13,8 @@ const service: ProjectService = new ProjectService()
 })
 
 export default class Project extends VuexModule {
-  public createForm: CreateProjectForm = emptyCreateForm()
+  public createForm: CreateProjectForm = emptyCreateProjectForm()
+
   public projectList: ProjectInterface[] = []
   public currentProject: ProjectInterface | null = null
 

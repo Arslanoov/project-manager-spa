@@ -66,6 +66,14 @@ const routes: Array<RouteConfig> = [
   },
 
   {
+    path: "/board/project/:projectId/task/create",
+    name: routesNames.TaskCreate,
+    component: loadView("Board/Project/Task/Create"),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
     path: "/board/project/:projectId/task/:id",
     name: routesNames.TaskView,
     component: loadView("Board/Project/Task/View"),

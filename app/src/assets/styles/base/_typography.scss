@@ -5,8 +5,12 @@ html {
 }
 
 body {
-  font-family: Poppins, sans-serif;
   font-size: 1.6rem;
+}
+
+body,
+input {
+  font-family: Poppins, sans-serif;
 }
 
 button {

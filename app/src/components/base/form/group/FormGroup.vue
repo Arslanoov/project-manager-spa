@@ -24,7 +24,7 @@ import { Component, Vue, Prop } from "vue-property-decorator"
 
 @Component({})
 
-export default class FormInput extends Vue {
+export default class FormGroup extends Vue {
   @Prop([String]) readonly name: string | undefined
   @Prop([String]) readonly id: string | undefined
   @Prop([String]) readonly value: string | undefined

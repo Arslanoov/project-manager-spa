@@ -1,11 +1,10 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import axios, { AxiosResponse } from "axios"
 
 import { API_PREFIX } from "@/services/api/v1/const"
 
 import ProjectInterface from "@/types/project/project"
 import { GetPersonalProjectResponse, GetProjectsResponse } from "@/types/project/response"
-
-import { TaskForm } from "@/types/schedule/task/TaskInterface"
 
 export default class ProjectService {
   public getPersonalProject(): GetPersonalProjectResponse {
@@ -54,19 +53,8 @@ export default class ProjectService {
     return axios.get(`${API_PREFIX}/todo/daily/next-week/${id}`)
   }
 
-  public addTask(form: TaskForm): Promise<AxiosResponse> {
-    return axios.post(`${API_PREFIX}/todo/task/create`, {
-      // eslint-disable-next-line @typescript-eslint/camelcase
-      schedule_id: form.scheduleId,
-      name: form.name,
-      description: form.description,
-      level: form.importantLevel
-    })
-  }
-
   public changeTaskStatus(taskId: string, status: string): Promise<AxiosResponse> {
     return axios.patch(`${API_PREFIX}/todo/task/change-status`, {
-      // eslint-disable-next-line @typescript-eslint/camelcase
       task_id: taskId,
       status
     })
@@ -75,7 +63,6 @@ export default class ProjectService {
   public removeTask(taskId: string): Promise<AxiosResponse> {
     return axios.delete(`${API_PREFIX}/todo/task/remove`, {
       data: {
-        // eslint-disable-next-line @typescript-eslint/camelcase
         task_id: taskId
       }
     })

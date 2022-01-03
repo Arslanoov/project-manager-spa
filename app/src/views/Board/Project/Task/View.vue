@@ -7,12 +7,16 @@
       <div class="task">
         <div class="task__header">
           <div class="task__title">Task</div>
-          <div class="task__add-step">
+          <div @click="toggleInput" class="task__add-step">
             <img class="task__add-step-icon" src="~@/assets/images/icons/task/plus_blue.svg" alt="">
           </div>
         </div>
 
         <div class="task__steps">
+          <div v-if="isInputOpened" class="task__step step">
+            <div class="step__checkbox"></div>
+            <input type="text" class="step__input">
+          </div>
           <div class="task__step step">
             <div class="step__checkbox"></div>
             <div class="step__title">Title 1</div>
@@ -43,7 +47,11 @@ import Header from "@/modules/Header.vue"
 })
 
 export default class TaskView extends Vue {
+  public isInputOpened = false
 
+  public toggleInput(): void {
+    this.isInputOpened = !this.isInputOpened
+  }
 }
 </script>
 
@@ -83,10 +91,6 @@ export default class TaskView extends Vue {
     }
   }
 
-  &__steps {
-
-  }
-
   &__step {
     &:not(:last-of-type) {
       margin-bottom: 1rem;
@@ -109,6 +113,8 @@ export default class TaskView extends Vue {
   }
 
   &__checkbox {
+    flex-shrink: 0;
+
     width: 2.4rem;
     height: 2.4rem;
 
@@ -132,6 +138,14 @@ export default class TaskView extends Vue {
     &-hidden {
       display: none;
     }
+  }
+
+  &__input {
+    width: 100%;
+
+    background: transparent;
+    border: none;
+    outline: none;
   }
 
   &__title {

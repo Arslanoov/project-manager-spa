@@ -9,7 +9,7 @@
 
          <div class="project__header">
            <div class="project__name">Name</div>
-           <button class="project__add-task">
+           <button @click="onTaskAdd" class="project__add-task">
              <img class="project__add-icon" src="~@/assets/images/icons/task/plus.svg" alt="">
              Add Task
            </button>
@@ -24,6 +24,8 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator"
 
+import { routesNames } from "@/router/names"
+
 import MainLayout from "@/layouts/MainLayout.vue"
 import TaskList from "@/components/common/task/list/TaskList.vue"
 import Header from "@/modules/Header.vue"
@@ -37,7 +39,14 @@ import Header from "@/modules/Header.vue"
 })
 
 export default class CustomView extends Vue {
-
+  public onTaskAdd() {
+    this.$router.push({
+      name: routesNames.TaskCreate,
+      params: {
+        projectId: this.$route.params.id
+      }
+    })
+  }
 }
 </script>
 
