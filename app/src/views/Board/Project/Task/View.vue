@@ -5,6 +5,17 @@
     </template>
     <template #default>
       <div class="task">
+        <div class="task__center">
+          <div
+            :class="{
+            'task__level_red': task.importantLevel === 'Very Important',
+            'task__level_yellow': task.importantLevel === 'Important',
+            'task__level_green': task.importantLevel === 'Not Important'
+          }"
+            class="task__level"
+          />
+        </div>
+
         <div class="task__info">
           <h2 class="task__name">{{ task.name }}</h2>
           <p class="task__description">{{ task.description }}</p>
@@ -102,9 +113,38 @@ export default class TaskView extends Vue {
 <style lang="scss" scoped>
 .task {
   &__info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-bottom: 1rem;
+  }
+
+  &__center {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__level {
+    width: 10rem;
+    height: .3rem;
+
+    margin-top: -2rem;
     margin-bottom: 1rem;
 
-    text-align: center;
+    z-index: 1;
+
+    &_red {
+      background-color: #fc3d3d;
+    }
+
+    &_yellow {
+      background-color: #fcd308;
+    }
+
+    &_green {
+      background-color: #0cff04;
+    }
   }
 
   &__name {
@@ -175,6 +215,7 @@ export default class TaskView extends Vue {
     margin-bottom: 1rem;
   }
 
+  /* TODO: Separate component */
   &__checkbox {
     flex-shrink: 0;
 

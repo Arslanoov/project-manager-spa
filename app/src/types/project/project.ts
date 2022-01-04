@@ -12,7 +12,7 @@ export default interface ProjectInterface {
   name?: string,
   date: DateInterface,
   tasksCount: number,
-  tasks?: Array<TaskInterface>,
+  tasks: Array<TaskInterface>,
   isMain?: boolean,
   isCustom?: boolean
 }

@@ -49,12 +49,17 @@ export default class CustomView extends Vue {
   @taskModule.State("currentProject") project: ProjectInterface | null
 
   @taskModule.Action("fetchProject") fetchProject: typeof TaskStoreModule.prototype.fetchProject
+  @taskModule.Action("clearCurrentProject") clearProject: typeof TaskStoreModule.prototype.clearCurrentProject
 
   public created() {
     this.fetchProject({
       projectId: this.$route.params.id,
       isPersonal: this.isPersonal
     })
+  }
+
+  public destroyed(): void {
+    this.clearProject()
   }
 
   public get isPersonal(): boolean {

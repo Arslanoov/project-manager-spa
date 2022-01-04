@@ -3,10 +3,12 @@
     <div class="card__status">{{ item.status }}</div>
     <div class="card__line" />
     <div class="card__content">
-      <div class="card__level" />
-      <div class="card__text">
-        <h4 class="card__title">{{ item.name }}</h4>
-        <p class="card__description">{{ item.description }}</p>
+      <div class="card__content">
+        <div class="card__level" />
+        <div class="card__text">
+          <h4 class="card__title">{{ item.name }}</h4>
+          <p class="card__description">{{ item.description }}</p>
+        </div>
       </div>
     </div>
     <div class="card__bottom">
@@ -18,19 +20,44 @@
         <img class="card__icon" src="~@/assets/images/icons/task/completed.svg" alt="">
         {{ item.finishedSteps }} Finished
       </div>
+      <div
+        @click="e => toggleStatus(e, item.id)"
+        :class="item.status === 'Complete' ? 'card__checkbox_checked' : ''"
+        class="card__checkbox"
+      >
+        <img
+          v-if="item.status === 'Complete'"
+          src="~@/assets/images/icons/task/check.svg"
+          alt=""
+        >
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator"
+import { namespace } from "vuex-class"
 
 import TaskInterface from "@/types/task/task"
+
+// TODO: Move store use
+
+import TaskStoreModule from "@/store/modules/task"
+
+const taskModule = namespace("Task")
 
 @Component({})
 
 export default class TaskCard extends Vue {
   @Prop([Object]) readonly item: TaskInterface
+
+  @taskModule.Action("toggleTaskStatus") toggleTaskStatus: typeof TaskStoreModule.prototype.toggleTaskStatus
+
+  public toggleStatus(e: Event, id: string): void {
+    e.stopPropagation()
+    this.toggleTaskStatus(id)
+  }
 }
 </script>
 
@@ -65,7 +92,7 @@ export default class TaskCard extends Vue {
     display: flex;
     gap: 1rem;
 
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
   }
 
   &__level {
@@ -109,6 +136,35 @@ export default class TaskCard extends Vue {
 
   &__icon {
     margin-right: .5rem;
+  }
+
+  // TODO: Separate component
+  &__checkbox {
+    flex-shrink: 0;
+
+    width: 2.4rem;
+    height: 2.4rem;
+
+    margin-right: 1.4rem;
+
+    border-radius: .8rem;
+
+    border: .1rem solid #B2BAC9;
+
+    @include pointer-on-hover();
+
+    &_checked {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      border-color: #2CC09C;
+      background-color: #2CC09C;
+    }
+
+    &-hidden {
+      display: none;
+    }
   }
 }
 </style>

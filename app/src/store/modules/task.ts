@@ -79,9 +79,18 @@ class Task extends VuexModule {
   }
 
   @Mutation
+  public changeTaskStatus({ id, status }: { id: string, status: "Not Complete" | "Complete" }): void {
+    if (!this.currentProject) return
+    const idx: number = this.currentProject.tasks.findIndex((tasks) => tasks.id === id)
+    if (idx !== -1) {
+      this.currentProject.tasks[idx].status = status
+    }
+  }
+
+  @Mutation
   public changeStepStatus({ id, status }: { id: number, status: "Not Complete" | "Complete" }): void {
     if (!this.currentTask) return
-    const idx: number = this.currentTask.steps.findIndex((step) => step.id === id) as number
+    const idx: number = this.currentTask.steps.findIndex((step) => step.id === id)
     if (idx !== -1) {
       (this.currentTask.steps[idx] as StepInterface).status = status
     }
@@ -157,9 +166,29 @@ class Task extends VuexModule {
   }
 
   @Action({ rawError: true })
+  public async toggleTaskStatus(id: string): Promise<void | null> {
+    try {
+      const task = (this.currentProject as ProjectInterface).tasks.find((task) => task.id === id)
+      if (!task) {
+        throw new Error("Task not found")
+      }
+
+      const toggledStatus = task.status === 'Complete' ? 'Not Complete' : 'Complete'
+      await taskService.changeTaskStatus(id, toggledStatus)
+      this.context.commit("changeTaskStatus", {
+        id,
+        status: toggledStatus
+      })
+    } catch (e) {
+      console.log(e)
+      return null
+    }
+  }
+
+  @Action({ rawError: true })
   public async toggleStepStatus(id: number): Promise<void | null> {
     try {
-      const step = (this.currentTask?.steps as StepInterface[]).find((step) => step.id === id)
+      const step = (this.currentTask as TaskInterface).steps.find((step) => step.id === id)
       if (!step) {
         throw new Error("Step not found")
       }
