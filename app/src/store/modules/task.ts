@@ -24,8 +24,7 @@ class Task extends VuexModule {
   public currentProject: ProjectInterface | null = null
   public createForm: CreateTaskForm = createEmptyTaskForm()
 
-  public currentTask: string | null = null
-  public currentTaskSteps: StepInterface[] = []
+  public currentTask: TaskInterface | null = null
   public createStepForm: CreateStepForm = createEmptyStepForm()
 
   @Mutation
@@ -54,9 +53,9 @@ class Task extends VuexModule {
   }
 
   @Mutation
-  public changeTask(taskId: string): void {
-    this.currentTask = taskId
-    this.createStepForm.taskId = taskId
+  public changeTask(task: TaskInterface): void {
+    this.currentTask = task
+    this.createStepForm.taskId = task.id
   }
 
   @Mutation
@@ -65,13 +64,8 @@ class Task extends VuexModule {
   }
 
   @Mutation
-  public setCurrentTaskSteps(steps: StepInterface[]): void {
-    this.currentTaskSteps = steps
-  }
-
-  @Mutation
   public addCurrentTaskStep(step: StepInterface): void {
-    this.currentTaskSteps.unshift(step)
+    (this.currentTask?.steps as StepInterface[]).push(step)
   }
 
   @Mutation
@@ -80,13 +74,17 @@ class Task extends VuexModule {
   }
 
   @Mutation
-  public clearTaskSteps(): void {
-    this.currentTaskSteps = []
+  public changeCreateStepFormName(newName: string): void {
+    this.createStepForm.name = newName
   }
 
   @Mutation
-  public changeCreateStepFormName(newName: string): void {
-    this.createStepForm.name = newName
+  public changeStepStatus({ id, status }: { id: number, status: "Not Complete" | "Complete" }): void {
+    if (!this.currentTask) return
+    const idx: number = this.currentTask.steps.findIndex((step) => step.id === id) as number
+    if (idx !== -1) {
+      (this.currentTask.steps[idx] as StepInterface).status = status
+    }
   }
 
   @Action({ rawError: true })
@@ -131,14 +129,14 @@ class Task extends VuexModule {
   }
 
   @Action({ rawError: true })
-  public async fetchCurrentTaskSteps(): Promise<StepInterface[] | null> {
+  public async fetchCurrentTask(id: string): Promise<TaskInterface | null> {
     try {
       if (!this.currentTask) {
         throw new Error("Task not defined.")
       }
-      const { data: { steps } } = await taskService.getTaskSteps(this.currentTask)
-      this.context.commit("setCurrentTaskSteps", steps)
-      return steps
+      const { data: task } = await taskService.getTaskSteps(id)
+      this.context.commit("changeTask", task)
+      return task
     } catch (e) {
       console.log(e)
       return null
@@ -152,6 +150,26 @@ class Task extends VuexModule {
       this.context.commit("addCurrentTaskStep", step)
       this.context.commit("clearCreateStepForm")
       return step
+    } catch (e) {
+      console.log(e)
+      return null
+    }
+  }
+
+  @Action({ rawError: true })
+  public async toggleStepStatus(id: number): Promise<void | null> {
+    try {
+      const step = (this.currentTask?.steps as StepInterface[]).find((step) => step.id === id)
+      if (!step) {
+        throw new Error("Step not found")
+      }
+
+      const toggledStatus = step.status === 'Complete' ? 'Not Complete' : 'Complete'
+      await stepService.changeStepStatus(id, toggledStatus)
+      this.context.commit("changeStepStatus", {
+        id,
+        status: toggledStatus
+      })
     } catch (e) {
       console.log(e)
       return null

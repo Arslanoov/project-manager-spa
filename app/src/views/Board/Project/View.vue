@@ -1,11 +1,11 @@
 <template>
   <main-layout>
     <template #header>
-      <Header :title="project.isCustom ? project.name : 'Personal'" />
+      <Header title="Board" />
     </template>
      <template #default>
        <div class="project">
-         <h2 class="project__title">Task</h2>
+         <h2 class="project__title">{{ project.isCustom ? project.name : 'Personal' }}</h2>
 
          <div class="project__header">
            <div class="project__name">Name</div>

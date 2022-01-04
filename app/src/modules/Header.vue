@@ -30,7 +30,7 @@ export default class Header extends Vue {
 
   &__content {
     width: 100%;
-    height: 14rem;
+    height: 12rem;
 
     padding: 0 2.4rem;
 
@@ -44,7 +44,7 @@ export default class Header extends Vue {
     display: flex;
     align-items: center;
 
-    padding-top: 4rem;
+    padding-top: 3rem;
   }
 
   &__overlay {

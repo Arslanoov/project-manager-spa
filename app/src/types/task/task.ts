@@ -1,3 +1,5 @@
+import StepInterface from "@/types/step/step"
+
 export enum ImportantLevel {
   NotImportant = "Not Important",
   Important = "Important",
@@ -12,4 +14,6 @@ export default interface TaskInterface {
   status: string,
   stepsCount: number,
   finishedSteps: number
+  projectName?: string
+  steps: StepInterface[]
 }

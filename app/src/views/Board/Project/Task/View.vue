@@ -1,12 +1,17 @@
 <template>
   <main-layout>
     <template #header>
-      <Header title="Task name" />
+      <Header :title="task.projectName" />
     </template>
     <template #default>
       <div class="task">
+        <div class="task__info">
+          <h2 class="task__name">{{ task.name }}</h2>
+          <p class="task__description">{{ task.description }}</p>
+        </div>
+
         <div class="task__header">
-          <div class="task__title">Task</div>
+          <div class="task__title">Steps</div>
           <div @click="toggleInput" class="task__add-step">
             <img class="task__add-step-icon" src="~@/assets/images/icons/task/plus_blue.svg" alt="">
           </div>
@@ -19,12 +24,14 @@
               @keyup.enter="createStep"
               @input="e => changeStepFormName(e.target.value)"
               :value="createForm.name"
+              placeholder="Step name..."
               type="text"
               class="step__input"
             >
           </div>
-          <div v-for="step in steps" :key="step.id" class="task__step step">
+          <div v-for="step in task.steps" :key="step.id" class="task__step step">
             <div
+              @click="toggleStepStatus(step.id)"
               :class="step.status === 'Complete' ? 'step__checkbox_checked' : ''"
               class="step__checkbox"
             >
@@ -46,11 +53,10 @@
 import { Component, Vue } from "vue-property-decorator"
 import { namespace } from "vuex-class"
 
-import MainLayout from "@/layouts/MainLayout.vue"
-
-import StepInterface from "@/types/step/step"
+import TaskInterface from "@/types/task/task"
 import { CreateStepForm } from "@/types/step/form"
 
+import MainLayout from "@/layouts/MainLayout.vue"
 import Header from "@/modules/Header.vue"
 
 import TaskStoreModule from "@/store/modules/task"
@@ -65,17 +71,17 @@ const taskModule = namespace("Task")
 })
 
 export default class TaskView extends Vue {
-  @taskModule.State("currentTaskSteps") steps: StepInterface[]
+  @taskModule.State("currentTask") task: TaskInterface
   @taskModule.State("createStepForm") createForm: CreateStepForm
 
   @taskModule.Mutation("changeTask") changeTask: typeof TaskStoreModule.prototype.changeTask
   @taskModule.Mutation("clearTask") clearTask: typeof TaskStoreModule.prototype.clearTask
-  @taskModule.Mutation("clearTaskSteps") clearSteps: typeof TaskStoreModule.prototype.clearTaskSteps
   @taskModule.Mutation("changeCreateStepFormName") changeStepFormName:
     typeof TaskStoreModule.prototype.changeCreateStepFormName
 
-  @taskModule.Action("fetchCurrentTaskSteps") fetchSteps: typeof TaskStoreModule.prototype.fetchCurrentTaskSteps
+  @taskModule.Action("fetchCurrentTask") fetchCurrentTask: typeof TaskStoreModule.prototype.fetchCurrentTask
   @taskModule.Action("createStep") createStep: typeof TaskStoreModule.prototype.createStep
+  @taskModule.Action("toggleStepStatus") toggleStepStatus: typeof TaskStoreModule.prototype.toggleStepStatus
 
   public isInputOpened = false
 
@@ -84,14 +90,36 @@ export default class TaskView extends Vue {
   }
 
   public created(): void {
-    this.changeTask(this.$route.params.id)
-    this.fetchSteps()
+    this.fetchCurrentTask(this.$route.params.id)
+  }
+
+  public beforeDestroyed(): void {
+    this.clearTask()
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .task {
+  &__info {
+    margin-bottom: 1rem;
+
+    text-align: center;
+  }
+
+  &__name {
+    font-size: 2.4rem;
+
+    color: #0B204C;
+  }
+
+  &__description {
+    font-size: 1.4rem;
+    line-height: 2rem;
+
+    color: #919BB3;
+  }
+
   &__header {
     display: flex;
     justify-content: space-between;

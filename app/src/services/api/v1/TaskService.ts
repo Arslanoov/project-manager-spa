@@ -4,9 +4,10 @@ import axios, { AxiosResponse } from "axios"
 import { CreateTaskForm } from "@/types/task/form"
 
 import { API_PREFIX } from "@/services/api/v1/const"
+import TaskInterface from "@/types/task/task"
 
 export default class TaskService {
-  public getTaskSteps(taskId: string): Promise<AxiosResponse> {
+  public getTaskSteps(taskId: string): Promise<AxiosResponse<TaskInterface>> {
     return axios.get(`${API_PREFIX}/todo/task/${taskId}/steps`)
   }
 
