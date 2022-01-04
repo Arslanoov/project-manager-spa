@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import axios, { AxiosResponse } from "axios"
 
-import { CreateTaskForm } from "@/types/task/createTask"
+import { CreateTaskForm } from "@/types/task/form"
 
 import { API_PREFIX } from "@/services/api/v1/const"
 
@@ -16,6 +16,21 @@ export default class TaskService {
       name: form.name,
       description: form.description,
       level: form.importantLevel
+    })
+  }
+
+  public changeTaskStatus(taskId: string, status: string): Promise<AxiosResponse> {
+    return axios.patch(`${API_PREFIX}/todo/task/change-status`, {
+      task_id: taskId,
+      status
+    })
+  }
+
+  public removeTask(taskId: string): Promise<AxiosResponse> {
+    return axios.delete(`${API_PREFIX}/todo/task/remove`, {
+      data: {
+        task_id: taskId
+      }
     })
   }
 }

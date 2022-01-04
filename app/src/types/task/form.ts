@@ -7,7 +7,7 @@ export interface CreateTaskForm {
   importantLevel: ImportantLevel
 }
 
-export const emptyCreateTaskForm = (): CreateTaskForm => ({
+export const createEmptyTaskForm = (): CreateTaskForm => ({
   projectId: "",
   name: "",
   description: "",

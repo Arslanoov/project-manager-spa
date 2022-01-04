@@ -1,13 +1,13 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import axios, { AxiosResponse } from "axios"
 
 import { API_PREFIX } from "@/services/api/v1/const"
 
-import { StepForm } from "@/types/schedule/task/StepInterface"
+import { CreateStepForm } from "@/types/step/form"
 
-export default class TaskService {
-  public addStep(form: StepForm): Promise<AxiosResponse> {
+export default class StepService {
+  public addStep(form: CreateStepForm): Promise<AxiosResponse> {
     return axios.post(`${API_PREFIX}/todo/task/step/create`, {
-      // eslint-disable-next-line @typescript-eslint/camelcase
       task_id: form.taskId,
       name: form.name
     })

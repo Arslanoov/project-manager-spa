@@ -1,7 +1,7 @@
 <template>
   <main-layout>
     <template #header>
-      <Header :title="project.isCustom ? project.name : 'Personal'" :project-id="project.id" />
+      <Header :title="project.isCustom ? project.name : 'Personal'" />
     </template>
      <template #default>
        <div class="project">
@@ -15,7 +15,7 @@
            </button>
          </div>
 
-         <TaskList :items="project.tasks" class="project__tasks" />
+         <TaskList :items="project.tasks" :project-id="project.id" class="project__tasks" />
        </div>
      </template>
   </main-layout>

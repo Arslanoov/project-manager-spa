@@ -15,17 +15,26 @@
         <div class="task__steps">
           <div v-if="isInputOpened" class="task__step step">
             <div class="step__checkbox"></div>
-            <input type="text" class="step__input">
+            <input
+              @keyup.enter="createStep"
+              @input="e => changeStepFormName(e.target.value)"
+              :value="createForm.name"
+              type="text"
+              class="step__input"
+            >
           </div>
-          <div class="task__step step">
-            <div class="step__checkbox"></div>
-            <div class="step__title">Title 1</div>
-          </div>
-          <div class="task__step step">
-            <div class="step__checkbox step__checkbox_checked">
-              <img src="~@/assets/images/icons/task/check.svg" alt="">
+          <div v-for="step in steps" :key="step.id" class="task__step step">
+            <div
+              :class="step.status === 'Complete' ? 'step__checkbox_checked' : ''"
+              class="step__checkbox"
+            >
+              <img
+                v-if="step.status === 'Complete'"
+                src="~@/assets/images/icons/task/check.svg"
+                alt=""
+              >
             </div>
-            <div class="step__title">Title 2</div>
+            <div class="step__title">{{ step.name }}</div>
           </div>
         </div>
       </div>
@@ -35,9 +44,18 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator"
+import { namespace } from "vuex-class"
 
 import MainLayout from "@/layouts/MainLayout.vue"
+
+import StepInterface from "@/types/step/step"
+import { CreateStepForm } from "@/types/step/form"
+
 import Header from "@/modules/Header.vue"
+
+import TaskStoreModule from "@/store/modules/task"
+
+const taskModule = namespace("Task")
 
 @Component({
   components: {
@@ -47,10 +65,27 @@ import Header from "@/modules/Header.vue"
 })
 
 export default class TaskView extends Vue {
+  @taskModule.State("currentTaskSteps") steps: StepInterface[]
+  @taskModule.State("createStepForm") createForm: CreateStepForm
+
+  @taskModule.Mutation("changeTask") changeTask: typeof TaskStoreModule.prototype.changeTask
+  @taskModule.Mutation("clearTask") clearTask: typeof TaskStoreModule.prototype.clearTask
+  @taskModule.Mutation("clearTaskSteps") clearSteps: typeof TaskStoreModule.prototype.clearTaskSteps
+  @taskModule.Mutation("changeCreateStepFormName") changeStepFormName:
+    typeof TaskStoreModule.prototype.changeCreateStepFormName
+
+  @taskModule.Action("fetchCurrentTaskSteps") fetchSteps: typeof TaskStoreModule.prototype.fetchCurrentTaskSteps
+  @taskModule.Action("createStep") createStep: typeof TaskStoreModule.prototype.createStep
+
   public isInputOpened = false
 
   public toggleInput(): void {
     this.isInputOpened = !this.isInputOpened
+  }
+
+  public created(): void {
+    this.changeTask(this.$route.params.id)
+    this.fetchSteps()
   }
 }
 </script>

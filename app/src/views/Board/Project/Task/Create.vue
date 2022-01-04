@@ -39,7 +39,7 @@ import Header from "@/modules/Header.vue"
 import FormGroup from "@/components/base/form/group/FormGroup.vue"
 import FormButton from "@/components/base/form/button/FormButton.vue"
 
-import { CreateTaskForm } from "@/types/task/createTask"
+import { CreateTaskForm } from "@/types/task/form"
 
 import TaskStoreModule from "@/store/modules/task"
 import FormRadioGroup from "@/components/base/form/radio-group/FormRadioGroup.vue"

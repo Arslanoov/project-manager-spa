@@ -52,19 +52,4 @@ export default class ProjectService {
   public getNextWeekProject(id: string): Promise<AxiosResponse> {
     return axios.get(`${API_PREFIX}/todo/daily/next-week/${id}`)
   }
-
-  public changeTaskStatus(taskId: string, status: string): Promise<AxiosResponse> {
-    return axios.patch(`${API_PREFIX}/todo/task/change-status`, {
-      task_id: taskId,
-      status
-    })
-  }
-
-  public removeTask(taskId: string): Promise<AxiosResponse> {
-    return axios.delete(`${API_PREFIX}/todo/task/remove`, {
-      data: {
-        task_id: taskId
-      }
-    })
-  }
 }
