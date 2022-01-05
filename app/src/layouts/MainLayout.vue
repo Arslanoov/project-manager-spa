@@ -8,7 +8,7 @@
         </main>
       </div>
     </div>
-    <TabBar />
+    <!-- <TabBar /> -->
   </div>
 </template>
 
