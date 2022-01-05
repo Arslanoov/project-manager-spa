@@ -9,7 +9,7 @@ axios.interceptors.response.use(response => response, error => {
       .catch(() => {
         store.dispatch("User/logout")
           .then(() => router.push({
-            name: routesNames.Login
+            name: routesNames.AuthHome
           }))
       })
   }

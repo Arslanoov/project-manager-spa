@@ -1,6 +1,5 @@
 module.exports = {
-  "transpileDependencies": [
-    "vuetify",
+  transpileDependencies: [
     "vuex-persist"
   ],
 
@@ -23,7 +22,7 @@ module.exports = {
     config
       .plugin("html")
       .tap(args => {
-        args[0].title = "To Do"
+        args[0].title = "Project Manager"
         return args
       })
   },
@@ -37,8 +36,8 @@ module.exports = {
 
   pluginOptions: {
     i18n: {
-      locale: "ru",
-      fallbackLocale: "ru",
+      locale: "en",
+      fallbackLocale: "en",
       localeDir: "locales",
       enableInSFC: true
     }

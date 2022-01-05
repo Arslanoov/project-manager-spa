@@ -43,7 +43,6 @@ export default class Settings extends Vue {
 
   public onToggleNightMode(): void {
     this.toggleNightMode()
-    this.$vuetify.theme.dark = !this.$vuetify.theme.dark
   }
 }
 </script>

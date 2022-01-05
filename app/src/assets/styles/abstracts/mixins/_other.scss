@@ -1,0 +1,9 @@
+@mixin pointer-on-hover() {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+@mixin no-select() {
+  user-select: none;
+}

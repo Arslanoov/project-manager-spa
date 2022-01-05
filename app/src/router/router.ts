@@ -15,23 +15,81 @@ const loadView = (path: string): Function => {
 const routes: Array<RouteConfig> = [
   {
     path: "/",
-    redirect: {
-      name: routesNames.Home
-    }
-  },
-  {
-    path: "/auth/login",
-    name: routesNames.Login,
-    component: loadView("Auth/Login"),
+    name: routesNames.AuthHome,
+    component: loadView("Auth/Home"),
     meta: {
       requiresNotAuth: true
     }
   },
   {
+    path: "/auth/login/email",
+    name: routesNames.LoginEmail,
+    component: loadView("Auth/Login/Email"),
+    meta: {
+      requiresNotAuth: true
+    }
+  },
+
+  {
+    path: "/board",
+    name: routesNames.Board,
+    component: loadView("Board/Home"),
+    meta: {
+      layout: "main",
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/board/project/create",
+    name: routesNames.ProjectCreate,
+    component: loadView("Board/Project/Create"),
+    meta: {
+      requiresAuth: true
+    }
+  },
+
+  {
+    path: "/board/project/daily",
+    name: routesNames.DailyProject,
+    component: loadView("Board/Project/Daily"),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/board/project/:id",
+    name: routesNames.CustomProject,
+    component: loadView("Board/Project/View"),
+    meta: {
+      requiresAuth: true
+    }
+  },
+
+  {
+    path: "/board/project/:projectId/task/create",
+    name: routesNames.TaskCreate,
+    component: loadView("Board/Project/Task/Create"),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/board/project/:projectId/task/:id",
+    name: routesNames.TaskView,
+    component: loadView("Board/Project/Task/View"),
+    meta: {
+      requiresAuth: true
+    }
+  },
+
+  /////////
+
+  {
     path: "/auth/sign-up",
     name: routesNames.SignUp,
     component: loadView("Auth/SignUp"),
     meta: {
+      layout: "auth",
       requiresNotAuth: true
     }
   },
@@ -44,25 +102,9 @@ const routes: Array<RouteConfig> = [
     }
   },
   {
-    path: "/today",
-    name: routesNames.Home,
-    component: loadView("Todo/Home"),
-    meta: {
-      requiresAuth: true
-    }
-  },
-  {
     path: "/settings",
     name: routesNames.Settings,
     component: loadView("Settings"),
-    meta: {
-      requiresAuth: true
-    }
-  },
-  {
-    path: "/todo/:id",
-    name: routesNames.CustomSchedule,
-    component: loadView("Todo/CustomSchedule"),
     meta: {
       requiresAuth: true
     }

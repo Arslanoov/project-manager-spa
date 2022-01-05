@@ -66,12 +66,12 @@ export default class SignUp extends Vue {
 
   public onSubmit(): void {
     this.confirmSignUp()
-      .then(() => this.$router.push({ name: routesNames.Home }))
+      .then(() => this.$router.push({ name: routesNames.Board }))
   }
 
   public setToken(token: string): void {
     if (!token) {
-      this.$router.push({ name: routesNames.Home })
+      this.$router.push({ name: routesNames.Board })
     }
 
     this.setFormToken(token)

@@ -28,7 +28,7 @@ import { routesNames } from "@/router/names"
 export default class NotFound extends Vue {
   public onGoHome(): void {
     this.$router.push({
-      name: routesNames.Home
+      name: routesNames.Board
     })
   }
 }

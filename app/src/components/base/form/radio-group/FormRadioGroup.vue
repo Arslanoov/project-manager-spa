@@ -1,0 +1,119 @@
+<template>
+  <div class="form-radio-group">
+    <div class="form-radio-group__items">
+      <div v-for="value in values" :key="value" class="form-radio-group__item">
+        <label
+          :for="`${name}_${value}`"
+          :class="selected === value ? 'form-radio-group__label_checked' : ''"
+          class="form-radio-group__label"
+        >
+          <input
+            @change="onChange"
+            :id="`${name}_${value}`"
+            :name="name"
+            :value="value"
+            :checked="selected === value"
+            class="form-radio-group__radio"
+            type="radio"
+          >
+        </label>
+        {{ value }}
+      </div>
+    </div>
+
+    <!-- <div
+      v-if="error"
+      class="form-radio-group__error"
+    >
+      {{ error }}
+    </div>-->
+  </div>
+</template>
+
+<script lang="ts">
+import { Component, Vue, Prop } from "vue-property-decorator"
+
+@Component({})
+
+export default class FormRadioGroup extends Vue {
+  @Prop([String]) readonly id: string | undefined
+  @Prop([String]) readonly name: string | undefined
+  @Prop([String]) readonly selected: string | undefined
+  @Prop([Array]) readonly values: string[] | number[]
+
+  public onChange(e: Event) {
+    const value = (e.target as HTMLInputElement).value ?? ''
+    this.$emit('change', value)
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.form-radio-group {
+  display: flex;
+  flex-direction: column;
+
+  &__items {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    & > * {
+      margin-bottom: .5rem;
+
+      &:not(:last-of-type) {
+        margin-right: 2rem;
+      }
+    }
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+  }
+
+  &__label {
+    width: 2.2rem;
+    height: 2.2rem;
+
+    margin-right: .7rem;
+
+    border: .1rem solid #B2BAC9;
+    border-radius: 2rem;
+
+    background-color: #fff;
+
+    @include pointer-on-hover();
+
+    &_checked {
+      position: relative;
+
+      &::after {
+        content: "";
+
+        position: absolute;
+        top: 50%;
+        left: 50%;
+
+        width: 1.4rem;
+        height: 1.4rem;
+
+        background-color: #5A55CA;
+        border-radius: 1.5rem;
+
+        transform: translateX(-50%) translateY(-50%);
+      }
+    }
+  }
+
+  &__radio {
+    display: none;
+  }
+
+  &__error {
+    color: #F26950;
+
+    word-break: break-word;
+  }
+}
+</style>

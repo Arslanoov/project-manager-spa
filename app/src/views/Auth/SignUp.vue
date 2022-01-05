@@ -151,7 +151,7 @@ export default class SignUp extends Vue {
     this.$refs.form.validate()
 
     this.signUp()
-      .then(() => this.$router.push({ name: routesNames.Login }))
+      .then(() => this.$router.push({ name: routesNames.AuthHome }))
   }
 }
 </script>

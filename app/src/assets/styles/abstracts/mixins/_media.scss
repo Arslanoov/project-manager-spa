@@ -1,0 +1,47 @@
+@mixin mobile-sm() {
+  @media screen and (min-width: $mobile-sm) {
+    @content;
+  }
+}
+
+@mixin mobile() {
+  @media screen and (min-width: $mobile) {
+    @content;
+  }
+}
+
+@mixin mobile-lg() {
+  @media screen and (min-width: $mobile-lg) {
+    @content;
+  }
+}
+
+@mixin tablet() {
+  @media screen and (min-width: $tablet) {
+    @content;
+  }
+}
+
+@mixin desktop-sm() {
+  @media screen and (min-width: $desktop-sm) {
+    @content;
+  }
+}
+
+@mixin desktop-md() {
+  @media screen and (min-width: $desktop-md) {
+    @content;
+  }
+}
+
+@mixin desktop-lg() {
+  @media screen and (min-width: $desktop-lg) {
+    @content;
+  }
+}
+
+@mixin full-hd() {
+  @media screen and (min-width: $full-hd) {
+    @content;
+  }
+}

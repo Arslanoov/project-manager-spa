@@ -1,7 +1,1 @@
-{
-  "$vuetify.noDataText": "Empty",
-  "$vuetify.dataTable.itemsPerPageText": "Items per page",
-  "$vuetify.dataTable.sortBy": "Sort by",
-  "$vuetify.dataFooter.pageText": "",
-  "$vuetify.dataFooter.itemsPerPageAll": "All"
-}
+{}

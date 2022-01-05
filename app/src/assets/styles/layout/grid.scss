@@ -1,0 +1,31 @@
+.container {
+  display: grid;
+  grid-auto-rows: minmax(min-content, max-content);
+
+  padding: 0;
+
+  @include grid-columns(15px);
+
+  @include mobile {
+    @include grid-columns(25px);
+  }
+
+  @include tablet {
+    @include grid-columns(calc(50vw - 480px));
+  }
+
+  @include desktop-sm {
+    @include grid-columns(calc(50vw - 590px));
+  }
+
+  @include desktop-md {
+    @include grid-columns(calc(50vw - 700px));
+  }
+}
+
+.container-fluid {
+  display: grid;
+  grid-auto-rows: minmax(min-content, max-content);
+
+  @include fluid-grid-columns;
+}

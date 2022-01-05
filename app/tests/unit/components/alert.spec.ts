@@ -3,17 +3,11 @@ import { shallowMount, createLocalVue } from "@vue/test-utils"
 import Alert from "@/components/base/Alert.vue"
 import AlertModule from "@/store/modules/alert"
 
-import Vue from "vue"
-
-Vue.use(Vuetify)
-
 const localVue = createLocalVue()
 
 import Vuex from "vuex"
-import Vuetify from "vuetify"
 
 localVue.use(Vuex)
-localVue.use(Vuetify)
 
 const store = new Vuex.Store({
   modules: {
