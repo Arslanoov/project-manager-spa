@@ -2,6 +2,7 @@
   <div class="timeline">
     <div
       v-for="(day, index) in formattedTimeline"
+      @click="onDateChange(index)"
       :key="day.index"
       :class="activeIndex === index ? 'day_active' : ''"
       class="timeline__day day"
@@ -29,11 +30,24 @@ const WEEK = [
 
 export default class Timeline extends Vue {
   @Prop([Number]) readonly daysCount: number | undefined
-  @Prop([Number]) readonly activeIndex: number | undefined
   @Prop([Date]) readonly startDate: Date | undefined
 
+  public activeIndex = 0
+
+  public onDateChange(index: number) {
+    const changeDate = new Date((this.startDate as Date).getTime())
+    changeDate.setDate(changeDate.getDate() + index)
+
+    this.activeIndex = index
+
+    return this.$emit('date-change', {
+      day: changeDate.getDate(),
+      month: changeDate.getMonth() + 1,
+      year: changeDate.getFullYear(),
+    })
+  }
+
   public get formattedTimeline() {
-    console.log('compute')
     const timeline = []
 
     const newDate = new Date((this.startDate as Date).getTime())

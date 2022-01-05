@@ -33,23 +33,7 @@ export default class ProjectService {
     return axios.get(`${API_PREFIX}/todo/custom/get/${id}`)
   }
 
-  public getTodayProject(): Promise<AxiosResponse> {
-    return axios.get(`${API_PREFIX}/todo/daily/today`)
-  }
-
-  public getPrevProject(id: string): Promise<AxiosResponse> {
-    return axios.get(`${API_PREFIX}/todo/daily/previous/${id}`)
-  }
-
-  public getPrevWeekProject(id: string): Promise<AxiosResponse> {
-    return axios.get(`${API_PREFIX}/todo/daily/previous-week/${id}`)
-  }
-
-  public getNextProject(id: string): Promise<AxiosResponse> {
-    return axios.get(`${API_PREFIX}/todo/daily/next/${id}`)
-  }
-
-  public getNextWeekProject(id: string): Promise<AxiosResponse> {
-    return axios.get(`${API_PREFIX}/todo/daily/next-week/${id}`)
+  public getProjectByDate(day: number, month: number, year: number): Promise<AxiosResponse<ProjectInterface>> {
+    return axios.get(`${API_PREFIX}/todo/daily/get-by-date/${day}/${month}/${year}`)
   }
 }

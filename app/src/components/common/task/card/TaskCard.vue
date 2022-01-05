@@ -1,10 +1,25 @@
 <template>
   <div class="card">
-    <div class="card__status">{{ item.status }}</div>
+    <div
+      :class="{
+        'card__status_green': item.importantLevel === 'Not Important',
+        'card__status_yellow': item.importantLevel === 'Important',
+        'card__status_red': item.importantLevel === 'Very Important',
+      }"
+      class="card__status"
+    >{{ item.status }}
+    </div>
     <div class="card__line" />
     <div class="card__content">
       <div class="card__content">
-        <div class="card__level" />
+        <div
+          :class="{
+            'card__level_green': item.importantLevel === 'Not Important',
+            'card__level_yellow': item.importantLevel === 'Important',
+            'card__level_red': item.importantLevel === 'Very Important',
+          }"
+          class="card__level"
+        />
         <div class="card__text">
           <h4 class="card__title">{{ item.name }}</h4>
           <p class="card__description">{{ item.description }}</p>
@@ -76,7 +91,17 @@ export default class TaskCard extends Vue {
 
     text-transform: uppercase;
 
-    color: #2CC09C;
+    &_green {
+      color: #2CC09C;
+    }
+
+    &_yellow {
+      color: #dec62c;
+    }
+
+    &_red {
+      color: #F26950;
+    }
   }
 
   &__line {
@@ -102,11 +127,17 @@ export default class TaskCard extends Vue {
     // TODO: Fix, add 100% height
     min-height: 4.5rem;
 
-    // red - #F26950
-    // green - #2CC09C
-    // yellow? - #C4DE2C
+    &_green {
+      background-color: #2CC09C;
+    }
 
-    background-color: #2CC09C;
+    &_yellow {
+      background-color: #dec62c;
+    }
+
+    &_red {
+      background-color: #F26950;
+    }
   }
 
   &__title {

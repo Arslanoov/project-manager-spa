@@ -4,7 +4,7 @@
       <Header title="Board" />
     </template>
      <template #default>
-       <div class="project">
+       <div v-if="project" class="project">
          <h2 class="project__title">{{ project.isCustom ? project.name : 'Personal' }}</h2>
 
          <div class="project__header">
@@ -48,8 +48,9 @@ const taskModule = namespace("Task")
 export default class CustomView extends Vue {
   @taskModule.State("currentProject") project: ProjectInterface | null
 
+  @taskModule.Mutation("clearCurrentProject") clearProject: typeof TaskStoreModule.prototype.clearCurrentProject
+
   @taskModule.Action("fetchProject") fetchProject: typeof TaskStoreModule.prototype.fetchProject
-  @taskModule.Action("clearCurrentProject") clearProject: typeof TaskStoreModule.prototype.clearCurrentProject
 
   public created() {
     this.fetchProject({
@@ -79,16 +80,14 @@ export default class CustomView extends Vue {
 
 <style lang="scss" scoped>
 .project {
+  margin-top: -2rem;
+
   &__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
 
-    margin: 1.5rem 0;
-  }
-
-  &__timeline {
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.5rem;
   }
 
   &__name {

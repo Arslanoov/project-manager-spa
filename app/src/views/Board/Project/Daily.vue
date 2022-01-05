@@ -1,35 +1,63 @@
 <template>
   <main-layout>
-    <div class="project">
-      <h2 class="project__title">Task</h2>
-
-      <div class="project__header">
-        <div class="project__current">
-          <div class="project__full-date">Dec 22, 2021</div>
-          <div class="project__name">Daily</div>
+    <template #header>
+      <Header title="Board" />
+    </template>
+    <template #default>
+      <div class="project">
+        <div class="project__header">
+          <div class="project__current">
+            <div class="project__full-date">
+              {{ months[currentDate.getMonth()] }}
+              {{ currentDate.getDate() }},
+              {{ currentDate.getFullYear() }}
+            </div>
+            <div class="project__name">Daily</div>
+          </div>
+          <button @click="onTaskAdd" class="project__add-task">
+            <img class="project__add-icon" src="~@/assets/images/icons/task/plus.svg" alt="">
+            Add Task
+          </button>
         </div>
-        <button class="project__add-task">
-          <img class="project__add-icon" src="~@/assets/images/icons/task/plus.svg" alt="">
-          Add Task
-        </button>
+
+        <Timeline
+          @date-change="onDateChange"
+          :days-count="7"
+          :start-date="new Date()"
+          class="project__timeline"
+        />
+
+        <TaskList
+          v-if="currentProject"
+          :project-id="currentProject.id"
+          :items="currentProject.tasks"
+          class="project__tasks"
+        />
       </div>
-
-      <Timeline class="project__timeline" :days-count="7" :start-date="new Date()" :active-index="0" />
-
-      <TaskList class="project__tasks" />
-    </div>
+    </template>
   </main-layout>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator"
+import { namespace } from "vuex-class"
+
+import ProjectInterface from "@/types/project/project"
+
+import TaskStoreModule from "@/store/modules/task"
+
+import { routesNames } from "@/router/names"
 
 import MainLayout from "@/layouts/MainLayout.vue"
+import Header from "@/modules/Header.vue"
 import Timeline from "@/components/common/timeline/Timeline.vue"
 import TaskList from "@/components/common/task/list/TaskList.vue"
 
+const taskModule = namespace("Task")
+
 @Component({
   components: {
+    Header,
     MainLayout,
     TaskList,
     Timeline
@@ -37,7 +65,49 @@ import TaskList from "@/components/common/task/list/TaskList.vue"
 })
 
 export default class DailyView extends Vue {
+  @taskModule.State("currentProject") currentProject: ProjectInterface
 
+  @taskModule.Action("fetchDailyProject") fetchDailyProject: typeof TaskStoreModule.prototype.fetchDailyProject
+
+  public currentDate = new Date()
+
+  public months = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ]
+
+  public mounted(): void {
+    const today = new Date()
+    this.fetchDailyProject({
+      day: today.getDate(),
+      month: today.getMonth() + 1,
+      year: today.getFullYear()
+    })
+  }
+
+  public onDateChange(date: { day: number, month: number, year: number }): void {
+    this.fetchDailyProject(date)
+    this.currentDate = new Date(date.year, date.month, date.day)
+  }
+
+  public onTaskAdd(): void {
+    this.$router.push({
+      name: routesNames.TaskCreate,
+      params: {
+        projectId: this.$route.params.id
+      }
+    })
+  }
 }
 </script>
 
@@ -48,7 +118,7 @@ export default class DailyView extends Vue {
     justify-content: space-between;
     align-items: center;
 
-    margin-top: 1.5rem;
+    margin-top: -1rem;
     margin-bottom: 1rem;
   }
 

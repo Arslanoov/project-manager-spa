@@ -4,11 +4,18 @@
       <div class="board">
         <h2 class="board__title">Board</h2>
         <div class="board__projects">
-          <div
-              @click="goToProject(project.id, project.isCustom)"
+          <router-link to="/board/project/daily" class="project">
+            <div class="project__icon">
+              <img src="~@/assets/images/icons/board/daily.svg" class="project__icon-img" alt="" />
+            </div>
+            <h4 class="project__title">Daily</h4>
+          </router-link>
+
+          <router-link
               v-for="project in projects"
               :key="project.id"
-              class="board__project project"
+              :to="`/board/project/${project.isCustom ? project.id : 'personal'}`"
+              class="project"
           >
             <div class="project__icon">
               <img v-if="project.isCustom" src="~@/assets/images/icons/board/custom.svg" class="project__icon-img" alt="" />
@@ -16,8 +23,9 @@
             </div>
             <h4 class="project__title">{{ project.name }}</h4>
             <div class="project__tasks">{{ project.tasksCount }} Task</div>
-          </div>
-          <div @click="createProject" class="board__project project">
+          </router-link>
+
+          <div @click="createProject" class="project">
             <div class="project__icon">
               <img src="~@/assets/images/icons/board/new.svg" class="project__icon-img" alt="" />
             </div>
@@ -55,15 +63,6 @@ export default class Board extends Vue {
 
   public created() {
     this.fetchProjects()
-  }
-
-  public goToProject(id: string, isCustom: boolean) {
-    this.$router.push({
-      name: routesNames.CustomProject,
-      params: {
-        id: isCustom ? id : "personal",
-      }
-    })
   }
 
   public createProject() {
@@ -113,6 +112,8 @@ export default class Board extends Vue {
     border-radius: 1.4rem;
 
     background-color: #fff;
+
+    text-decoration: none;
 
     @include pointer-on-hover();
 

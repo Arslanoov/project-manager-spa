@@ -32,8 +32,6 @@
 import { Component, Vue } from "vue-property-decorator"
 import { namespace } from "vuex-class"
 
-import { routesNames } from "@/router/names"
-
 import MainLayout from "@/layouts/MainLayout.vue"
 import Header from "@/modules/Header.vue"
 import FormGroup from "@/components/base/form/group/FormGroup.vue"
@@ -73,9 +71,7 @@ export default class CreateTask extends Vue {
   public async onSubmit(): Promise<void> {
     try {
       await this.createTask()
-      await this.$router.push({
-        name: routesNames.Board
-      })
+      await this.$router.back()
     } catch (e) {
       console.log(e)
     }

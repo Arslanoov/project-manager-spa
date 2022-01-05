@@ -135,15 +135,15 @@ export default class TaskView extends Vue {
     z-index: 1;
 
     &_red {
-      background-color: #fc3d3d;
+      background-color: #F26950;
     }
 
     &_yellow {
-      background-color: #fcd308;
+      background-color: #dec62c;
     }
 
     &_green {
-      background-color: #0cff04;
+      background-color: #2CC09C;
     }
   }
 

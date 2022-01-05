@@ -49,17 +49,17 @@ const routes: Array<RouteConfig> = [
   },
 
   {
-    path: "/board/project/view/:id",
-    name: routesNames.CustomProject,
-    component: loadView("Board/Project/View"),
+    path: "/board/project/daily",
+    name: routesNames.DailyProject,
+    component: loadView("Board/Project/Daily"),
     meta: {
       requiresAuth: true
     }
   },
   {
-    path: "/board/project/daily/:date",
-    name: routesNames.DailyProject,
-    component: loadView("Board/Project/Daily"),
+    path: "/board/project/:id",
+    name: routesNames.CustomProject,
+    component: loadView("Board/Project/View"),
     meta: {
       requiresAuth: true
     }

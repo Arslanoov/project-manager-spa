@@ -111,17 +111,17 @@ class Task extends VuexModule {
   }
 
   @Action({ rawError: true })
-  public async fetchDailyProject(): Promise<void> {
+  public async fetchDailyProject({ day, month, year }: { day: number, month: number, year: number }): Promise<void> {
     try {
-      // TODO: Add request
-      this.context.commit("setCurrentProject")
+      const { data } = await projectService.getProjectByDate(day, month, year)
+      this.context.commit("changeProject", data)
     } catch (e) {
       console.log(e)
     }
   }
 
   @Action({ rawError: true })
-  public async createTask(): Promise<TaskInterface | null> {
+  public async createTask(): Promise<void | TaskInterface> {
     try {
       const { data } = await taskService.addTask({
         projectId: this.currentProject?.id ?? "",
@@ -133,12 +133,11 @@ class Task extends VuexModule {
       return data
     } catch (e) {
       console.log(e)
-      return null
     }
   }
 
   @Action({ rawError: true })
-  public async fetchCurrentTask(id: string): Promise<TaskInterface | null> {
+  public async fetchCurrentTask(id: string): Promise<void | TaskInterface> {
     try {
       if (!this.currentTask) {
         throw new Error("Task not defined.")
@@ -148,12 +147,11 @@ class Task extends VuexModule {
       return task
     } catch (e) {
       console.log(e)
-      return null
     }
   }
 
   @Action({ rawError: true })
-  public async createStep(): Promise<StepInterface | null> {
+  public async createStep(): Promise<void | StepInterface> {
     try {
       const { data: step } = await stepService.addStep(this.createStepForm)
       this.context.commit("addCurrentTaskStep", step)
@@ -161,12 +159,11 @@ class Task extends VuexModule {
       return step
     } catch (e) {
       console.log(e)
-      return null
     }
   }
 
   @Action({ rawError: true })
-  public async toggleTaskStatus(id: string): Promise<void | null> {
+  public async toggleTaskStatus(id: string): Promise<void> {
     try {
       const task = (this.currentProject as ProjectInterface).tasks.find((task) => task.id === id)
       if (!task) {
@@ -181,12 +178,11 @@ class Task extends VuexModule {
       })
     } catch (e) {
       console.log(e)
-      return null
     }
   }
 
   @Action({ rawError: true })
-  public async toggleStepStatus(id: number): Promise<void | null> {
+  public async toggleStepStatus(id: number): Promise<void> {
     try {
       const step = (this.currentTask as TaskInterface).steps.find((step) => step.id === id)
       if (!step) {
@@ -201,7 +197,6 @@ class Task extends VuexModule {
       })
     } catch (e) {
       console.log(e)
-      return null
     }
   }
 }
