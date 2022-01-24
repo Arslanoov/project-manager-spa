@@ -1,104 +1,91 @@
 <template>
-  <v-container class="sign-up" fill-height fluid>
-    <v-row class="sign-up__row" justify="center" align-self="center">
-      <v-col
-          xs="10"
-          sm="9"
-          md="4"
-      >
-        <h2 class="sign-up__title text-center">{{ $t("Sign Up") }}</h2>
+  <auth-layout>
+    <div class="container">
+      <div class="sign-up">
+        <form class="sign-up__form">
+          <div v-if="signUpForm.error" class="sign-up__error">
+            {{ signUpForm.error }}
+          </div>
 
-        <v-alert
-            v-if="signUpForm.error"
-            class="sign-up__alert"
-            border="bottom"
-            color="pink darken-1"
-            dark
-        >
-          {{ signUpForm.error }}
-        </v-alert>
+          <FormGroup
+            @change="setLogin"
+            @update-error-state="setHasErrors"
+            :clear-count="clearCount"
+            :value="signUpForm.login"
+            :rules="rules.login"
+            name="Login"
+            id="login"
+            type="text"
+          />
+          
+          <FormGroup
+            @change="setEmail"
+            @update-error-state="setHasErrors"
+            :clear-count="clearCount"
+            :value="signUpForm.email"
+            :rules="rules.email"
+            name="E-mail"
+            id="email"
+            type="email"
+          />
 
-        <v-form
-            ref="form"
-            lazy-validation
-        >
-          <v-text-field
-              @input="setLogin"
-              :counter="32"
-              :rules="rules.login"
-              :value="signUpForm.login"
-              :label="$t(`Login`)"
-              type="text"
-              required
-          ></v-text-field>
-
-          <v-text-field
-              @input="setEmail"
-              :counter="32"
-              :rules="rules.email"
-              :value="signUpForm.email"
-              label="E-mail"
-              type="email"
-              required
-          ></v-text-field>
-
-          <v-text-field
-              @input="setPassword"
-              :counter="32"
-              :rules="rules.password"
-              :value="signUpForm.password"
-              :label="$t(`Password`)"
-              type="password"
-              required
-          ></v-text-field>
+          <FormGroup
+            @change="setPassword"
+            @update-error-state="setHasErrors"
+            :clear-count="clearCount"
+            :value="signUpForm.password"
+            :rules="rules.password"
+            :name="$t(`Password`)"
+            id="password"
+            type="password"
+          />
 
           <div class="sign-up__buttons">
-            <v-btn
-                @click="onSubmit"
-                color="success"
-                class="sign-up__button mr-4"
-            >
-              {{ $t("Submit") }}
-            </v-btn>
+            <FormButton
+              @form-submit="onSubmit"
+              :name="$t('Submit')"
+              :disabled="!valid"
+            />
 
-            <v-btn
-                @click="onReset"
-                color="error"
-                class="sign-up__button mr-4"
-            >
-              {{ $t("Reset Form") }}
-            </v-btn>
+            <FormButton
+              @form-submit="onReset"
+              :name="$t('Reset Form')"
+            />
 
-            <v-btn
-                @click="onResetValidation"
-                color="warning"
-                class="sign-up__button"
-            >
-              {{ $t("Reset Validation") }}
-            </v-btn>
+            <div class="sign-up__already-signed-up" @click="onLogin">Уже есть аккаунт? Войти</div>
           </div>
-        </v-form>
-      </v-col>
-    </v-row>
-  </v-container>
+        </form>
+      </div>
+    </div>
+  </auth-layout>
 </template>
 
 <script lang="ts">
 import Vue from "vue"
 import Component from "vue-class-component"
-import {
-  namespace
-} from "vuex-class"
+import { namespace } from "vuex-class"
 
 import { routesNames } from "@/router/names"
 
 import User from "@/store/modules/user"
+
 import SignUpForm from "@/types/user/forms/SignUpForm"
+
+import AuthLayout from "@/layouts/AuthLayout.vue"
+import FormGroup from "@/components/base/form/group/FormGroup.vue"
+import FormButton from "@/components/base/form/button/FormButton.vue"
+import AuthMethod from "@/components/common/auth/method/AuthMethod.vue"
 
 const userModule = namespace("User")
 
 @Component({
-  name: "SignUp"
+  name: "SignUp",
+  components: {
+    AuthLayout,
+    AuthMethod,
+    FormButton,
+    FormGroup
+  }
 })
 
 export default class SignUp extends Vue {
@@ -117,18 +104,21 @@ export default class SignUp extends Vue {
   }
 
   public valid = true
+  public clearCount = 0
 
   public rules = {
     login: [
+      // TODO: i18n
       (v: string) => !!v || "Login is required",
       (v: string) => (v && v.length > 4) || "Login must be more than 4 characters",
       (v: string) => (v && v.length < 32) || "Login must be less than 32 characters"
     ],
     email: [
       (v: string) => !!v || "E-mail is required",
+      (v: string) => /.+@.+\..+/.test(v) || "E-mail must be valid",
+      // TODO: Change validation errors
       (v: string) => (v && v.length > 5) || "E-mail must be more than 5 characters",
-      (v: string) => (v && v.length < 32) || "E-mail must be less than 32 characters",
-      (v: string) => /.+@.+\..+/.test(v) || "E-mail must be valid"
+      (v: string) => (v && v.length < 32) || "E-mail must be less than 32 characters"
     ],
     password: [
       (v: string) => !!v || "Password is required",
@@ -137,37 +127,82 @@ export default class SignUp extends Vue {
     ]
   }
 
-  public onReset(): void {
-    this.$refs.form.reset()
-    this.clearForm()
+  public setHasErrors(hasErrors: boolean): void {
+    this.valid = !hasErrors
   }
 
-  public onResetValidation(): void {
-    this.$refs.form.resetValidation()
+  public onReset(): void {
+    this.clearForm()
     this.clearFormError()
+    this.setHasErrors(false)
+    this.clearCount++
   }
 
   public onSubmit(): void {
-    this.$refs.form.validate()
-
     this.signUp()
-      .then(() => this.$router.push({ name: routesNames.AuthHome }))
+      .then(() => {
+        this.clearForm()
+        this.clearFormError()
+        this.$router.push({ name: routesNames.AuthHome })
+      })
+  }
+
+  public onLogin(): void {
+    this.$router.push({ name: routesNames.LoginEmail })
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .sign-up {
-  &__alert {
-    margin: 20px 0;
+  grid-column: col-start 1 / col-end 12;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @include desktop-sm {
+    grid-column: col-start 4 / col-end 9;
   }
 
-  &__row {
-    margin-top: -64px;
+  &__error {
+    color: #F26950;
   }
 
-  &__button {
-    margin-top: 20px;
+  &__form {
+    width: 100%;
+
+    & > * {
+      &:not(:last-of-type) {
+        margin-bottom: 1rem;
+      }
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-top: 3rem;
+
+    @include mobile {
+      margin-top: 8rem;
+    }
+
+    & > * {
+      margin-bottom: 1rem;
+    }
+  }
+  
+  &__already-signed-up {
+    font-weight: 700;
+
+    color: #5A55CA;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 }
 </style>

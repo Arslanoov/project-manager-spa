@@ -2,13 +2,12 @@
   <auth-layout>
     <div class="container">
       <div class="home">
-        <Logo class="home__logo" />
-
         <h2 class="home__message">{{ $t("message") }}</h2>
         <p class="home__submessage">{{ $t("submessage") }}</p>
 
         <div class="home__methods">
-          <AuthMethod name="E-mail" link="/auth/login/email" />
+          <AuthMethod class="home__method" action="Sign In" name="E-mail" link="/auth/login/email" />
+          <AuthMethod class="home__method" action="Sign Up" name="E-mail" link="/auth/sign-up" />
         </div>
       </div>
     </div>
@@ -19,14 +18,12 @@
 import { Component, Vue } from "vue-property-decorator"
 
 import AuthLayout from "@/layouts/AuthLayout.vue"
-import Logo from "@/components/base/logo/Logo.vue"
 import AuthMethod from "@/components/common/auth/method/AuthMethod.vue"
 
 @Component({
   name: "Home",
   components: {
     AuthLayout,
-    Logo,
     AuthMethod
   }
 })
@@ -44,7 +41,7 @@ export default class Login extends Vue {
   align-items: center;
 
   @include desktop-sm {
-    grid-column: col-start 2 / col-end 10;
+    grid-column: col-start 3 / col-end 10;
   }
 
   &__logo {
@@ -85,6 +82,12 @@ export default class Login extends Vue {
 
     @include mobile {
       margin-top: 13rem;
+    }
+  }
+
+  &__method {
+    &:not(:last-of-type) {
+      margin-bottom: 2rem;
     }
   }
 }

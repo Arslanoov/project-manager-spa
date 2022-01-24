@@ -18,7 +18,9 @@ export default class FormButton extends Vue {
 
   onSubmit(e: Event) {
     e.preventDefault()
-    this.$emit('form-submit')
+    if (!this.disabled) {
+      this.$emit('form-submit')
+    }
   }
 }
 </script>

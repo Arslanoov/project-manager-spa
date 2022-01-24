@@ -1,6 +1,7 @@
 export enum routesNames {
   AuthHome = "AuthHome",
   LoginEmail = "LoginEmail",
+  SignUp = "SignUp",
 
   Board = "Board",
   ProjectCreate = "BoardCreate",
@@ -10,7 +11,6 @@ export enum routesNames {
   TaskCreate = "TaskCreate",
   TaskView = "TaskView",
 
-  SignUp = "SignUp",
   ConfirmSignUp = "ConfirmSignUp",
   Settings = "Settings",
   AccessDenied = "AccessDenied",

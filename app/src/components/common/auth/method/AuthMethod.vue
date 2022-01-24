@@ -1,7 +1,7 @@
 <template>
   <div @click="onSubmit" class="auth-method">
     <div class="auth-method__content">
-      Sign in with
+      {{ action }} with
       <div class="auth-method__name">{{ name }}</div>
     </div>
     <div class="auth-method__submit">
@@ -22,6 +22,7 @@ import { Component, Vue, Prop } from "vue-property-decorator"
 export default class AuthMethod extends Vue {
   @Prop([String]) readonly name: string | undefined
   @Prop([String]) readonly link: string | undefined
+  @Prop([String]) readonly action: string | undefined
 
   public onSubmit() {
     this.$router.push(String(this.link))

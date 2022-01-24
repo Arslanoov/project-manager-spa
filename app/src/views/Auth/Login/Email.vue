@@ -2,8 +2,6 @@
   <auth-layout>
     <div class="container">
       <div class="login">
-        <Logo class="login__logo" />
-
         <form class="login__form">
           <div v-if="authForm.error" class="login__error">
             {{ authForm.error }}
@@ -11,7 +9,8 @@
 
           <FormGroup
               @change="setEmail"
-              @update-error-state="setIsValid"
+              @update-error-state="setHasErrors"
+              :clear-count="clearCount"
               :value="authForm.email"
               :rules="rules.email"
               name="E-mail"
@@ -21,7 +20,8 @@
 
           <FormGroup
               @change="setPassword"
-              @update-error-state="setIsValid"
+              @update-error-state="setHasErrors"
+              :clear-count="clearCount"
               :value="authForm.password"
               :rules="rules.password"
               :name="$t(`Password`)"
@@ -34,14 +34,14 @@
                 @form-submit="onSubmit"
                 :name="$t('Submit')"
                 :disabled="!valid"
-                type="success"
             />
 
             <FormButton
                 @form-submit="onReset"
                 :name="$t('Reset Form')"
-                type="error"
             />
+
+            <div class="login__not-signed-up" @click="onRegister">Еще не зарегистрированы?</div>
           </div>
         </form>
       </div>
@@ -66,7 +66,6 @@ import AuthLayout from "@/layouts/AuthLayout.vue"
 import FormGroup from "@/components/base/form/group/FormGroup.vue"
 import FormButton from "@/components/base/form/button/FormButton.vue"
 import AuthMethod from "@/components/common/auth/method/AuthMethod.vue"
-import Logo from "@/components/base/logo/Logo.vue"
 
 const userModule = namespace("User")
 
@@ -74,7 +73,6 @@ const userModule = namespace("User")
   name: "Login",
   components: {
     AuthLayout,
-    Logo,
     AuthMethod,
     FormButton,
     FormGroup
@@ -92,6 +90,7 @@ export default class Login extends Vue {
   @userModule.Action("login") login: typeof User.prototype.login
 
   public valid = true
+  public clearCount = 0
 
   public rules = {
     email: [
@@ -108,13 +107,15 @@ export default class Login extends Vue {
     ]
   }
 
-  public setIsValid(isValid: boolean): void {
-    this.valid = isValid
+  public setHasErrors(hasErrors: boolean): void {
+    this.valid = !hasErrors
   }
 
   public onReset(): void {
     this.clearForm()
     this.clearFormError()
+    this.setHasErrors(false)
+    this.clearCount++
   }
 
   public onSubmit(): void {
@@ -126,6 +127,10 @@ export default class Login extends Vue {
           name: routesNames.Board
         })
       })
+  }
+
+  public onRegister(): void {
+    this.$router.push({ name: routesNames.SignUp })
   }
 }
 </script>
@@ -139,17 +144,7 @@ export default class Login extends Vue {
   align-items: center;
 
   @include desktop-sm {
-    grid-column: col-start 4 / col-end 8;
-  }
-
-  &__logo {
-    margin-top: 4rem;
-    margin-bottom: 3.5rem;
-
-    @include mobile {
-      margin-top: 6rem;
-      margin-bottom: 4.5rem;
-    }
+    grid-column: col-start 4 / col-end 9;
   }
 
   &__error {
@@ -179,6 +174,16 @@ export default class Login extends Vue {
 
     & > * {
       margin-bottom: 1rem;
+    }
+  }
+
+  &__not-signed-up {
+    font-weight: 700;
+
+    color: #5A55CA;
+
+    &:hover {
+      cursor: pointer;
     }
   }
 }
