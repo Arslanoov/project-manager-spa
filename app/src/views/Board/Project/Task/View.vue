@@ -1,10 +1,10 @@
 <template>
   <main-layout>
     <template #header>
-      <Header :title="task.projectName" />
+      <Header :title="task ? task.projectName : ''" />
     </template>
     <template #default>
-      <div class="task">
+      <div v-if="task" class="task">
         <div class="task__center">
           <div
             :class="{

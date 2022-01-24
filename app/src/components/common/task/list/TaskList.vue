@@ -1,13 +1,16 @@
 <template>
   <div class="task-list">
-    <div
-      v-for="item in items"
-      @click="watchTask(item.id)"
-      :key="item.id"
-      class="task-list__item"
-    >
-      <TaskCard :item="item" />
-    </div>
+    <template v-if="items.length === 0">No Task</template>
+    <template v-else>
+      <div
+        v-for="item in items"
+        @click="watchTask(item.id)"
+        :key="item.id"
+        class="task-list__item"
+      >
+        <TaskCard :item="item" />
+      </div>
+    </template>
   </div>
 </template>
 

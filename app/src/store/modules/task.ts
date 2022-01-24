@@ -139,9 +139,6 @@ class Task extends VuexModule {
   @Action({ rawError: true })
   public async fetchCurrentTask(id: string): Promise<void | TaskInterface> {
     try {
-      if (!this.currentTask) {
-        throw new Error("Task not defined.")
-      }
       const { data: task } = await taskService.getTaskSteps(id)
       this.context.commit("changeTask", task)
       return task
