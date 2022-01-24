@@ -28,7 +28,7 @@ export default class FormButton extends Vue {
 <style lang="scss" scoped>
 .form-button {
   width: 100%;
-  max-width: 32.5rem;
+  max-width: 25rem;
   height: 4.3rem;
 
   font-size: 1.5rem;
@@ -41,5 +41,9 @@ export default class FormButton extends Vue {
 
   background: #5A55CA;
   color: #fff;
+
+  @include mobile {
+    max-width: 32.5rem;
+  }
 }
 </style>

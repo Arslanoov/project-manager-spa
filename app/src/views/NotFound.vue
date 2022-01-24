@@ -1,18 +1,14 @@
 <template>
-  <v-container class="not-found" fill-height fluid>
-    <v-row justify="center" align-self="center">
-      <div class="not-found__message">
-        <img class="not-found__image" src="~@/assets/images/404.svg" alt="404" />
-        <v-btn
-            color="success"
-            class="not-found__button"
-            @click="onGoHome"
-        >
-          {{ $t("Go Home") }}
-        </v-btn>
-      </div>
-    </v-row>
-  </v-container>
+  <auth-layout>
+    <div class="not-found">
+      <h2 class="not-found__code">404</h2>
+
+      <FormButton
+        @form-submit="onGoHome"
+        :name="$t('Home')"
+      />
+    </div>
+  </auth-layout>
 </template>
 
 <script lang="ts">
@@ -21,8 +17,15 @@ import Component from "vue-class-component"
 
 import { routesNames } from "@/router/names"
 
+import AuthLayout from "@/layouts/AuthLayout.vue"
+import FormButton from "@/components/base/form/button/FormButton.vue"
+
 @Component({
-  name: "NotFound"
+  name: "NotFound",
+  components: {
+    AuthLayout,
+    FormButton
+  }
 })
 
 export default class NotFound extends Vue {
@@ -36,13 +39,13 @@ export default class NotFound extends Vue {
 
 <style lang="scss" scoped>
 .not-found {
-  margin-top: -64px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-  &__message {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  &__code {
+    font-size: 5rem;
+    font-weight: 600;
   }
 }
 </style>
