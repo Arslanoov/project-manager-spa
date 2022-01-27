@@ -8,10 +8,10 @@
         <div class="task__center">
           <div
             :class="{
-            'task__level_red': task.importantLevel === 'Very Important',
-            'task__level_yellow': task.importantLevel === 'Important',
-            'task__level_green': task.importantLevel === 'Not Important'
-          }"
+              'task__level_red': task.importantLevel === 'Very Important',
+              'task__level_yellow': task.importantLevel === 'Important',
+              'task__level_green': task.importantLevel === 'Not Important'
+            }"
             class="task__level"
           />
         </div>
@@ -101,11 +101,9 @@ export default class TaskView extends Vue {
   }
 
   public created(): void {
-    this.fetchCurrentTask(this.$route.params.id)
-  }
-
-  public beforeDestroyed(): void {
     this.clearTask()
+    this.fetchCurrentTask(this.$route.params.id)
+    window.addEventListener('beforeunload', this.clearTask)
   }
 }
 </script>

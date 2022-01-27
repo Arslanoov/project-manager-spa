@@ -63,6 +63,8 @@ export default class CreateTask extends Vue {
       typeof TaskStoreModule.prototype.changeCreateFormLevel
   @taskModule.Mutation("changeCreateFormDescription") changeCreateFormDescription:
       typeof TaskStoreModule.prototype.changeCreateFormDescription
+  @taskModule.Mutation("clearCreateForm") clearCreateForm:
+      typeof TaskStoreModule.prototype.clearCreateForm
 
   @taskModule.Action("createTask") createTask: typeof TaskStoreModule.prototype.createTask
 
@@ -71,7 +73,8 @@ export default class CreateTask extends Vue {
   public async onSubmit(): Promise<void> {
     try {
       await this.createTask()
-      await this.$router.back()
+      this.$router.back()
+      this.clearCreateForm()
     } catch (e) {
       console.log(e)
     }

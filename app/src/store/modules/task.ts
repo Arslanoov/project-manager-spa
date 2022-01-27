@@ -63,6 +63,11 @@ class Task extends VuexModule {
   }
 
   @Mutation
+  public clearCreateForm(): void {
+    this.createForm = createEmptyTaskForm()
+  }
+
+  @Mutation
   public changeTask(task: TaskInterface): void {
     this.currentTask = task
     this.createStepForm.taskId = task.id

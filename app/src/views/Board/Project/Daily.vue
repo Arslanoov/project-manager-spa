@@ -101,7 +101,7 @@ export default class DailyView extends Vue {
     this.$router.push({
       name: routesNames.TaskCreate,
       params: {
-        projectId: this.$route.params.id
+        projectId: this.currentProject.id
       }
     })
   }

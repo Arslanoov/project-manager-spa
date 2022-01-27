@@ -32,7 +32,7 @@ export default class Header extends Vue {
     width: 100%;
     height: 12rem;
 
-    padding: 0 2.4rem;
+    padding: 3rem 2.4rem;
 
     background: #5A55CA url("~@/assets/images/background.svg") no-repeat left top;
     background-size: cover;
@@ -44,7 +44,7 @@ export default class Header extends Vue {
     display: flex;
     align-items: center;
 
-    padding-top: 3rem;
+    @include pointer-on-hover();
   }
 
   &__overlay {
