@@ -7,22 +7,23 @@
       <div class="project">
         <div class="project__header">
           <div class="project__current">
-            <div class="project__full-date">
-              {{ months[currentDate.getMonth()] }}
-              {{ currentDate.getDate() }},
-              {{ currentDate.getFullYear() }}
+            <div v-if="currentDate" class="project__full-date">
+              {{ $t(months[currentDate.month]) }}
+              {{ currentDate.day }},
+              {{ currentDate.year }}
             </div>
-            <div class="project__name">Daily</div>
+            <div class="project__name">{{ $t('Daily') }}</div>
           </div>
           <button @click="onTaskAdd" class="project__add-task">
             <img class="project__add-icon" src="~@/assets/images/icons/task/plus.svg" alt="">
-            Add Task
+            {{ $t('Add Task') }}
           </button>
         </div>
 
         <Timeline
           @date-change="onDateChange"
           :days-count="7"
+          :default-index="currentDate.index"
           :start-date="new Date()"
           class="project__timeline"
         />
@@ -43,6 +44,7 @@ import { Component, Vue } from "vue-property-decorator"
 import { namespace } from "vuex-class"
 
 import ProjectInterface from "@/types/project/project"
+import { DateSimpleType } from "@/types/common/date"
 
 import TaskStoreModule from "@/store/modules/task"
 
@@ -55,6 +57,21 @@ import TaskList from "@/components/common/task/list/TaskList.vue"
 
 const taskModule = namespace("Task")
 
+const MONTHS = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
+]
+
 @Component({
   components: {
     Header,
@@ -66,45 +83,25 @@ const taskModule = namespace("Task")
 
 export default class DailyView extends Vue {
   @taskModule.State("currentProject") currentProject: ProjectInterface
+  @taskModule.State("dailyProjectDate") currentDate: DateSimpleType
 
   @taskModule.Action("fetchDailyProject") fetchDailyProject: typeof TaskStoreModule.prototype.fetchDailyProject
 
-  public currentDate = new Date()
-
-  public months = [
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'Jun',
-    'Jul',
-    'Aug',
-    'Sep',
-    'Oct',
-    'Nov',
-    'Dec',
-  ]
+  public months = MONTHS
 
   public mounted(): void {
-    const today = new Date()
-    this.fetchDailyProject({
-      day: today.getDate(),
-      month: today.getMonth() + 1,
-      year: today.getFullYear()
-    })
+    this.fetchDailyProject(this.currentDate)
   }
 
-  public onDateChange(date: { day: number, month: number, year: number }): void {
+  public onDateChange(date: DateSimpleType): void {
     this.fetchDailyProject(date)
-    this.currentDate = new Date(date.year, date.month, date.day)
   }
 
   public onTaskAdd(): void {
     this.$router.push({
       name: routesNames.TaskCreate,
       params: {
-        projectId: this.$route.params.id
+        projectId: this.currentProject.id
       }
     })
   }
@@ -172,3 +169,40 @@ export default class DailyView extends Vue {
   }
 }
 </style>
+
+<i18n>
+{
+  "en": {
+    "Daily": "Daily",
+    "Add Task": "Add Task",
+    "Jan": "Jan",
+    "Feb": "Feb",
+    "Mar": "Mar",
+    "Apr": "Apr",
+    "May": "May",
+    "Jun": "Jun",
+    "Jul": "Jul",
+    "Aug": "Aug",
+    "Sep": "Sep",
+    "Oct": "Oct",
+    "Nov": "Nov",
+    "Dec": "Dec"
+  },
+  "ru": {
+    "Daily": "Суточный",
+    "Add Task": "Добавить задачу",
+    "Jan": "Янв",
+    "Feb": "Фев",
+    "Mar": "Мар",
+    "Apr": "Апр",
+    "May": "Май",
+    "Jun": "Июн",
+    "Jul": "Июл",
+    "Aug": "Авг",
+    "Sep": "Сен",
+    "Oct": "Окт",
+    "Nov": "Ноя",
+    "Dec": "Дек"
+  }
+}
+</i18n>

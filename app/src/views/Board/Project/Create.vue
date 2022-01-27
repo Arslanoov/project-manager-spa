@@ -52,13 +52,17 @@ export default class CreateProject extends Vue {
 
   @projectModule.Mutation("changeCreateFormName") changeCreateFormName:
       typeof ProjectStoreModule.prototype.changeCreateFormName
+  @projectModule.Mutation("clearCreateForm") clearCreateForm:
+    typeof ProjectStoreModule.prototype.clearCreateForm
+
   @projectModule.Action("createProject") createProject:
       typeof ProjectStoreModule.prototype.createProject
 
   public async onSubmit(): Promise<void> {
     try {
       await this.createProject()
-      await this.$router.push({
+      this.clearCreateForm()
+      this.$router.push({
         name: routesNames.Board
       })
     } catch (e) {

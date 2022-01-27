@@ -29,6 +29,22 @@ const routes: Array<RouteConfig> = [
       requiresNotAuth: true
     }
   },
+  {
+    path: "/auth/sign-up/confirm/:token",
+    name: routesNames.ConfirmSignUp,
+    component: loadView("Auth/ConfirmSignUp"),
+    meta: {
+      requiresNotAuth: true
+    }
+  },
+  {
+    path: "/auth/sign-up",
+    name: routesNames.SignUp,
+    component: loadView("Auth/SignUp"),
+    meta: {
+      requiresNotAuth: true
+    }
+  },
 
   {
     path: "/board",
@@ -82,25 +98,6 @@ const routes: Array<RouteConfig> = [
     }
   },
 
-  /////////
-
-  {
-    path: "/auth/sign-up",
-    name: routesNames.SignUp,
-    component: loadView("Auth/SignUp"),
-    meta: {
-      layout: "auth",
-      requiresNotAuth: true
-    }
-  },
-  {
-    path: "/auth/confirm-sign-up/:token",
-    name: routesNames.ConfirmSignUp,
-    component: loadView("Auth/ConfirmSignUp"),
-    meta: {
-      requiresNotAuth: true
-    }
-  },
   {
     path: "/settings",
     name: routesNames.Settings,
@@ -109,6 +106,7 @@ const routes: Array<RouteConfig> = [
       requiresAuth: true
     }
   },
+
   {
     path: "/403",
     name: routesNames.AccessDenied,

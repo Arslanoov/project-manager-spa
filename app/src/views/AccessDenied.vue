@@ -1,26 +1,14 @@
-x<template>
-  <v-container class="access-denied" fill-height fluid>
-    <v-row justify="center" align-self="center">
-      <div class="access-denied__message">
-        <h1>403</h1>
-        <v-alert
-            v-if="error"
-             class="access-denied__alert"
-             border="bottom"
-             color="pink darken-1"
-             dark>
-          {{ error }}
-        </v-alert>
-        <v-btn
-            color="success"
-            class="access-denied__button"
-            @click="onGoHome"
-        >
-          {{ $t("Go Home") }}
-        </v-btn>
-      </div>
-    </v-row>
-  </v-container>
+<template>
+  <auth-layout>
+    <div class="access-denied">
+      <h2 class="access-denied__code">403</h2>
+
+      <FormButton
+        @form-submit="onGoHome"
+        :name="$t('Home')"
+      />
+    </div>
+  </auth-layout>
 </template>
 
 <script lang="ts">
@@ -29,13 +17,18 @@ import Component from "vue-class-component"
 
 import { routesNames } from "@/router/names"
 
+import AuthLayout from "@/layouts/AuthLayout.vue"
+import FormButton from "@/components/base/form/button/FormButton.vue"
+
 @Component({
-  name: "AccessDenied"
+  name: "AccessDenied",
+  components: {
+    AuthLayout,
+    FormButton
+  }
 })
 
 export default class AccessDenied extends Vue {
-  public error = this.$route.query.error
-
   public onGoHome(): void {
     this.$router.push({
       name: routesNames.Board
@@ -46,13 +39,13 @@ export default class AccessDenied extends Vue {
 
 <style lang="scss" scoped>
 .access-denied {
-  margin-top: -64px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-  &__message {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  &__code {
+    font-size: 5rem;
+    font-weight: 600;
   }
 }
 </style>

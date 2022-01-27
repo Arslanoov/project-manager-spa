@@ -24,6 +24,11 @@ export default class Project extends VuexModule {
   }
 
   @Mutation
+  public clearCreateForm(): void {
+    this.createForm = emptyCreateProjectForm()
+  }
+
+  @Mutation
   public setProjectList(list: ProjectInterface[]): void {
     this.projectList = list
   }

@@ -1,17 +1,17 @@
 <template>
   <main-layout>
     <template #header>
-      <Header title="Board" />
+      <Header :title="$t('Board')" />
     </template>
      <template #default>
        <div v-if="project" class="project">
-         <h2 class="project__title">{{ project.isCustom ? project.name : 'Personal' }}</h2>
+         <h2 class="project__title">{{ project.isCustom ? project.name : $t('Personal') }}</h2>
 
          <div class="project__header">
-           <div class="project__name">Name</div>
+           <div class="project__name">{{ $t('Name') }}</div>
            <button @click="onTaskAdd" class="project__add-task">
              <img class="project__add-icon" src="~@/assets/images/icons/task/plus.svg" alt="">
-             Add Task
+             {{ $t('Add Task') }}
            </button>
          </div>
 
@@ -125,3 +125,20 @@ export default class CustomView extends Vue {
   }
 }
 </style>
+
+<i18n>
+{
+  "en": {
+    "Board": "Board",
+    "Personal": "Personal",
+    "Add Task": "Add Task",
+    "Name": "Name"
+  },
+  "ru": {
+    "Board": "Доска",
+    "Personal": "Личный",
+    "Add Task": "Добавить задачу",
+    "Name": "Имя"
+  }
+}
+</i18n>

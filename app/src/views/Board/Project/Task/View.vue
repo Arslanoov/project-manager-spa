@@ -1,17 +1,17 @@
 <template>
   <main-layout>
     <template #header>
-      <Header :title="task.projectName" />
+      <Header :title="task ? task.projectName : ''" />
     </template>
     <template #default>
-      <div class="task">
+      <div v-if="task" class="task">
         <div class="task__center">
           <div
             :class="{
-            'task__level_red': task.importantLevel === 'Very Important',
-            'task__level_yellow': task.importantLevel === 'Important',
-            'task__level_green': task.importantLevel === 'Not Important'
-          }"
+              'task__level_red': task.importantLevel === 'Very Important',
+              'task__level_yellow': task.importantLevel === 'Important',
+              'task__level_green': task.importantLevel === 'Not Important'
+            }"
             class="task__level"
           />
         </div>
@@ -22,7 +22,7 @@
         </div>
 
         <div class="task__header">
-          <div class="task__title">Steps</div>
+          <div class="task__title">{{ $t('Steps') }}</div>
           <div @click="toggleInput" class="task__add-step">
             <img class="task__add-step-icon" src="~@/assets/images/icons/task/plus_blue.svg" alt="">
           </div>
@@ -101,11 +101,8 @@ export default class TaskView extends Vue {
   }
 
   public created(): void {
-    this.fetchCurrentTask(this.$route.params.id)
-  }
-
-  public beforeDestroyed(): void {
     this.clearTask()
+    this.fetchCurrentTask(this.$route.params.id)
   }
 }
 </script>
@@ -188,6 +185,8 @@ export default class TaskView extends Vue {
 
     border-radius: .7rem;
 
+    @include pointer-on-hover();
+
     &-icon {
       width: 1rem;
       height: 1rem;
@@ -260,3 +259,14 @@ export default class TaskView extends Vue {
   }
 }
 </style>
+
+<i18n>
+{
+  "en": {
+    "Steps": "Steps"
+  },
+  "ru": {
+    "Steps": "Шаги"
+  }
+}
+</i18n>

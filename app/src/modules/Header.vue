@@ -1,12 +1,13 @@
 <template>
   <header class="header">
-    <div class="header__content">
+    <div :class="withBackground && 'header__content_covered'" class="header__content">
       <div @click="goBack" class="header__nav">
-        <img class="header__back" src="~@/assets/images/icons/back.svg" alt="back">
+        <img v-if="withBackground" class="header__back" src="~@/assets/images/icons/back.svg" alt="back">
+        <img v-else class="header__back" src="~@/assets/images/icons/back_black.svg" alt="back">
         <div class="header__title">{{ title }}</div>
       </div>
     </div>
-    <div class="header__overlay" />
+    <div v-if="withBackground" class="header__overlay" />
   </header>
 </template>
 
@@ -17,6 +18,7 @@ import { Component, Vue, Prop } from "vue-property-decorator"
 
 export default class Header extends Vue {
   @Prop([String]) readonly title: string | undefined
+  @Prop({ default: true, type: [Boolean] }) readonly withBackground: boolean | undefined
 
   public goBack() {
     this.$router.back()
@@ -30,21 +32,31 @@ export default class Header extends Vue {
 
   &__content {
     width: 100%;
-    height: 12rem;
+    height: 9rem;
 
-    padding: 0 2.4rem;
-
-    background: #5A55CA url("~@/assets/images/background.svg") no-repeat left top;
-    background-size: cover;
+    padding: 3rem 2.4rem 0;
 
     z-index: -1;
+
+    color: #000;
+
+    &_covered {
+      height: 12rem;
+
+      padding: 3rem 2.4rem;
+
+      background: #5A55CA url("~@/assets/images/background.svg") no-repeat left top;
+      background-size: cover;
+
+      color: #fff;
+    }
   }
 
   &__nav {
     display: flex;
     align-items: center;
 
-    padding-top: 3rem;
+    @include pointer-on-hover();
   }
 
   &__overlay {
@@ -70,8 +82,6 @@ export default class Header extends Vue {
 
     font-size: 2.4rem;
     font-weight: 700;
-
-    color: #fff;
   }
 }
 </style>

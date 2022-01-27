@@ -1,7 +1,7 @@
 <template>
   <main-layout>
     <template #header>
-      <Header title="Task Create" />
+      <Header :title="$t('Task Create')" />
     </template>
     <template #default>
       <div class="task-create">
@@ -21,7 +21,7 @@
             name="description"
             id="description"
           />
-          <FormButton @form-submit="onSubmit" :name="$t('new-project')" />
+          <FormButton @form-submit="onSubmit" :name="$t('new-task')" />
         </form>
       </div>
     </template>
@@ -63,15 +63,22 @@ export default class CreateTask extends Vue {
       typeof TaskStoreModule.prototype.changeCreateFormLevel
   @taskModule.Mutation("changeCreateFormDescription") changeCreateFormDescription:
       typeof TaskStoreModule.prototype.changeCreateFormDescription
+  @taskModule.Mutation("clearCreateForm") clearCreateForm:
+      typeof TaskStoreModule.prototype.clearCreateForm
 
   @taskModule.Action("createTask") createTask: typeof TaskStoreModule.prototype.createTask
 
-  public levelValues = ['Not Important', 'Important', 'Very Important']
+  public levelValues = [
+    this.$t('Not Important'),
+    this.$t('Important'),
+    this.$t('Very Important')
+  ]
 
   public async onSubmit(): Promise<void> {
     try {
       await this.createTask()
-      await this.$router.back()
+      this.$router.back()
+      this.clearCreateForm()
     } catch (e) {
       console.log(e)
     }
@@ -90,10 +97,18 @@ export default class CreateTask extends Vue {
 <i18n>
 {
   "en": {
-    "new-project": "Create New Project"
+    "Task Create": "Task Create",
+    "new-task": "Create New Task",
+    "Not Important": "Not Important",
+    "Important": "Important",
+    "Very Important": "Very Important"
   },
   "ru": {
-    "new-project": "Create New Project"
+    "Task Create": "Создать задачу",
+    "new-task": "Создать задачу",
+    "Not Important": "Не важно",
+    "Important": "Важно",
+    "Very Important": "Срочно"
   }
 }
 </i18n>

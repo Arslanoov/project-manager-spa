@@ -29,11 +29,11 @@
     <div class="card__bottom">
       <div class="card__steps">
         <img class="card__icon" src="~@/assets/images/icons/task/total.svg" alt="">
-        {{ item.stepsCount }} Steps
+        {{ item.stepsCount }} {{ $t('Steps') }}
       </div>
       <div class="card__steps-finished">
         <img class="card__icon" src="~@/assets/images/icons/task/completed.svg" alt="">
-        {{ item.finishedSteps }} Finished
+        {{ item.finishedSteps }} {{ $t('Finished') }}
       </div>
       <div
         @click="e => toggleStatus(e, item.id)"
@@ -199,3 +199,16 @@ export default class TaskCard extends Vue {
   }
 }
 </style>
+
+<i18n>
+{
+  "en": {
+    "Steps": "Settings",
+    "Finished": "Finished"
+  },
+  "ru": {
+    "Steps": "Шагов",
+    "Finished": "Выполнено"
+  }
+}
+</i18n>

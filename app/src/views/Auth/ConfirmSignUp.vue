@@ -1,37 +1,24 @@
 <template>
-  <v-container class="confirm" fill-height fluid>
-    <v-row class="form-row" justify="center" align-self="center">
-      <v-col
-          xs="10"
-          sm="9"
-          md="4"
-      >
-        <h2 class="confirm__title text-center">{{ $t("Confirm Sign Up") }}</h2>
+  <auth-layout>
+    <div class="container">
+      <div class="confirm-sign-up">
+        <form class="confirm-sign-up__form">
+          <div v-if="confirmSignUpForm.error" class="confirm-sign-up__error">
+            {{ confirmSignUpForm.error }}
+          </div>
 
-        <v-alert
-            v-if="confirmSignUpForm.error"
-            class="confirm__alert"
-            border="bottom"
-            color="pink darken-1"
-            dark
-        >
-          {{ confirmSignUpForm.error }}
-        </v-alert>
+          <p class="confirm-sign-up__token">{{ $t('Token') }}: {{ token }}</p>
 
-        <p class="confirm__token">{{ $t("Token") }}: {{ token }}</p>
-
-        <div class="confirm__buttons">
-          <v-btn
-              color="success"
-              class="confirm__button"
-              @click="onSubmit"
-          >
-            {{ $t("Join") }}
-          </v-btn>
-        </div>
-      </v-col>
-    </v-row>
-  </v-container>
+          <div class="confirm-sign-up__buttons">
+            <FormButton
+              @form-submit="onSubmit"
+              :name="$t('Join')"
+            />
+          </div>
+        </form>
+      </div>
+    </div>
+  </auth-layout>
 </template>
 
 <script lang="ts">
@@ -45,10 +32,19 @@ import { routesNames } from "@/router/names"
 
 import User from "@/store/modules/user"
 
+import AuthLayout from "@/layouts/AuthLayout.vue"
+import FormButton from "@/components/base/form/button/FormButton.vue"
+import AuthMethod from "@/components/common/auth/method/AuthMethod.vue"
+
 const userModule = namespace("User")
 
 @Component({
-  name: "ConfirmSignUp"
+  name: "ConfirmSignUp",
+  components: {
+    AuthLayout,
+    AuthMethod,
+    FormButton,
+  }
 })
 
 export default class SignUp extends Vue {
@@ -80,20 +76,42 @@ export default class SignUp extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.confirm {
-  margin-top: -64px;
+.confirm-sign-up {
+  grid-column: col-start 1 / col-end 12;
 
-  &__alert {
-    margin: 20px 0;
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @include desktop-sm {
+    grid-column: col-start 4 / col-end 9;
   }
 
+  &__error {
+    color: #F26950;
+  }
+
+  &__form,
   &__token {
     text-align: center;
   }
 
+  &__form {
+    width: 100%;
+
+    & > * {
+      &:not(:last-of-type) {
+        margin-bottom: 1rem;
+      }
+    }
+  }
+
   &__buttons {
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-top: 3rem;
   }
 }
 </style>
@@ -108,7 +126,7 @@ export default class SignUp extends Vue {
   "ru": {
     "Confirm Sign Up": "Подтверждение регистрации",
     "Token": "Токен",
-    "Join": "Добро пожаловать"
+    "Join": "Присоединиться"
   }
 }
 </i18n>

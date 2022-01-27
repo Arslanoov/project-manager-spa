@@ -20,9 +20,7 @@ export default class Logo extends Vue {
   public onClick() {
     this.$router.push({
       name: routesNames.AuthHome
-      // TODO: Fix
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
-    }).catch(() => {})
+    }).catch(() => ({}))
   }
 }
 </script>

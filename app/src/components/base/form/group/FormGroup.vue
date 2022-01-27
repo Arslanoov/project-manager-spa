@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from "vue-property-decorator"
+import { Component, Vue, Prop, Watch } from "vue-property-decorator"
 
 @Component({})
 
@@ -28,6 +28,7 @@ export default class FormGroup extends Vue {
   @Prop([String]) readonly name: string | undefined
   @Prop([String]) readonly id: string | undefined
   @Prop([String]) readonly value: string | undefined
+  @Prop([Number]) readonly clearCount: number | undefined
   @Prop({
     default: 'text',
     type: String
@@ -37,6 +38,11 @@ export default class FormGroup extends Vue {
 
   public error: string | null = null
 
+  @Watch('clearCount')
+  public onChildChanged(): void {
+    this.error = null
+  }
+
   public onChange(e: Event) {
     const value = (e.target as HTMLInputElement).value ?? ''
     this.$emit('change', value)
@@ -44,13 +50,13 @@ export default class FormGroup extends Vue {
     for (let i = 0; i < this.rules.length; i++) {
       if (typeof this.rules[i](value) === 'string') {
         this.error = this.rules[i](value) as string
-        this.$emit('updateErrorState', true)
+        this.$emit('update-error-state', true)
         return
       }
     }
 
     this.error = null
-    this.$emit('updateErrorState', false)
+    this.$emit('update-error-state', false)
   }
 }
 </script>

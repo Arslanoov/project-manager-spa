@@ -15,6 +15,7 @@ const storage = new SettingsStorage()
 
 class Settings extends VuexModule {
   public settings: SettingsInterface = DEFAULT_SETTINGS
+  public language = "ru"
 
   @Mutation
   public setSettings(settings: SettingsInterface): void {
@@ -22,24 +23,18 @@ class Settings extends VuexModule {
   }
 
   @Mutation
-  public setNightMode(nightMode: boolean): void {
-    this.settings.nightMode = nightMode
+  public setHideTasksMode(nightMode: boolean): void {
+    this.settings.hideFinishedTasks = nightMode
   }
 
   @Mutation
-  public setHideTasksMode(nightMode: boolean): void {
-    this.settings.hideFinishedTasks = nightMode
+  public setLanguage(name: string): void {
+    this.language = name
   }
 
   @Action({ rawError: true })
   public fetchSettings(): void {
     this.context.commit("setSettings", storage.getSettings())
-  }
-
-  @Action({ rawError: true })
-  public toggleNightMode(): void {
-    storage.toggleNightMode()
-    this.context.commit("setNightMode", !this.settings.nightMode)
   }
 
   @Action({ rawError: true })
@@ -49,9 +44,9 @@ class Settings extends VuexModule {
   }
 
   @Action({ rawError: true })
-  public changeNightMode(value: boolean): void {
-    storage.changeNightMode(value)
-    this.context.commit("setNightMode", value)
+  public changeLanguage(name: string): void {
+    localStorage.setItem("language", name)
+    this.context.commit("setLanguage", name)
   }
 }
 
