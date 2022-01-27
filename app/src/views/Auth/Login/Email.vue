@@ -41,7 +41,7 @@
                 :name="$t('Reset Form')"
             />
 
-            <div class="login__not-signed-up" @click="onRegister">Еще не зарегистрированы?</div>
+            <div class="login__not-signed-up" @click="onRegister">{{ $t('Not signed up?') }}</div>
           </div>
         </form>
       </div>
@@ -94,6 +94,7 @@ export default class Login extends Vue {
 
   public rules = {
     email: [
+      // TODO: Add translations
       (v: string) => !!v || "E-mail is required",
       (v: string) => /.+@.+\..+/.test(v) || "E-mail must be valid",
       // TODO: Change validation errors
@@ -196,14 +197,16 @@ export default class Login extends Vue {
     "Password": "Password",
     "Submit": "Submit",
     "Reset Form": "Reset Form",
-    "Log In": "Log In"
+    "Log In": "Log In",
+    "Not Signed Up?": "Not Signed Up?"
   },
   "ru": {
-    "manage": "Manage your projects & tasks easily",
+    "manage": "Управлять своими проектами & задачами просто",
     "Password": "Пароль",
     "Submit": "Войти",
     "Reset Form": "Очистить",
-    "Log In": "Войти"
+    "Log In": "Войти",
+    "Not Signed Up?": "Еще не зарегистрированы?"
   }
 }
 </i18n>

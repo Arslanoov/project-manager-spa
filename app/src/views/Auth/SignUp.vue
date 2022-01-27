@@ -52,7 +52,7 @@
               :name="$t('Reset Form')"
             />
 
-            <div class="sign-up__already-signed-up" @click="onLogin">Уже есть аккаунт? Войти</div>
+            <div class="sign-up__already-signed-up" @click="onLogin">{{ $t('have-account') }}</div>
           </div>
         </form>
       </div>
@@ -215,7 +215,8 @@ export default class SignUp extends Vue {
     "Password": "Password",
     "Submit": "Submit",
     "Reset Form": "Reset Form",
-    "Reset Validation": "Reset Validation"
+    "Reset Validation": "Reset Validation",
+    "have-account": "Already have an account? Sign in"
   },
   "ru": {
     "Sign Up": "Регистрация",
@@ -223,7 +224,8 @@ export default class SignUp extends Vue {
     "Password": "Пароль",
     "Submit": "Отправить письмо на почту",
     "Reset Form": "Очистить",
-    "Reset Validation": "Очистить ошибки валидации"
+    "Reset Validation": "Очистить ошибки валидации",
+    "have-account": "Уже есть аккаунт? Войти"
   }
 }
 </i18n>

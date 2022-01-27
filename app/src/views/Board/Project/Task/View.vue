@@ -22,7 +22,7 @@
         </div>
 
         <div class="task__header">
-          <div class="task__title">Steps</div>
+          <div class="task__title">{{ $t('Steps') }}</div>
           <div @click="toggleInput" class="task__add-step">
             <img class="task__add-step-icon" src="~@/assets/images/icons/task/plus_blue.svg" alt="">
           </div>
@@ -259,3 +259,14 @@ export default class TaskView extends Vue {
   }
 }
 </style>
+
+<i18n>
+{
+  "en": {
+    "Steps": "Steps"
+  },
+  "ru": {
+    "Steps": "Шаги"
+  }
+}
+</i18n>

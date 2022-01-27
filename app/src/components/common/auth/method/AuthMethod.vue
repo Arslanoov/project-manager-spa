@@ -1,7 +1,7 @@
 <template>
   <div @click="onSubmit" class="auth-method">
     <div class="auth-method__content">
-      {{ action }} with
+      {{ action }} {{ $t('with') }}
       <div class="auth-method__name">{{ name }}</div>
     </div>
     <div class="auth-method__submit">
@@ -79,3 +79,14 @@ export default class AuthMethod extends Vue {
   }
 }
 </style>
+
+<i18n>
+{
+  "en": {
+    "with": "with"
+  },
+  "ru": {
+    "with": "с помощью"
+  }
+}
+</i18n>

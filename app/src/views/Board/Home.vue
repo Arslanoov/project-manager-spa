@@ -2,13 +2,13 @@
   <main-layout>
     <template #default>
       <div class="board">
-        <h2 class="board__title">Board</h2>
+        <h2 class="board__title">{{ $t('Board') }}</h2>
         <div class="board__projects">
           <router-link to="/board/project/daily" class="project">
             <div class="project__icon">
               <img src="~@/assets/images/icons/board/daily.svg" class="project__icon-img" alt="" />
             </div>
-            <h4 class="project__title">Daily</h4>
+            <h4 class="project__title">{{ $t('Daily') }}</h4>
           </router-link>
 
           <router-link
@@ -29,7 +29,7 @@
             <div class="project__icon">
               <img src="~@/assets/images/icons/board/new.svg" class="project__icon-img" alt="" />
             </div>
-            <h4 class="project__title">Create Project</h4>
+            <h4 class="project__title">{{ $t('Create Project') }}</h4>
           </div>
 
           <div @click="onGoSettings" class="project">
@@ -39,7 +39,7 @@
                 class="project__icon-img project__icon-img_small" alt=""
               />
             </div>
-            <h4 class="project__title">Settings</h4>
+            <h4 class="project__title">{{ $t('Settings') }}</h4>
           </div>
         </div>
       </div>
@@ -187,3 +187,20 @@ export default class Board extends Vue {
   }
 }
 </style>
+
+<i18n>
+{
+  "en": {
+    "Board": "Board",
+    "Daily": "Daily",
+    "Create Project": "Create Project",
+    "Settings": "Settings"
+  },
+  "ru": {
+    "Board": "Доска",
+    "Daily": "Суточная",
+    "Create Project": "Создать проект",
+    "Settings": "Настройки"
+  }
+}
+</i18n>

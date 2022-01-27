@@ -12,7 +12,7 @@
               class="setting__icon"
               alt=""
             >
-            <h4 class="setting__title">Tasks</h4>
+            <h4 class="setting__title">{{ $t('Tasks') }}</h4>
           </div>
           <div class="setting__list">
             <div @click="toggleHideTasks" class="setting__list-item">
@@ -36,7 +36,9 @@
             <h4 class="setting__title">{{ $t('General') }}</h4>
           </div>
           <div class="setting__list">
-            <div @click="toggleLanguage" class="setting__list-item">{{ $t('Change language') }}: {{ toggledLanguage }}</div>
+            <div @click="toggleLanguage" class="setting__list-item">
+              {{ $t('Change language') }}: {{ toggledLanguage }}
+            </div>
             <div @click="onLogout" class="setting__list-item">{{ $t('Logout') }}</div>
           </div>
         </div>
@@ -150,11 +152,19 @@ export default class Settings extends Vue {
 {
   "en": {
     "Settings": "Settings",
-    "Hide finished tasks": "Hide finished tasks"
+    "Tasks": "Tasks",
+    "General": "General",
+    "Change language": "Change language",
+    "Hide finished tasks": "Hide finished tasks",
+    "Logout": "Logout"
   },
   "ru": {
     "Settings": "Настройки",
-    "Hide finished tasks": "Скрывать завершенные задачи"
+    "Tasks": "Задачи",
+    "General": "Общие",
+    "Change language": "Поменять язык",
+    "Hide finished tasks": "Скрывать завершенные задачи",
+    "Logout": "Выйти"
   }
 }
 </i18n>

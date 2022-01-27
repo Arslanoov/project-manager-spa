@@ -7,7 +7,7 @@
             {{ confirmSignUpForm.error }}
           </div>
 
-          <p class="confirm-sign-up__token">Token: {{ token }}</p>
+          <p class="confirm-sign-up__token">{{ $t('Token') }}: {{ token }}</p>
 
           <div class="confirm-sign-up__buttons">
             <FormButton

@@ -6,8 +6,8 @@
         <p class="home__submessage">{{ $t("submessage") }}</p>
 
         <div class="home__methods">
-          <AuthMethod class="home__method" action="Sign In" name="E-mail" link="/auth/login/email" />
-          <AuthMethod class="home__method" action="Sign Up" name="E-mail" link="/auth/sign-up" />
+          <AuthMethod class="home__method" :action="$t('Sign In')" name="E-mail" link="/auth/login/email" />
+          <AuthMethod class="home__method" :action="$t('Sign Up')" name="E-mail" link="/auth/sign-up" />
         </div>
       </div>
     </div>
@@ -97,11 +97,15 @@ export default class Login extends Vue {
 {
   "en": {
     "message": "Manage your projects & tasks easily",
-    "submessage": "Easy way to manage daily task and office management."
+    "submessage": "Easy way to manage daily task and office management.",
+    "Sign In": "Sign In",
+    "Sign Up": "Sign Up"
   },
   "ru": {
     "message": "Manage your projects & tasks easily",
-    "submessage": "Easy way to manage daily task and office management."
+    "submessage": "Easy way to manage daily task and office management.",
+    "Sign In": "Войти",
+    "Sign Up": "Зарегистрироваться"
   }
 }
 </i18n>

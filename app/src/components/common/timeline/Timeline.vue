@@ -7,7 +7,7 @@
       :class="activeIndex === index ? 'day_active' : ''"
       class="timeline__day day"
     >
-      <div class="day__weekday">{{ day.weekday }}</div>
+      <div class="day__weekday">{{ $t(day.weekday) }}</div>
       <div class="day__index">{{ day.index }}</div>
     </div>
   </div>
@@ -127,3 +127,26 @@ export default class Timeline extends Vue {
   }
 }
 </style>
+
+<i18n>
+{
+  "en": {
+    "SUN": "SUN",
+    "MON": "MON",
+    "TUE": "TUE",
+    "WED": "WED",
+    "THU": "THU",
+    "FRI": "FRI",
+    "SAT": "SAT"
+  },
+  "ru": {
+    "SUN": "ВС",
+    "MON": "ПН",
+    "TUE": "ВТ",
+    "WED": "СР",
+    "THU": "ЧТ",
+    "FRI": "ПТ",
+    "SAT": "СБ"
+  }
+}
+</i18n>

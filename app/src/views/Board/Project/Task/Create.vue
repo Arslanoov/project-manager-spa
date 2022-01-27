@@ -1,7 +1,7 @@
 <template>
   <main-layout>
     <template #header>
-      <Header title="Task Create" />
+      <Header :title="$t('Task Create')" />
     </template>
     <template #default>
       <div class="task-create">
@@ -68,7 +68,11 @@ export default class CreateTask extends Vue {
 
   @taskModule.Action("createTask") createTask: typeof TaskStoreModule.prototype.createTask
 
-  public levelValues = ['Not Important', 'Important', 'Very Important']
+  public levelValues = [
+    this.$t('Not Important'),
+    this.$t('Important'),
+    this.$t('Very Important')
+  ]
 
   public async onSubmit(): Promise<void> {
     try {
@@ -93,10 +97,18 @@ export default class CreateTask extends Vue {
 <i18n>
 {
   "en": {
-    "new-task": "Create New Task"
+    "Task Create": "Task Create",
+    "new-task": "Create New Task",
+    "Not Important": "Not Important",
+    "Important": "Important",
+    "Very Important": "Very Important"
   },
   "ru": {
-    "new-task": "Create New Task"
+    "Task Create": "Создать задачу",
+    "new-task": "Создать задачу",
+    "Not Important": "Не важно",
+    "Important": "Важно",
+    "Very Important": "Срочно"
   }
 }
 </i18n>

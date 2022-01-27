@@ -1,6 +1,6 @@
 <template>
   <div class="task-list">
-    <template v-if="items.length === 0">No Task</template>
+    <template v-if="items.length === 0">{{ $t('No Task') }}</template>
     <template v-else>
       <div
         v-for="item in items"
@@ -56,3 +56,14 @@ export default class TaskList extends Vue {
   }
 }
 </style>
+
+<i18n>
+{
+  "en": {
+    "No Task": "No Task"
+  },
+  "ru": {
+    "No Task": "Нет задач"
+  }
+}
+</i18n>

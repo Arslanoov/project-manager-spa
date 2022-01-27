@@ -8,15 +8,15 @@
         <div class="project__header">
           <div class="project__current">
             <div v-if="currentDate" class="project__full-date">
-              {{ months[currentDate.month] }}
+              {{ $t(months[currentDate.month]) }}
               {{ currentDate.day }},
               {{ currentDate.year }}
             </div>
-            <div class="project__name">Daily</div>
+            <div class="project__name">{{ $t('Daily') }}</div>
           </div>
           <button @click="onTaskAdd" class="project__add-task">
             <img class="project__add-icon" src="~@/assets/images/icons/task/plus.svg" alt="">
-            Add Task
+            {{ $t('Add Task') }}
           </button>
         </div>
 
@@ -169,3 +169,40 @@ export default class DailyView extends Vue {
   }
 }
 </style>
+
+<i18n>
+{
+  "en": {
+    "Daily": "Daily",
+    "Add Task": "Add Task",
+    "Jan": "Jan",
+    "Feb": "Feb",
+    "Mar": "Mar",
+    "Apr": "Apr",
+    "May": "May",
+    "Jun": "Jun",
+    "Jul": "Jul",
+    "Aug": "Aug",
+    "Sep": "Sep",
+    "Oct": "Oct",
+    "Nov": "Nov",
+    "Dec": "Dec"
+  },
+  "ru": {
+    "Daily": "Суточный",
+    "Add Task": "Добавить задачу",
+    "Jan": "Янв",
+    "Feb": "Фев",
+    "Mar": "Мар",
+    "Apr": "Апр",
+    "May": "Май",
+    "Jun": "Июн",
+    "Jul": "Июл",
+    "Aug": "Авг",
+    "Sep": "Сен",
+    "Oct": "Окт",
+    "Nov": "Ноя",
+    "Dec": "Дек"
+  }
+}
+</i18n>
