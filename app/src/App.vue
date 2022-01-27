@@ -23,7 +23,6 @@ export default class App extends Vue {
 
   @settingsModule.Action("toggleHideTasks") toggleHideTasks: typeof SettingsStoreModule.prototype.toggleHideTasks
   @settingsModule.Action("fetchSettings") fetchSettings: typeof SettingsStoreModule.prototype.fetchSettings
-  @settingsModule.Action("changeNightMode") changeNightMode: typeof SettingsStoreModule.prototype.changeNightMode
 
   public get layout() {
     return this.$route.meta.layout ? `${this.$route.meta.layout}-layout` : "main-layout"

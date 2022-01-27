@@ -13,27 +13,11 @@ export default class SettingsStorage {
     return parsed
   }
 
-  public toggleNightMode(): void {
-    const settings = this.getSettings()
-    this.setSettings({
-      ...settings,
-      nightMode: !settings.nightMode
-    })
-  }
-
   public toggleHideTasks(): void {
     const settings = this.getSettings()
     this.setSettings({
       ...settings,
       hideFinishedTasks: !settings.hideFinishedTasks
-    })
-  }
-
-  public changeNightMode(value: boolean): void {
-    const settings = this.getSettings()
-    this.setSettings({
-      ...settings,
-      nightMode: value
     })
   }
 

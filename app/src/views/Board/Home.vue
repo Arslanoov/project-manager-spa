@@ -31,6 +31,16 @@
             </div>
             <h4 class="project__title">Create Project</h4>
           </div>
+
+          <div @click="onGoSettings" class="project">
+            <div class="project__icon">
+              <img
+                src="~@/assets/images/icons/settings/settings.svg"
+                class="project__icon-img project__icon-img_small" alt=""
+              />
+            </div>
+            <h4 class="project__title">Settings</h4>
+          </div>
         </div>
       </div>
     </template>
@@ -68,6 +78,12 @@ export default class Board extends Vue {
   public createProject() {
     this.$router.push({
       name: routesNames.ProjectCreate
+    })
+  }
+
+  public onGoSettings() {
+    this.$router.push({
+      name: routesNames.Settings
     })
   }
 }
@@ -143,6 +159,11 @@ export default class Board extends Vue {
       &-img {
         width: 4rem;
         height: 4rem;
+
+        &_small {
+          width: 3rem;
+          height: 3rem;
+        }
       }
     }
 

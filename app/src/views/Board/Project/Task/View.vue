@@ -103,7 +103,6 @@ export default class TaskView extends Vue {
   public created(): void {
     this.clearTask()
     this.fetchCurrentTask(this.$route.params.id)
-    window.addEventListener('beforeunload', this.clearTask)
   }
 }
 </script>
@@ -185,6 +184,8 @@ export default class TaskView extends Vue {
     background: rgba(#5A55CA, .1);
 
     border-radius: .7rem;
+
+    @include pointer-on-hover();
 
     &-icon {
       width: 1rem;
