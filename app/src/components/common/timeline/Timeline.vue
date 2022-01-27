@@ -17,22 +17,23 @@
 import { Component, Vue, Prop } from "vue-property-decorator"
 
 const WEEK = [
-  'SAT',
   'SUN',
   'MON',
   'TUE',
   'WED',
   'THU',
   'FRI',
+  'SAT',
 ]
 
 @Component({})
 
 export default class Timeline extends Vue {
   @Prop([Number]) readonly daysCount: number | undefined
+  @Prop([Number]) readonly defaultIndex: number | undefined
   @Prop([Date]) readonly startDate: Date | undefined
 
-  public activeIndex = 0
+  public activeIndex = this.defaultIndex
 
   public onDateChange(index: number) {
     const changeDate = new Date((this.startDate as Date).getTime())
@@ -44,6 +45,7 @@ export default class Timeline extends Vue {
       day: changeDate.getDate(),
       month: changeDate.getMonth() + 1,
       year: changeDate.getFullYear(),
+      index,
     })
   }
 
@@ -52,12 +54,12 @@ export default class Timeline extends Vue {
 
     const newDate = new Date((this.startDate as Date).getTime())
     for (let i = 0; i < (this.daysCount as number); i++) {
-      newDate.setDate(newDate.getDate() + 1)
-
       timeline.push({
         weekday: WEEK[newDate.getDay()],
-        index: newDate.getDate() - 1
+        index: newDate.getDate()
       })
+
+      newDate.setDate(newDate.getDate() + 1)
     }
 
     return timeline
@@ -75,6 +77,10 @@ export default class Timeline extends Vue {
   padding: 1rem 0;
 
   border-bottom: .1rem solid rgba(#0B204C, .1);
+
+  @include tablet {
+    justify-content: flex-start;
+  }
 }
 
 .day {
@@ -83,6 +89,12 @@ export default class Timeline extends Vue {
   color: #0B204C;
 
   @include pointer-on-hover();
+
+  &:not(:last-of-type) {
+    @include tablet {
+      margin-right: 3rem;
+    }
+  }
 
   &_active {
     position: relative;

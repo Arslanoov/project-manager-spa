@@ -21,7 +21,7 @@
             name="description"
             id="description"
           />
-          <FormButton @form-submit="onSubmit" :name="$t('new-project')" />
+          <FormButton @form-submit="onSubmit" :name="$t('new-task')" />
         </form>
       </div>
     </template>
@@ -90,10 +90,10 @@ export default class CreateTask extends Vue {
 <i18n>
 {
   "en": {
-    "new-project": "Create New Project"
+    "new-task": "Create New Task"
   },
   "ru": {
-    "new-project": "Create New Project"
+    "new-task": "Create New Task"
   }
 }
 </i18n>

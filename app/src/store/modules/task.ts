@@ -8,8 +8,11 @@ import ProjectService from "@/services/api/v1/ProjectService"
 import TaskService from "@/services/api/v1/TaskService"
 import StepService from "@/services/api/v1/StepService"
 
+import { todaySimpleDate } from "@/helpers/date"
+
 import StepInterface from "@/types/step/step"
 import ProjectInterface from "@/types/project/project"
+import { DateSimpleType } from "@/types/common/date"
 
 const projectService = new ProjectService()
 const taskService = new TaskService()
@@ -27,9 +30,16 @@ class Task extends VuexModule {
   public currentTask: TaskInterface | null = null
   public createStepForm: CreateStepForm = createEmptyStepForm()
 
+  public dailyProjectDate: DateSimpleType | null = todaySimpleDate()
+
   @Mutation
   public changeProject(project: ProjectInterface): void {
     this.currentProject = project
+  }
+
+  @Mutation
+  public setDailyProjectDate(payload: DateSimpleType): void {
+    this.dailyProjectDate = payload
   }
 
   @Mutation
@@ -111,10 +121,15 @@ class Task extends VuexModule {
   }
 
   @Action({ rawError: true })
-  public async fetchDailyProject({ day, month, year }: { day: number, month: number, year: number }): Promise<void> {
+  public async fetchDailyProject(payload: DateSimpleType): Promise<void> {
     try {
-      const { data } = await projectService.getProjectByDate(day, month, year)
+      const { data } = await projectService.getProjectByDate(
+        payload.day,
+        payload.month,
+        payload.year
+      )
       this.context.commit("changeProject", data)
+      this.context.commit("setDailyProjectDate", payload)
     } catch (e) {
       console.log(e)
     }
