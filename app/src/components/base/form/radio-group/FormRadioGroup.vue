@@ -1,24 +1,22 @@
 <template>
   <div class="form-radio-group">
     <div class="form-radio-group__items">
-      <div v-for="value in values" :key="value" class="form-radio-group__item">
-        <label
-          :for="`${name}_${value}`"
-          :class="selected === value ? 'form-radio-group__label_checked' : ''"
+      <label v-for="value in values" :key="value" class="form-radio-group__item">
+        <span
+          :class="selected === value && 'form-radio-group__label_checked'"
           class="form-radio-group__label"
         >
           <input
             @change="onChange"
-            :id="`${name}_${value}`"
             :name="name"
             :value="value"
             :checked="selected === value"
             class="form-radio-group__radio"
             type="radio"
           >
-        </label>
+        </span>
         {{ value }}
-      </div>
+      </label>
     </div>
 
     <!-- <div
@@ -70,6 +68,8 @@ export default class FormRadioGroup extends Vue {
   &__item {
     display: flex;
     align-items: center;
+
+    @include pointer-on-hover();
   }
 
   &__label {
@@ -82,8 +82,6 @@ export default class FormRadioGroup extends Vue {
     border-radius: 2rem;
 
     background-color: #fff;
-
-    @include pointer-on-hover();
 
     &_checked {
       position: relative;
