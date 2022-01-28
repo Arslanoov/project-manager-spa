@@ -1,7 +1,5 @@
 module.exports = {
-  transpileDependencies: [
-    "vuex-persist"
-  ],
+  transpileDependencies: ["vuex-persist"],
 
   devServer: {
     host: "0.0.0.0",
@@ -12,19 +10,17 @@ module.exports = {
   css: {
     loaderOptions: {
       scss: {
-        prependData: "@import \"@/assets/styles/main\";"
+        prependData: "@import '@/assets/styles/main';"
       }
     }
   },
 
   chainWebpack: config => {
     config.plugins.delete("prefetch")
-    config
-      .plugin("html")
-      .tap(args => {
-        args[0].title = "Project Manager"
-        return args
-      })
+    config.plugin("html").tap(args => {
+      args[0].title = "Project Manager"
+      return args
+    })
   },
 
   configureWebpack: {

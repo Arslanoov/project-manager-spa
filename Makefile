@@ -7,7 +7,6 @@ build:
 
 check: lint test
 
-# Test
 test: test-unit test-e2e
 
 test-unit:
@@ -16,6 +15,8 @@ test-unit:
 test-e2e:
 	cd app && npm run test:e2e
 
-# Lint
 lint:
 	cd app && npm run lint
+
+lint-fix:
+	cd app && npm run lint:fix

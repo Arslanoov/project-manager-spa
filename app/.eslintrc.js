@@ -1,21 +1,24 @@
 module.exports = {
   root: true,
   env: {
-    node: true,
+    node: true
   },
   extends: [
+    "prettier",
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
     "@vue/typescript/recommended",
-    "@vue/prettier/@typescript-eslint",
+    "@vue/prettier/@typescript-eslint"
   ],
+  plugins: ["prettier"],
   parserOptions: {
     ecmaVersion: 2020
   },
   rules: {
-    "semi": ["error", "never"],
-    "quotes": [ "error", "double" ],
+    semi: ["error", "never"],
+    quotes: ["error", "double"],
+    "prettier/prettier": "error",
 
     "no-console": 0,
     "@typescript-eslint/ban-types": 0,
@@ -33,15 +36,15 @@ module.exports = {
     {
       files: [
         "**/__tests__/*.{j,t}s?(x)",
-        "**/tests/unit/**/*.spec.{j,t}s?(x)",
+        "**/tests/unit/**/*.spec.{j,t}s?(x)"
       ],
       env: {
-        mocha: true,
+        mocha: true
       },
       rules: {
         "@typescript-eslint/camelcase": 0,
-        "@typescript-eslint/no-use-before-define": 0,
+        "@typescript-eslint/no-use-before-define": 0
       }
-    },
-  ],
+    }
+  ]
 }
