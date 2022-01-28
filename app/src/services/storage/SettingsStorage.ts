@@ -1,4 +1,4 @@
-import { DEFAULT_SETTINGS } from "@/const/settings"
+import { defaultSettings } from "@/const/settings"
 
 import SettingsInterface from "@/types/settings/SettingsInterface"
 
@@ -6,7 +6,7 @@ export default class SettingsStorage {
   public getSettings(): SettingsInterface {
     const parsed = JSON.parse(localStorage.getItem("settings") as string)
     if (!parsed) {
-      this.setSettings(DEFAULT_SETTINGS)
+      this.setSettings(defaultSettings())
       return JSON.parse(localStorage.getItem("settings") as string)
     }
 

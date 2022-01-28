@@ -4,7 +4,7 @@ import SettingsStorage from "@/services/storage/SettingsStorage"
 
 import SettingsInterface from "@/types/settings/SettingsInterface"
 
-import { DEFAULT_SETTINGS } from "@/const/settings"
+import { defaultSettings } from "@/const/settings"
 
 const storage = new SettingsStorage()
 
@@ -14,7 +14,7 @@ const storage = new SettingsStorage()
 })
 
 class Settings extends VuexModule {
-  public settings: SettingsInterface = DEFAULT_SETTINGS
+  public settings: SettingsInterface = defaultSettings()
   public language = "ru"
 
   @Mutation

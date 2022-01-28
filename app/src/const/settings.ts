@@ -1,5 +1,5 @@
 import SettingsInterface from "@/types/settings/SettingsInterface"
 
-export const DEFAULT_SETTINGS: SettingsInterface = {
+export const defaultSettings = (): SettingsInterface => ({
   hideFinishedTasks: false
-}
+})
