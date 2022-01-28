@@ -56,8 +56,6 @@ import { namespace } from "vuex-class"
 
 import TaskInterface from "@/types/task/task"
 
-// TODO: Move store use
-
 import TaskStoreModule from "@/store/modules/task"
 
 const taskModule = namespace("Task")
@@ -169,7 +167,6 @@ export default class TaskCard extends Vue {
     margin-right: .5rem;
   }
 
-  // TODO: Separate component
   &__checkbox {
     flex-shrink: 0;
 

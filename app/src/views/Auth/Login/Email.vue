@@ -94,17 +94,15 @@ export default class Login extends Vue {
 
   public rules = {
     email: [
-      // TODO: Add translations
-      (v: string) => !!v || "E-mail is required",
-      (v: string) => /.+@.+\..+/.test(v) || "E-mail must be valid",
-      // TODO: Change validation errors
-      (v: string) => (v && v.length > 5) || "E-mail must be more than 5 characters",
-      (v: string) => (v && v.length < 32) || "E-mail must be less than 32 characters"
+      (v: string) => !!v || this.$t('email-required'),
+      (v: string) => /.+@.+\..+/.test(v) || this.$t('email-valid'),
+      (v: string) => (v && v.length > 5) || this.$t('email-length'),
+      (v: string) => (v && v.length < 32) || this.$t('email-length')
     ],
     password: [
-      (v: string) => !!v || "Password is required",
-      (v: string) => (v && v.length > 6) || "Password must be more than 6 characters",
-      (v: string) => (v && v.length < 32) || "Password must be less than 32 characters"
+      (v: string) => !!v || this.$t('password-required'),
+      (v: string) => (v && v.length > 6) || this.$t('password-length'),
+      (v: string) => (v && v.length < 32) || this.$t('password-length')
     ]
   }
 
@@ -198,7 +196,12 @@ export default class Login extends Vue {
     "Submit": "Submit",
     "Reset Form": "Reset Form",
     "Log In": "Log In",
-    "Not Signed Up?": "Not Signed Up?"
+    "Not Signed Up?": "Not Signed Up?",
+    "email-required": "E-mail is required",
+    "password-required": "Password is required",
+    "email-length": "E-mail must be between 5 and 32 characters long",
+    "email-valid": "E-mail must be valid",
+    "password-length": "Password must be between 6 and 32 characters long"
   },
   "ru": {
     "manage": "Управлять своими проектами & задачами просто",
@@ -206,7 +209,12 @@ export default class Login extends Vue {
     "Submit": "Войти",
     "Reset Form": "Очистить",
     "Log In": "Войти",
-    "Not Signed Up?": "Еще не зарегистрированы?"
+    "Not Signed Up?": "Еще не зарегистрированы?",
+    "email-required": "E-mail обязателен",
+    "password-required": "Пароль обязателен",
+    "email-length": "Длина E-mail должна составлять от 5 до 32 символов",
+    "email-valid": "Некорректный E-mail",
+    "password-length": "Длина пароля должна составлять от 7 до 32 символов"
   }
 }
 </i18n>

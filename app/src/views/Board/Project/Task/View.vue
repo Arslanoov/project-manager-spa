@@ -214,7 +214,6 @@ export default class TaskView extends Vue {
     margin-bottom: 1rem;
   }
 
-  /* TODO: Separate component */
   &__checkbox {
     flex-shrink: 0;
 

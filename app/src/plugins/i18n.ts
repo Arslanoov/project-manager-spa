@@ -20,6 +20,6 @@ function loadLocaleMessages (): LocaleMessages {
 
 export default new VueI18n({
   locale: getLanguageName(window.localStorage.language) || process.env.VUE_APP_I18N_LOCALE,
-  fallbackLocale:  getLanguageName(window.localStorage.language) ||  process.env.VUE_APP_I18N_FALLBACK_LOCALE,
+  fallbackLocale: getLanguageName(window.localStorage.language) ||  process.env.VUE_APP_I18N_FALLBACK_LOCALE,
   messages: loadLocaleMessages()
 })

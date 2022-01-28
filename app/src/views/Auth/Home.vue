@@ -2,8 +2,8 @@
   <auth-layout>
     <div class="container">
       <div class="home">
-        <h2 class="home__message">{{ $t("message") }}</h2>
-        <p class="home__submessage">{{ $t("submessage") }}</p>
+        <h2 class="home__message">{{ $t('message') }}</h2>
+        <p class="home__submessage">{{ $t('submessage') }}</p>
 
         <div class="home__methods">
           <AuthMethod class="home__method" :action="$t('Sign In')" name="E-mail" link="/auth/login/email" />
