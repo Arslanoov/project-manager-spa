@@ -8,7 +8,9 @@
         :key="item.id"
         class="task-list__item"
       >
-        <TaskCard :item="item" />
+        <template v-if="!settings.hideFinishedTasks || item.status !== 'Complete'">
+          <TaskCard :item="item" />
+        </template>
       </div>
     </template>
   </div>
@@ -16,12 +18,16 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator"
+import { namespace } from "vuex-class"
 
 import { routesNames } from "@/router/names"
 
 import TaskInterface from "@/types/task/task"
+import SettingsInterface from "@/types/settings/SettingsInterface"
 
 import TaskCard from "@/components/common/task/card/TaskCard.vue"
+
+const settingsModule = namespace("Settings")
 
 @Component({
   components: {
@@ -30,6 +36,8 @@ import TaskCard from "@/components/common/task/card/TaskCard.vue"
 })
 
 export default class TaskList extends Vue {
+  @settingsModule.State("settings") settings: SettingsInterface
+
   @Prop([String]) readonly projectId: string
   @Prop([Array]) readonly items: TaskInterface[]
 

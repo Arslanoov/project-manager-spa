@@ -41,7 +41,7 @@
                 :name="$t('Reset Form')"
             />
 
-            <div class="login__not-signed-up" @click="onRegister">{{ $t('Not signed up?') }}</div>
+            <div class="login__not-signed-up" @click="onRegister">{{ $t('not-signed-up') }}</div>
           </div>
         </form>
       </div>
@@ -196,7 +196,7 @@ export default class Login extends Vue {
     "Submit": "Submit",
     "Reset Form": "Reset Form",
     "Log In": "Log In",
-    "Not Signed Up?": "Not Signed Up?",
+    "not-signed-up": "Not Signed Up?",
     "email-required": "E-mail is required",
     "password-required": "Password is required",
     "email-length": "E-mail must be between 5 and 32 characters long",
@@ -209,7 +209,7 @@ export default class Login extends Vue {
     "Submit": "Войти",
     "Reset Form": "Очистить",
     "Log In": "Войти",
-    "Not Signed Up?": "Еще не зарегистрированы?",
+    "not-signed-up": "Еще не зарегистрированы?",
     "email-required": "E-mail обязателен",
     "password-required": "Пароль обязателен",
     "email-length": "Длина E-mail должна составлять от 5 до 32 символов",

@@ -1,5 +1,5 @@
 <template>
-  <router-view />
+  <router-view v-hotkey="keymap" />
 </template>
 
 <script lang="ts">
@@ -8,9 +8,9 @@ import {
   namespace
 } from "vuex-class"
 
-import SettingsStoreModule from "@/store/modules/settings"
-
 import SettingsInterface from "@/types/settings/SettingsInterface"
+
+import SettingsStoreModule from "@/store/modules/settings"
 
 const settingsModule = namespace("Settings")
 

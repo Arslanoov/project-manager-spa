@@ -102,8 +102,8 @@ export default class Login extends Vue {
     "Sign Up": "Sign Up"
   },
   "ru": {
-    "message": "Manage your projects & tasks easily",
-    "submessage": "Easy way to manage daily task and office management.",
+    "message": "Управляйте своими проектами & задачами",
+    "submessage": "Простой способ управлять ежедневными задачами и офисом.",
     "Sign In": "Войти",
     "Sign Up": "Зарегистрироваться"
   }

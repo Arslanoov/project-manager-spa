@@ -156,6 +156,7 @@ export default class Settings extends Vue {
     "General": "General",
     "Change language": "Change language",
     "Hide finished tasks": "Hide finished tasks",
+    "Show finished tasks": "Show finished tasks",
     "Logout": "Logout"
   },
   "ru": {
@@ -164,6 +165,7 @@ export default class Settings extends Vue {
     "General": "Общие",
     "Change language": "Поменять язык",
     "Hide finished tasks": "Скрывать завершенные задачи",
+    "Show finished tasks": "Показывать завершенные задачи",
     "Logout": "Выйти"
   }
 }
