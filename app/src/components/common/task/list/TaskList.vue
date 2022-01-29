@@ -29,6 +29,10 @@ import TaskCard from "@/components/common/task/card/TaskCard.vue"
 
 const settingsModule = namespace("Settings")
 
+/**
+ * Task list (in project view)
+ * @version 1.0.0
+ */
 @Component({
   components: {
     TaskCard

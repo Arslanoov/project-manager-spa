@@ -22,18 +22,41 @@
 <script lang="ts">
 import { Component, Vue, Prop, Watch } from "vue-property-decorator"
 
+/**
+ * Form group <br>
+ * Contains label, input and error
+ * @version 1.0.0
+ */
 @Component({})
 
 export default class FormGroup extends Vue {
+  /**
+   * Label and input name
+   */
   @Prop([String]) readonly name: string | undefined
+  /**
+   * Label and input id
+   */
   @Prop([String]) readonly id: string | undefined
+  /**
+   * Input value
+   */
   @Prop([String]) readonly value: string | undefined
+  /**
+   * Value for resetting validation errors
+   */
   @Prop([Number]) readonly clearCount: number | undefined
+  /**
+   * Input type
+   */
   @Prop({
     default: 'text',
     type: String
   }) readonly type: string | undefined
-
+  /**
+   * Validation rules <br>
+   * Example rule: ```(v: string) => !!v || this.$t('email-required'),```
+   */
   @Prop([Array]) readonly rules: [(v: string) => boolean | string]
 
   public error: string | null = null

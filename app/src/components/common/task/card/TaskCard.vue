@@ -61,6 +61,10 @@ import TaskStoreModule from "@/store/modules/task"
 
 const taskModule = namespace("Task")
 
+/**
+ * Task card (appears in task list)
+ * @version 1.0.0
+ */
 @Component({})
 
 export default class TaskCard extends Vue {

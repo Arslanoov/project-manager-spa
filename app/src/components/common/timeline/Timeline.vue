@@ -26,6 +26,10 @@ const WEEK = [
   'SAT',
 ]
 
+/**
+ * Daily schedule timeline
+ * @version 1.0.0
+ */
 @Component({})
 
 export default class Timeline extends Vue {

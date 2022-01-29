@@ -17,6 +17,10 @@
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator"
 
+/**
+ * Login method (for auth home page)
+ * @version 1.0.0
+ */
 @Component({})
 
 export default class AuthMethod extends Vue {

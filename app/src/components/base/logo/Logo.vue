@@ -12,6 +12,10 @@ import { routesNames } from "@/router/names"
 
 import { APP_NAME } from "@/const/app"
 
+/**
+ * Logo
+ * @version 1.0.0
+ */
 @Component({})
 
 export default class Logo extends Vue {

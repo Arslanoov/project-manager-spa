@@ -14,6 +14,10 @@
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator"
 
+/**
+ * Header
+ * @version 1.0.0
+ */
 @Component({})
 
 export default class Header extends Vue {

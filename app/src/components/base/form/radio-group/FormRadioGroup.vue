@@ -24,12 +24,25 @@
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator"
 
+/**
+ * Form radio group <br>
+ * Contains label and radio
+ * @version 1.0.0
+ */
 @Component({})
 
 export default class FormRadioGroup extends Vue {
-  @Prop([String]) readonly id: string | undefined
+  /**
+   * Radio name
+   */
   @Prop([String]) readonly name: string | undefined
+  /**
+   * What radio should be selected
+   */
   @Prop([String]) readonly selected: string | undefined
+  /**
+   * Radio values
+   */
   @Prop([Array]) readonly values: string[] | number[]
 
   public onChange(e: Event) {

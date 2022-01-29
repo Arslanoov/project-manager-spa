@@ -10,10 +10,20 @@
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator"
 
+/**
+ * Form button
+ * @version 1.0.0
+ */
 @Component({})
 
 export default class FormButton extends Vue {
+  /**
+   * Button name
+   */
   @Prop([String]) readonly name: string | undefined
+  /**
+   * Is button disabled
+   */
   @Prop([Boolean]) readonly disabled: boolean | undefined
 
   onSubmit(e: Event) {
