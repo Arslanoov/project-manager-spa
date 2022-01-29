@@ -52,7 +52,7 @@
               :name="$t('Reset Form')"
             />
 
-            <div class="sign-up__already-signed-up" @click="onLogin">{{ $t('have-account') }}</div>
+            <div class="sign-up__already-signed-up" @click="onLogin">{{ $t(`have-account`) }}</div>
           </div>
         </form>
       </div>
@@ -108,22 +108,20 @@ export default class SignUp extends Vue {
 
   public rules = {
     login: [
-      // TODO: i18n
-      (v: string) => !!v || "Login is required",
-      (v: string) => (v && v.length > 4) || "Login must be more than 4 characters",
-      (v: string) => (v && v.length < 32) || "Login must be less than 32 characters"
+      (v: string) => !!v || this.$t('login-required'),
+      (v: string) => (v && v.length > 4) || this.$t('login-length'),
+      (v: string) => (v && v.length < 32) || this.$t('login-length')
     ],
     email: [
-      (v: string) => !!v || "E-mail is required",
-      (v: string) => /.+@.+\..+/.test(v) || "E-mail must be valid",
-      // TODO: Change validation errors
-      (v: string) => (v && v.length > 5) || "E-mail must be more than 5 characters",
-      (v: string) => (v && v.length < 32) || "E-mail must be less than 32 characters"
+      (v: string) => !!v || this.$t('email-required'),
+      (v: string) => /.+@.+\..+/.test(v) || this.$t('email-valid'),
+      (v: string) => (v && v.length > 5) || this.$t('email-length'),
+      (v: string) => (v && v.length < 32) || this.$t('email-length')
     ],
     password: [
-      (v: string) => !!v || "Password is required",
-      (v: string) => (v && v.length > 6) || "Password must be more than 6 characters",
-      (v: string) => (v && v.length < 32) || "Password must be less than 32 characters"
+      (v: string) => !!v || this.$t('password-required'),
+      (v: string) => (v && v.length > 6) || this.$t('password-length'),
+      (v: string) => (v && v.length < 32) || this.$t('password-length')
     ]
   }
 
@@ -166,7 +164,7 @@ export default class SignUp extends Vue {
   }
 
   &__error {
-    color: #F26950;
+    color: $error-color;
   }
 
   &__form {
@@ -196,13 +194,11 @@ export default class SignUp extends Vue {
   }
   
   &__already-signed-up {
-    font-weight: 700;
+    font-weight: $bold;
 
-    color: #5A55CA;
+    color: $indigo;
 
-    &:hover {
-      cursor: pointer;
-    }
+    @include pointer-on-hover();
   }
 }
 </style>
@@ -216,7 +212,14 @@ export default class SignUp extends Vue {
     "Submit": "Submit",
     "Reset Form": "Reset Form",
     "Reset Validation": "Reset Validation",
-    "have-account": "Already have an account? Sign in"
+    "have-account": "Already have an account? Sign in",
+    "login-required": "Login is required",
+    "email-required": "E-mail is required",
+    "password-required": "Password is required",
+    "login-length": "Login must be between 4 and 32 characters long",
+    "email-length": "E-mail must be between 5 and 32 characters long",
+    "email-valid": "E-mail must be valid",
+    "password-length": "Password must be between 6 and 32 characters long"
   },
   "ru": {
     "Sign Up": "Регистрация",
@@ -225,7 +228,14 @@ export default class SignUp extends Vue {
     "Submit": "Отправить письмо на почту",
     "Reset Form": "Очистить",
     "Reset Validation": "Очистить ошибки валидации",
-    "have-account": "Уже есть аккаунт? Войти"
+    "have-account": "Уже есть аккаунт? Войти",
+    "login-required": "Логин обязателен",
+    "email-required": "E-mail обязателен",
+    "password-required": "Пароль обязателен",
+    "login-length": "Длина логина должна составлять от 4 до 32 символов",
+    "email-length": "Длина E-mail должна составлять от 5 до 32 символов",
+    "email-valid": "Некорректный E-mail",
+    "password-length": "Длина пароля должна составлять от 7 до 32 символов"
   }
 }
 </i18n>

@@ -19,7 +19,6 @@
             :values="levelValues"
             class="form__group"
             name="description"
-            id="description"
           />
           <FormButton @form-submit="onSubmit" :name="$t('new-task')" />
         </form>

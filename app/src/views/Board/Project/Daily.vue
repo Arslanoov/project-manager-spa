@@ -1,7 +1,7 @@
 <template>
   <main-layout>
     <template #header>
-      <Header title="Board" />
+      <Header :title="$t('Board')" />
     </template>
     <template #default>
       <div class="project">
@@ -125,10 +125,10 @@ export default class DailyView extends Vue {
 
   &__name {
     font-size: 2.2rem;
-    font-weight: 800;
+    font-weight: $extra-bold;
     line-height: 3.3rem;
 
-    color: #0B204C;
+    color: $downriver;
   }
 
   &__full-date {
@@ -138,7 +138,7 @@ export default class DailyView extends Vue {
     border: 0;
     outline: 0;
 
-    color: #0B204C;
+    color: $downriver;
     opacity: .7;
   }
 
@@ -158,13 +158,13 @@ export default class DailyView extends Vue {
       padding: 1.2rem 1.5rem;
 
       font-size: 1.3rem;
-      font-weight: 700;
+      font-weight: $bold;
 
-      border: 0;
+      border: none;
       border-radius: 1rem;
 
-      background-color: #F26950;
-      color: #fff;
+      background-color: $burnt-sienna;
+      color: $white;
     }
   }
 }
@@ -173,6 +173,7 @@ export default class DailyView extends Vue {
 <i18n>
 {
   "en": {
+    "Board": "Board",
     "Daily": "Daily",
     "Add Task": "Add Task",
     "Jan": "Jan",
@@ -189,7 +190,8 @@ export default class DailyView extends Vue {
     "Dec": "Dec"
   },
   "ru": {
-    "Daily": "Суточный",
+    "Board": "Доска",
+    "Daily": "Ежедневник",
     "Add Task": "Добавить задачу",
     "Jan": "Янв",
     "Feb": "Фев",

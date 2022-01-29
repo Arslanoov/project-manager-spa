@@ -16,13 +16,10 @@
     "types": [
       "webpack-env",
       "jest",
-      "vuetify",
-      "webpack",
-      "webpack-env"
+      "webpack"
     ],
     "typeRoots": [
-      "./node_modules/@types",
-      "./node_modules/vuetify/types"
+      "./node_modules/@types"
     ],
     "paths": {
       "@/*": [

@@ -21,8 +21,8 @@
               <img v-if="project.isCustom" src="~@/assets/images/icons/board/custom.svg" class="project__icon-img" alt="" />
               <img v-else src="~@/assets/images/icons/board/personal.svg" class="project__icon-img" alt="" />
             </div>
-            <h4 class="project__title">{{ project.name }}</h4>
-            <div class="project__tasks">{{ project.tasksCount }} Task</div>
+            <h4 class="project__title">{{ $t(project.name) }}</h4>
+            <div class="project__tasks">{{ project.tasksCount }} {{ $t('Task') }}</div>
           </router-link>
 
           <div @click="createProject" class="project">
@@ -95,9 +95,9 @@ export default class Board extends Vue {
     margin-bottom: 3rem;
 
     font-size: 2.4rem;
-    font-weight: 700;
+    font-weight: $bold;
 
-    color: #0B204C;
+    color: $downriver;
   }
 
   &__projects {
@@ -127,7 +127,7 @@ export default class Board extends Vue {
 
     border-radius: 1.4rem;
 
-    background-color: #fff;
+    background-color: $white;
 
     text-decoration: none;
 
@@ -154,7 +154,7 @@ export default class Board extends Vue {
 
       border-radius: 1.4rem;
 
-      background: #F0F4FD;
+      background: $selago;
 
       &-img {
         width: 4rem;
@@ -176,13 +176,13 @@ export default class Board extends Vue {
       margin-bottom: .8rem;
 
       text-align: center;
-      font-weight: 400;
+      font-weight: $regular;
 
-      color: #0B204C;
+      color: $downriver;
     }
 
     &__tasks {
-      color: #B2BAC9;
+      color: $cadet-blue;
     }
   }
 }
@@ -193,14 +193,18 @@ export default class Board extends Vue {
   "en": {
     "Board": "Board",
     "Daily": "Daily",
+    "Personal": "Personal",
     "Create Project": "Create Project",
-    "Settings": "Settings"
+    "Settings": "Settings",
+    "Task": "Task"
   },
   "ru": {
     "Board": "Доска",
-    "Daily": "Суточная",
+    "Daily": "Ежедневник",
+    "Personal": "Личный",
     "Create Project": "Создать проект",
-    "Settings": "Настройки"
+    "Settings": "Настройки",
+    "Task": "Задач"
   }
 }
 </i18n>

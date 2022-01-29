@@ -2,8 +2,8 @@
   <auth-layout>
     <div class="container">
       <div class="home">
-        <h2 class="home__message">{{ $t("message") }}</h2>
-        <p class="home__submessage">{{ $t("submessage") }}</p>
+        <h2 class="home__message">{{ $t('message') }}</h2>
+        <p class="home__submessage">{{ $t('submessage') }}</p>
 
         <div class="home__methods">
           <AuthMethod class="home__method" :action="$t('Sign In')" name="E-mail" link="/auth/login/email" />
@@ -58,7 +58,7 @@ export default class Login extends Vue {
   &__submessage {
     text-align: center;
 
-    color: #0B204C;
+    color: $downriver;
   }
 
   &__message {
@@ -102,8 +102,8 @@ export default class Login extends Vue {
     "Sign Up": "Sign Up"
   },
   "ru": {
-    "message": "Manage your projects & tasks easily",
-    "submessage": "Easy way to manage daily task and office management.",
+    "message": "Управляйте своими проектами & задачами",
+    "submessage": "Простой способ управлять ежедневными задачами и офисом.",
     "Sign In": "Войти",
     "Sign Up": "Зарегистрироваться"
   }

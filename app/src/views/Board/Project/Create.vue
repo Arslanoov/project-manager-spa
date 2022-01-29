@@ -1,7 +1,7 @@
 <template>
   <main-layout>
     <template #header>
-      <Header title="Project Create" />
+      <Header :title="$t('Project Create')" />
     </template>
     <template #default>
       <div class="project-create">
@@ -83,10 +83,12 @@ export default class CreateProject extends Vue {
 <i18n>
 {
   "en": {
-    "new-project": "Create New Project"
+    "new-project": "Create New Project",
+    "Project Create": "Project Create"
   },
   "ru": {
-    "new-project": "Create New Project"
+    "new-project": "Создать",
+    "Project Create": "Создание проекта"
   }
 }
 </i18n>

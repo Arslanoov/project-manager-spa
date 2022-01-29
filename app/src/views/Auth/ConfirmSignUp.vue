@@ -88,7 +88,7 @@ export default class SignUp extends Vue {
   }
 
   &__error {
-    color: #F26950;
+    color: $error-color;
   }
 
   &__form,

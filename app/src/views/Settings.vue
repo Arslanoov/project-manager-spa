@@ -97,7 +97,7 @@ export default class Settings extends Vue {
   public toggleLanguage(): void {
     const toggledLanguage = getToggledLanguage(this.language)
     this.changeLanguage(toggledLanguage)
-    this.$i18n.locale = getLanguageName(toggledLanguage)
+    this.$root.$i18n.locale = getLanguageName(toggledLanguage)
     axios.defaults.params = {
       ...axios.defaults.params,
       language: getLanguageName(toggledLanguage)
@@ -129,7 +129,7 @@ export default class Settings extends Vue {
 
   &__title {
     font-size: 1.8rem;
-    font-weight: 600;
+    font-weight: $semi-bold;
   }
 
   &__icon {
@@ -137,7 +137,7 @@ export default class Settings extends Vue {
   }
 
   &__list {
-    color: #919BB3;
+    color: $bali-hai;
 
     &-item {
       @include pointer-on-hover();
@@ -156,6 +156,7 @@ export default class Settings extends Vue {
     "General": "General",
     "Change language": "Change language",
     "Hide finished tasks": "Hide finished tasks",
+    "Show finished tasks": "Show finished tasks",
     "Logout": "Logout"
   },
   "ru": {
@@ -164,6 +165,7 @@ export default class Settings extends Vue {
     "General": "Общие",
     "Change language": "Поменять язык",
     "Hide finished tasks": "Скрывать завершенные задачи",
+    "Show finished tasks": "Показывать завершенные задачи",
     "Logout": "Выйти"
   }
 }

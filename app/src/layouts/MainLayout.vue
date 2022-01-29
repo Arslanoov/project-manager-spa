@@ -8,7 +8,6 @@
         </main>
       </div>
     </div>
-    <!-- <TabBar /> -->
   </div>
 </template>
 
@@ -16,14 +15,10 @@
 import { Component, Vue } from "vue-property-decorator"
 
 import Header from "@/modules/Header.vue"
-import TabBar from "@/components/common/tab-bar/TabBar.vue"
-
-// TODO: Add routesNames redirect
 
 @Component({
   components: {
     Header,
-    TabBar
   }
 })
 
