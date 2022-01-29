@@ -1,7 +1,7 @@
 <template>
   <main-layout>
     <template #header>
-      <Header :title="task ? task.projectName : ''" />
+      <Header :title="task ? $t(task.projectName) : ''" />
     </template>
     <template #default>
       <div v-if="task" class="task">
@@ -262,10 +262,12 @@ export default class TaskView extends Vue {
 <i18n>
 {
   "en": {
-    "Steps": "Steps"
+    "Steps": "Steps",
+    "Daily list": "Daily list"
   },
   "ru": {
-    "Steps": "Шаги"
+    "Steps": "Шаги",
+    "Daily list": "Ежедневник"
   }
 }
 </i18n>

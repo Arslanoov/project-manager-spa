@@ -7,7 +7,8 @@
         'card__status_red': item.importantLevel === 'Very Important',
       }"
       class="card__status"
-    >{{ item.status }}
+    >
+      {{ $t(item.status) }}
     </div>
     <div class="card__line" />
     <div class="card__content">
@@ -201,11 +202,15 @@ export default class TaskCard extends Vue {
 {
   "en": {
     "Steps": "Settings",
-    "Finished": "Finished"
+    "Finished": "Finished",
+    "Not Complete": "Not Complete",
+    "Complete": "Complete"
   },
   "ru": {
     "Steps": "Шагов",
-    "Finished": "Выполнено"
+    "Finished": "Выполнено",
+    "Not Complete": "Не выполнено",
+    "Complete": "Выполнено"
   }
 }
 </i18n>

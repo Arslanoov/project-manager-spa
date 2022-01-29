@@ -1,7 +1,7 @@
 <template>
   <main-layout>
     <template #header>
-      <Header title="Board" />
+      <Header :title="$t('Board')" />
     </template>
     <template #default>
       <div class="project">
@@ -173,6 +173,7 @@ export default class DailyView extends Vue {
 <i18n>
 {
   "en": {
+    "Board": "Board",
     "Daily": "Daily",
     "Add Task": "Add Task",
     "Jan": "Jan",
@@ -189,7 +190,8 @@ export default class DailyView extends Vue {
     "Dec": "Dec"
   },
   "ru": {
-    "Daily": "Суточный",
+    "Board": "Доска",
+    "Daily": "Ежедневник",
     "Add Task": "Добавить задачу",
     "Jan": "Янв",
     "Feb": "Фев",

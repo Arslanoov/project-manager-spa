@@ -21,7 +21,7 @@
               <img v-if="project.isCustom" src="~@/assets/images/icons/board/custom.svg" class="project__icon-img" alt="" />
               <img v-else src="~@/assets/images/icons/board/personal.svg" class="project__icon-img" alt="" />
             </div>
-            <h4 class="project__title">{{ project.name }}</h4>
+            <h4 class="project__title">{{ $t(project.name) }}</h4>
             <div class="project__tasks">{{ project.tasksCount }} Task</div>
           </router-link>
 
@@ -193,12 +193,14 @@ export default class Board extends Vue {
   "en": {
     "Board": "Board",
     "Daily": "Daily",
+    "Personal": "Personal",
     "Create Project": "Create Project",
     "Settings": "Settings"
   },
   "ru": {
     "Board": "Доска",
-    "Daily": "Суточная",
+    "Daily": "Ежедневник",
+    "Personal": "Личный",
     "Create Project": "Создать проект",
     "Settings": "Настройки"
   }
