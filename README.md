@@ -1,7 +1,12 @@
-<h2 align="center">Task Manager SPA</h2>
+<h2 align="center">Project Manager SPA (Old Design)</h2>
 <p align="center">
     <img width="150px" src="https://upload.wikimedia.org/wikipedia/commons/9/95/Vue.js_Logo_2.svg" />
 </p>
+
+<p align="center">
+    If you want to see the new design, check the main branch
+</p>
+
 <p align="center">
     <b>Written on VueJS with TypeScript and Vuetify, sass, unit and e2e tests</b> <br /><br />
     <img style="margin-right: 15px" width="50px" src="https://upload.wikimedia.org/wikipedia/commons/4/4c/Typescript_logo_2020.svg" />
