@@ -97,7 +97,7 @@ export default class Settings extends Vue {
   public toggleLanguage(): void {
     const toggledLanguage = getToggledLanguage(this.language)
     this.changeLanguage(toggledLanguage)
-    this.$i18n.locale = getLanguageName(toggledLanguage)
+    this.$root.$i18n.locale = getLanguageName(toggledLanguage)
     axios.defaults.params = {
       ...axios.defaults.params,
       language: getLanguageName(toggledLanguage)

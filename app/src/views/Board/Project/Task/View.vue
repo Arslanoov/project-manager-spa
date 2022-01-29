@@ -263,11 +263,13 @@ export default class TaskView extends Vue {
 {
   "en": {
     "Steps": "Steps",
-    "Daily list": "Daily list"
+    "Daily list": "Daily list",
+    "Personal": "Personal"
   },
   "ru": {
     "Steps": "Шаги",
-    "Daily list": "Ежедневник"
+    "Daily list": "Ежедневник",
+    "Personal": "Личный"
   }
 }
 </i18n>

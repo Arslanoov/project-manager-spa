@@ -1,7 +1,19 @@
 @import url("https://fonts.googleapis.com/css2?family=Murecho:wght@300;400;500;600;700;900&family=Press+Start+2P&display=swap");
 
 html {
-  font-size: 62.5%;
+  font-size: 55%;
+
+  @include mobile {
+    font-size: 57.5%;
+  }
+
+  @include tablet {
+    font-size: 60%;
+  }
+
+  @include desktop-sm {
+    font-size: 62.5%;
+  }
 }
 
 body {

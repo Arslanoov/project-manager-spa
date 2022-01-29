@@ -22,7 +22,7 @@
               <img v-else src="~@/assets/images/icons/board/personal.svg" class="project__icon-img" alt="" />
             </div>
             <h4 class="project__title">{{ $t(project.name) }}</h4>
-            <div class="project__tasks">{{ project.tasksCount }} Task</div>
+            <div class="project__tasks">{{ project.tasksCount }} {{ $t('Task') }}</div>
           </router-link>
 
           <div @click="createProject" class="project">
@@ -195,14 +195,16 @@ export default class Board extends Vue {
     "Daily": "Daily",
     "Personal": "Personal",
     "Create Project": "Create Project",
-    "Settings": "Settings"
+    "Settings": "Settings",
+    "Task": "Task"
   },
   "ru": {
     "Board": "Доска",
     "Daily": "Ежедневник",
     "Personal": "Личный",
     "Create Project": "Создать проект",
-    "Settings": "Настройки"
+    "Settings": "Настройки",
+    "Task": "Задач"
   }
 }
 </i18n>
