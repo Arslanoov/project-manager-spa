@@ -40,7 +40,7 @@ export default class AuthMethod extends Vue {
 
   padding: 1rem 1.5rem;
 
-  background: #fff;
+  background: $white;
 
   @include pointer-on-hover();
 
@@ -59,7 +59,7 @@ export default class AuthMethod extends Vue {
   &__name {
     margin-left: 2.2rem;
 
-    font-weight: 500;
+    font-weight: $medium;
   }
 
   &__submit {
@@ -70,7 +70,7 @@ export default class AuthMethod extends Vue {
     width: 5rem;
     height: 5rem;
 
-    background: #F0F4FD;
+    background: $selago;
   }
 
   &__icon {

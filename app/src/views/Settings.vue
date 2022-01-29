@@ -129,7 +129,7 @@ export default class Settings extends Vue {
 
   &__title {
     font-size: 1.8rem;
-    font-weight: 600;
+    font-weight: $semi-bold;
   }
 
   &__icon {
@@ -137,7 +137,7 @@ export default class Settings extends Vue {
   }
 
   &__list {
-    color: #919BB3;
+    color: $bali-hai;
 
     &-item {
       @include pointer-on-hover();

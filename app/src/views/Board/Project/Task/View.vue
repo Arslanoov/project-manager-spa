@@ -132,29 +132,29 @@ export default class TaskView extends Vue {
     z-index: 1;
 
     &_red {
-      background-color: #F26950;
+      background-color: $very-important;
     }
 
     &_yellow {
-      background-color: #dec62c;
+      background-color: $important;
     }
 
     &_green {
-      background-color: #2CC09C;
+      background-color: $not-important;
     }
   }
 
   &__name {
     font-size: 2.4rem;
 
-    color: #0B204C;
+    color: $downriver;
   }
 
   &__description {
     font-size: 1.4rem;
     line-height: 2rem;
 
-    color: #919BB3;
+    color: $bali-hai;
   }
 
   &__header {
@@ -168,9 +168,9 @@ export default class TaskView extends Vue {
   &__title {
     font-size: 1.8rem;
     line-height: 2.7rem;
-    font-weight: 600;
+    font-weight: $semi-bold;
 
-    color: #0B204C;
+    color: $downriver;
   }
 
   &__add-step {
@@ -181,7 +181,7 @@ export default class TaskView extends Vue {
     width: 2.8rem;
     height: 2.8rem;
 
-    background: rgba(#5A55CA, .1);
+    background: rgba($indigo, .1);
 
     border-radius: .7rem;
 
@@ -206,7 +206,7 @@ export default class TaskView extends Vue {
 
   padding: 1.6rem;
 
-  background-color: #fff;
+  background-color: $white;
 
   border-radius: 1.4rem;
 
@@ -224,7 +224,7 @@ export default class TaskView extends Vue {
 
     border-radius: .8rem;
 
-    border: .1rem solid #B2BAC9;
+    border: .1rem solid $cadet-blue;
 
     @include pointer-on-hover();
 
@@ -233,8 +233,8 @@ export default class TaskView extends Vue {
       justify-content: center;
       align-items: center;
 
-      border-color: #2CC09C;
-      background-color: #2CC09C;
+      border-color: $checked;
+      background-color: $checked;
     }
 
     &-hidden {
@@ -254,7 +254,7 @@ export default class TaskView extends Vue {
     font-size: 1.4rem;
     line-height: 2rem;
 
-    color: #0B204C;
+    color: $downriver;
   }
 }
 </style>

@@ -76,7 +76,7 @@ export default class Timeline extends Vue {
 
   padding: 1rem 0;
 
-  border-bottom: .1rem solid rgba(#0B204C, .1);
+  border-bottom: .1rem solid rgba($downriver, .1);
 
   @include tablet {
     justify-content: flex-start;
@@ -86,7 +86,7 @@ export default class Timeline extends Vue {
 .day {
   text-align: center;
 
-  color: #0B204C;
+  color: $downriver;
 
   @include pointer-on-hover();
 
@@ -99,19 +99,19 @@ export default class Timeline extends Vue {
   &_active {
     position: relative;
 
-    color: #5A55CA;
+    color: $indigo;
 
     &::after {
       content: "";
 
       position: absolute;
-      bottom: -10px;
+      bottom: -1rem;
       left: 0;
       right: 0;
 
       height: .1rem;
 
-      background-color: #5A55CA;
+      background-color: $indigo;
     }
   }
 
@@ -123,7 +123,7 @@ export default class Timeline extends Vue {
 
   &__index {
     font-size: 1.6rem;
-    font-weight: 600;
+    font-weight: $semi-bold;
   }
 }
 </style>

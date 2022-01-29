@@ -45,7 +45,7 @@ export default class AccessDenied extends Vue {
 
   &__code {
     font-size: 5rem;
-    font-weight: 600;
+    font-weight: $semi-bold;
   }
 }
 </style>

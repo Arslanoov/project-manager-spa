@@ -92,10 +92,10 @@ export default class CustomView extends Vue {
 
   &__name {
     font-size: 2.2rem;
-    font-weight: 800;
+    font-weight: $extra-bold;
     line-height: 3.3rem;
 
-    color: #0B204C;
+    color: $downriver;
   }
 
   &__add {
@@ -116,11 +116,11 @@ export default class CustomView extends Vue {
       font-size: 1.3rem;
       font-weight: 700;
 
-      border: 0;
+      border: none;
       border-radius: 1rem;
 
-      background-color: #F26950;
-      color: #fff;
+      background-color: $burnt-sienna;
+      color: $white;
     }
   }
 }

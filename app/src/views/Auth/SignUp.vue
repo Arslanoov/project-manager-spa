@@ -164,7 +164,7 @@ export default class SignUp extends Vue {
   }
 
   &__error {
-    color: #F26950;
+    color: $error-color;
   }
 
   &__form {
@@ -194,13 +194,11 @@ export default class SignUp extends Vue {
   }
   
   &__already-signed-up {
-    font-weight: 700;
+    font-weight: $bold;
 
-    color: #5A55CA;
+    color: $indigo;
 
-    &:hover {
-      cursor: pointer;
-    }
+    @include pointer-on-hover();
   }
 }
 </style>

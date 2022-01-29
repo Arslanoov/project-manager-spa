@@ -41,9 +41,9 @@ export default class Logo extends Vue {
 
   &__title {
     font-size: 3.5rem;
-    font-weight: 500;
+    font-weight: $medium;
 
-    color: #0A204B;
+    color: $downriver;
   }
 }
 </style>

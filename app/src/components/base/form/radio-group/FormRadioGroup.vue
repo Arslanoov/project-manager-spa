@@ -18,13 +18,6 @@
         {{ value }}
       </label>
     </div>
-
-    <!-- <div
-      v-if="error"
-      class="form-radio-group__error"
-    >
-      {{ error }}
-    </div>-->
   </div>
 </template>
 
@@ -78,10 +71,10 @@ export default class FormRadioGroup extends Vue {
 
     margin-right: .7rem;
 
-    border: .1rem solid #B2BAC9;
+    border: .1rem solid $cadet-blue;
     border-radius: 2rem;
 
-    background-color: #fff;
+    background-color: $white;
 
     &_checked {
       position: relative;
@@ -96,7 +89,7 @@ export default class FormRadioGroup extends Vue {
         width: 1.4rem;
         height: 1.4rem;
 
-        background-color: #5A55CA;
+        background-color: $indigo;
         border-radius: 1.5rem;
 
         transform: translateX(-50%) translateY(-50%);
@@ -109,7 +102,7 @@ export default class FormRadioGroup extends Vue {
   }
 
   &__error {
-    color: #F26950;
+    color: $error-color;
 
     word-break: break-word;
   }

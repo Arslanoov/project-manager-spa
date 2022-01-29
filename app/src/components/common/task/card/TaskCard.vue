@@ -82,8 +82,8 @@ export default class TaskCard extends Vue {
   font-size: 1.4rem;
   border-radius: 1.5rem;
 
-  color: #0B204C;
-  background-color: #fff;
+  color: $downriver;
+  background-color: $white;
 
   &__status {
     margin-bottom: .5rem;
@@ -91,15 +91,15 @@ export default class TaskCard extends Vue {
     text-transform: uppercase;
 
     &_green {
-      color: #2CC09C;
+      color: $not-important;
     }
 
     &_yellow {
-      color: #dec62c;
+      color: $important;
     }
 
     &_red {
-      color: #F26950;
+      color: $very-important;
     }
   }
 
@@ -108,7 +108,7 @@ export default class TaskCard extends Vue {
 
     margin-bottom: 1rem;
 
-    background-color: #0B204C;
+    background-color: $downriver;
     opacity: .1;
   }
 
@@ -123,32 +123,31 @@ export default class TaskCard extends Vue {
     flex-shrink: 0;
 
     width: .3rem;
-    // TODO: Fix, add 100% height
     min-height: 4.5rem;
 
     &_green {
-      background-color: #2CC09C;
+      background-color: $not-important;
     }
 
     &_yellow {
-      background-color: #dec62c;
+      background-color: $important;
     }
 
     &_red {
-      background-color: #F26950;
+      background-color: $very-important;
     }
   }
 
   &__title {
     font-size: 2rem;
-    font-weight: 700;
+    font-weight: $bold;
     line-height: 3rem;
 
-    color: #0B204C;
+    color: $downriver;
   }
 
   &__description {
-    color: #B2BAC9;
+    color: $cadet-blue;
   }
 
   &__steps,
@@ -178,7 +177,7 @@ export default class TaskCard extends Vue {
 
     border-radius: .8rem;
 
-    border: .1rem solid #B2BAC9;
+    border: .1rem solid $cadet-blue;
 
     @include pointer-on-hover();
 
@@ -187,8 +186,8 @@ export default class TaskCard extends Vue {
       justify-content: center;
       align-items: center;
 
-      border-color: #2CC09C;
-      background-color: #2CC09C;
+      border-color: $checked;
+      background-color: $checked;
     }
 
     &-hidden {

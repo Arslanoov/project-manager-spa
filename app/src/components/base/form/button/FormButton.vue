@@ -33,14 +33,14 @@ export default class FormButton extends Vue {
 
   font-size: 1.5rem;
 
-  border: 0;
+  border: none;
   outline: 0;
 
   box-shadow: 0 .3rem 1rem rgba(86, 125, 244, .05);
   border-radius: 1rem;
 
-  background: #5A55CA;
-  color: #fff;
+  background: $indigo;
+  color: $white;
 
   @include mobile {
     max-width: 32.5rem;

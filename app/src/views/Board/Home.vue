@@ -95,9 +95,9 @@ export default class Board extends Vue {
     margin-bottom: 3rem;
 
     font-size: 2.4rem;
-    font-weight: 700;
+    font-weight: $bold;
 
-    color: #0B204C;
+    color: $downriver;
   }
 
   &__projects {
@@ -127,7 +127,7 @@ export default class Board extends Vue {
 
     border-radius: 1.4rem;
 
-    background-color: #fff;
+    background-color: $white;
 
     text-decoration: none;
 
@@ -154,7 +154,7 @@ export default class Board extends Vue {
 
       border-radius: 1.4rem;
 
-      background: #F0F4FD;
+      background: $selago;
 
       &-img {
         width: 4rem;
@@ -176,13 +176,13 @@ export default class Board extends Vue {
       margin-bottom: .8rem;
 
       text-align: center;
-      font-weight: 400;
+      font-weight: $regular;
 
-      color: #0B204C;
+      color: $downriver;
     }
 
     &__tasks {
-      color: #B2BAC9;
+      color: $cadet-blue;
     }
   }
 }

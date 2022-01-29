@@ -70,7 +70,7 @@ export default class FormGroup extends Vue {
     font-size: 1.4rem;
     text-transform: uppercase;
 
-    color: rgba(#22215B, .5);
+    color: rgba($port-gore, .5);
   }
 
   &__input {
@@ -78,18 +78,18 @@ export default class FormGroup extends Vue {
 
     font-size: 1.8rem;
 
-    caret-color: #5A55CA;
+    caret-color: $indigo;
 
     outline: 0;
     border: 0;
 
     background: transparent;
 
-    border-bottom: .1rem solid #0B204C;
+    border-bottom: .1rem solid $downriver;
   }
 
   &__error {
-    color: #F26950;
+    color: $error-color;
 
     word-break: break-word;
   }

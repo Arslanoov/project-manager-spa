@@ -58,7 +58,7 @@ export default class Login extends Vue {
   &__submessage {
     text-align: center;
 
-    color: #0B204C;
+    color: $downriver;
   }
 
   &__message {
