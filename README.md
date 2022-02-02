@@ -2,6 +2,12 @@
 <p align="center">
     <img width="150px" src="https://upload.wikimedia.org/wikipedia/commons/9/95/Vue.js_Logo_2.svg" />
 </p>
+
+<p align="center">
+    If you want to see the old design (with Vuetify), 
+    click <a href="https://github.com/Arslanoov/project-manager-spa/tree/old_design">here</a>
+</p>
+
 <p align="center">
     <b>Written on VueJS with TypeScript, sass, i18n, unit and e2e tests</b> <br /><br />
     <img style="margin-right: 15px" width="50px" src="https://upload.wikimedia.org/wikipedia/commons/4/4c/Typescript_logo_2020.svg" />
