@@ -1,11 +1,10 @@
-<h2 align="center">Task Manager SPA</h2>
+<h2 align="center">Project Manager SPA</h2>
 <p align="center">
     <img width="150px" src="https://upload.wikimedia.org/wikipedia/commons/9/95/Vue.js_Logo_2.svg" />
 </p>
 <p align="center">
-    <b>Written on VueJS with TypeScript and Vuetify, sass, unit and e2e tests</b> <br /><br />
+    <b>Written on VueJS with TypeScript, sass, i18n, unit and e2e tests</b> <br /><br />
     <img style="margin-right: 15px" width="50px" src="https://upload.wikimedia.org/wikipedia/commons/4/4c/Typescript_logo_2020.svg" />
-    <img style="margin-right: 15px" width="50px" src="https://cdn.worldvectorlogo.com/logos/vuetify.svg" />
     <img style="margin-right: 15px" width="50px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Sass_Logo_Color.svg/1280px-Sass_Logo_Color.svg.png" />
     <img style="margin-right: 15px" width="50px" src="https://seeklogo.com/images/J/jest-logo-F9901EBBF7-seeklogo.com.png" />
     <img width="50px" src="https://avatars.githubusercontent.com/u/8908513?s=280&v=4" />
@@ -14,7 +13,7 @@
 <p align="center"><b>Start the project</b></p>
 
 <ol>
-    <li><a href="https://github.com/Arslanoov/todo-api">Run the API</a></li>
+    <li><a href="https://github.com/Arslanoov/project-manager-api">Run the API</a></li>
     <li>Clone this repo</li>
     <li>Run:</li>
 </ol>
@@ -32,30 +31,68 @@
 
 <h3 align="center">Short overview</h2>
 
-<div align="center"><b>Create tasks</b></div>
+<div align="center"><b>Home page</b></div>
 
-![Create tasks](https://user-images.githubusercontent.com/51407990/120901009-9f2b5580-c651-11eb-9c0d-83bd436c73ad.gif)
-
-<br />
-
-<div align="center"><b>Add task steps</b></div>
-
-![Add task steps](https://user-images.githubusercontent.com/51407990/120901303-655b4e80-c653-11eb-8ead-0b2f97440d87.gif)
-
-<br />
-
-<div align="center"><b>Use daily schedules</b></div>
-
-![Use daily schedules](https://user-images.githubusercontent.com/51407990/120931577-a1ea8100-c70b-11eb-9725-b0b2cad5fef6.gif)
+<p align="center">
+    <img width="600px" src="https://user-images.githubusercontent.com/51407990/152133550-c9346692-29f2-459b-9d34-2e8d02cd16b3.png" alt="Home desktop" />
+</p>
+<p align="center">
+    <img width="300px" src="https://user-images.githubusercontent.com/51407990/152133556-2adb31ff-1dcb-4d29-802d-a88fbae616c3.png" alt="Home mobile" />
+</p>
 
 <br />
 
-<div align="center"><b>Dark theme</b></div>
+<div align="center"><b>Login</b></div>
 
-![Dark theme](https://user-images.githubusercontent.com/51407990/120931688-24734080-c70c-11eb-9498-20d6238f2345.gif)
+<p align="center">
+    <img width="600px" src="https://user-images.githubusercontent.com/51407990/152133733-551c247a-a685-43ae-90ac-31d1ba06b195.png" alt="Login desktop" />
+</p>
+<p align="center">
+    <img width="300px" src="https://user-images.githubusercontent.com/51407990/152133738-a87c22fc-a96a-4772-b414-1d72d829a97c.png" alt="Login mobile" />
+</p>
 
 <br />
 
-<div align="center"><b>i18n</b></div>
+<div align="center"><b>Board</b></div>
 
-![i18n](https://user-images.githubusercontent.com/51407990/120931768-7ddb6f80-c70c-11eb-94e3-b5b31440af6d.gif)
+<p align="center">
+    <img width="600px" src="https://user-images.githubusercontent.com/51407990/152133072-73fc253c-b072-4d6c-abc6-609ca9e212aa.png" alt="Board desktop" />
+</p>
+<p align="center">
+    <img width="300px" src="https://user-images.githubusercontent.com/51407990/152133078-b1343f58-2031-4d6c-8888-b43bc8848ab1.png" alt="Board mobile" />
+</p>
+
+<br />
+
+<div align="center"><b>Daily project</b></div>
+
+<p align="center">
+    <img width="600px" src="https://user-images.githubusercontent.com/51407990/152133341-a5227c56-3c73-41bc-9c6a-56b99ce74894.png" alt="Daily desktop" />
+</p>
+<p align="center">
+    <img width="300px" src="https://user-images.githubusercontent.com/51407990/152133352-70a4ab48-213e-468e-bcd8-c4b172f8f764.png" alt="Daily mobile" />
+</p>
+
+<br />
+
+<div align="center"><b>Task steps</b></div>
+
+<p align="center">
+    <img width="600px" src="https://user-images.githubusercontent.com/51407990/152134222-c81ef674-67f3-43ba-a383-3d9071b25559.png" alt="Steps desktop" />
+</p>
+<p align="center">
+    <img width="300px" src="https://user-images.githubusercontent.com/51407990/152134230-744a89d8-baef-4566-8659-4b44d541292c.png" alt="Steps mobile" />
+</p>
+
+<br />
+
+<div align="center"><b>Settings</b></div>
+
+<p align="center">
+    <img width="600px" src="https://user-images.githubusercontent.com/51407990/152133953-67d51e8b-1189-46c2-819e-11aa082c4c0f.png" alt="Settings desktop" />
+</p>
+<p align="center">
+    <img width="300px" src="https://user-images.githubusercontent.com/51407990/152133960-e56e1d30-a40d-44d6-9b20-156a445c9932.png" alt="Settings mobile" />
+</p>
+
+<br />
